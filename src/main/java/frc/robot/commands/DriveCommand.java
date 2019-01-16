@@ -1,11 +1,11 @@
 package frc.robot.commands;
-
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class DriveCommand extends Command {
     public DriveCommand() {
-        // Use requires() here to declare subsystem dependencies
+       super (DriveCommand.class.getSimpleName());
         requires(Robot.m_drivetrain);
     }
 
@@ -17,6 +17,8 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+      //  Robot.m_drivetrain.drive(Robot.m_oi.getDriveL(), Robot.m_oi.getDriveR());
+ //       Robot.m_drivetrain.;
     }
 
     // Make this return true when this Command no longer needs to run execute()
