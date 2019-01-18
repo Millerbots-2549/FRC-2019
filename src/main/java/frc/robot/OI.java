@@ -7,11 +7,82 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+
+import javax.naming.ldap.Control;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    //////////////////////////////////
+    // SINGLE JOY STICK//
+    /////////////////////////////////
+    private int portJoy = 0;
+    private Joystick joyMain = new Joystick(portJoy);
+
+    ///////////////////
+    // Joystick AXES //
+    ///////////////////
+    private int joyDriveAxis = 1;
+
+
+
+    ////////////////////////////////
+    // CONTROLLER //
+    ///////////////////////////////
+    private int portCtrl=1;
+    private Joystick ctrl = new Joystick(portCtrl);
+
+    /////////////
+    //CTRL AXES//
+    /////////////
+
+    private int ctrlDriveL = 5;
+    private int ctrlDriveR = 1;
+    private int ctrlBoxIn = 2;
+    private int ctrlBoxOut = 3;
+
+
+
+
+
+    /////////////
+    // GETTERS//
+    ////////////
+
+    public enum ControllerType {controller, joystick}
+    public ControllerType ctrlType = ControllerType.joystick;
+
+    public void setCtrlType(ControllerType ctrlType) {this.ctrlType = ctrlType;}
+
+    //////////
+    //JOY
+    /////////
+
+    public double getDriveM() {
+        if(ctrlType == ControllerType.joystick) return -joyMain.getRawAxis(joyDriveAxis);
+        return 0;
+    }
+
+
+    /////////
+    //CTRL
+    ////////
+    public double getDriveL() {
+        if(ctrlType == ControllerType.controller) return -ctrl.getRawAxis(ctrlDriveL);
+        return 0;
+    }
+
+    public double getDriveR() {
+        if(ctrlType == ControllerType.controller) return -ctrl.getRawAxis(ctrlDriveR);
+        return 0;
+    }
+
+
+
+
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
