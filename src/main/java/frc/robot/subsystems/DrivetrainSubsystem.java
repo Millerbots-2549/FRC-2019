@@ -14,13 +14,13 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-    private DifferentialDrive robotDrive = new DifferentialDrive(motorLeft, motorRight);
+    private DifferentialDrive robotDrive;
 
     public DrivetrainSubsystem() {
 
         motorLeft = new PWMTalonSRX(RobotMap.motorLeft);
         motorRight = new PWMTalonSRX(RobotMap.motorRight);
-
+        robotDrive = new DifferentialDrive(motorLeft, motorRight);
     }
 
     public void initDefaultCommand() {
