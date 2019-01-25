@@ -19,4 +19,6 @@ public class RobotMap {
     public static int motorRight = 1;
     //PWM
     public static int solonoidOne = 0;
+    public static int intakeSolenoidForward = 0;
+    public static int intakeSolenoidReverse = 1;
 }
