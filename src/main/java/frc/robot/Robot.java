@@ -16,6 +16,8 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -27,6 +29,7 @@ public class Robot extends TimedRobot {
   public static ExampleSubsystem subsystem;
   public static DrivetrainSubsystem drivetrain;
   public static HatchSubsystem hatch;
+  public static IntakeSubsystem intake;
   public static OI oi;
 
   Command m_autonomousCommand;
