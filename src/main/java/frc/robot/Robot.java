@@ -12,10 +12,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Compressor;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.HatchSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -23,14 +27,25 @@ import frc.robot.subsystems.HatchSubsystem;
  * creating this project, you must also update the build.gradle file in the
  * project.
  */
+
+
+
+
 public class Robot extends TimedRobot {
   public static ExampleSubsystem subsystem;
   public static DrivetrainSubsystem drivetrain;
   public static HatchSubsystem hatch;
+  public static IntakeSubsystem intake;
   public static OI oi;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+  Compressor mainCompressor = new Compressor(0);
+
+  //compressor min max
+  public static int compressorMaxPressure = 125;
+  public static int compressorMinPressure = 115;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -107,6 +122,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
+    regulatePressure();
   }
 
   @Override
@@ -126,6 +142,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic()  {
     Scheduler.getInstance().run();
+    regulatePressure();
   }
 
   /**
@@ -134,4 +151,13 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
-}
+  private void regulatePressure(){
+    if(mainCompressor.getCompressorCurrent() > compressorMaxPressure - 5){
+      mainCompressor.stop();
+
+  }
+    else {
+      mainCompressor.start();
+    }
+
+}}

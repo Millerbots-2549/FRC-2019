@@ -4,22 +4,20 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-
-
-public class HatchCommand extends Command {
-    public HatchCommand() {
-        super(HatchCommand.class.getSimpleName());
-        requires(Robot.hatch);
+public class IntakeCommand extends Command {
+    private boolean elevatorRaised = false;
+    public IntakeCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(Robot.intake);
     }
 
-    @Override
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
+    @Override
     protected void initialize() {
 
     }
@@ -31,6 +29,11 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
+
+        if(Robot.oi.getElevatorButton()) elevatorRaised = !elevatorRaised;
+
+        if(elevatorRaised) Robot.intake.raiseElevator();
+        else if(!elevatorRaised) Robot.intake.lowerElevator();
 
     }
 
