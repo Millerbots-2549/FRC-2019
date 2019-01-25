@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
+
+
 public class HatchCommand extends Command {
     public HatchCommand() {
         super(HatchCommand.class.getSimpleName());
