@@ -1,9 +1,12 @@
 package frc.robot.commands;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.command.Command;
+
 import frc.robot.Robot;
-import edu.wpi.first.wpilibj.RobotDrive;
+import frc.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.command.Command;
+
 public class DriveCommand extends Command {
+
     public DriveCommand() {
        super (DriveCommand.class.getSimpleName());
         requires(Robot.drivetrain);
@@ -17,6 +20,7 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+        Robot.drivetrain.drive(Robot.oi.getDrive(), Robot.oi.getDriveRotation());
     }
 
     // Make this return true when this Command no longer needs to run execute()
