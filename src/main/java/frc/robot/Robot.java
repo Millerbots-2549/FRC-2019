@@ -55,6 +55,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     subsystem = new ExampleSubsystem();
     drivetrain = new DrivetrainSubsystem();
+    hatch = new HatchSubsystem();
     oi = new OI();
 
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
@@ -151,13 +152,14 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
   }
+
   private void regulatePressure(){
-    if(mainCompressor.getCompressorCurrent() > compressorMaxPressure - 5){
-      mainCompressor.stop();
-
+//    if(mainCompressor.get > compressorMaxPressure - 5) mainCompressor.stop();
+//    else mainCompressor.start();
+    if(oi.joystick1.getRawButton(7)) mainCompressor.start();
+    else if(oi.joystick1.getRawButton(8)) mainCompressor.stop();
+    SmartDashboard.putBoolean("C CLC", mainCompressor.getClosedLoopControl());
+    SmartDashboard.putBoolean("C PSV", mainCompressor.getPressureSwitchValue());
+    SmartDashboard.putNumber("C CC", mainCompressor.getCompressorCurrent());
   }
-    else {
-      mainCompressor.start();
-    }
-
-}}
+}

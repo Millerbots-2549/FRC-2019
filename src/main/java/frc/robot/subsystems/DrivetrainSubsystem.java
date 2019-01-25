@@ -30,7 +30,7 @@ public class DrivetrainSubsystem extends Subsystem {
         motorRight3 = new WPI_TalonSRX(RobotMap.motorRight3);
 
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
-        motorsLeft.setInverted(true);
+        motorsLeft.setInverted(false);
         motorsRight = new SpeedControllerGroup(motorRight2, motorRight3);
         motorsRight.setInverted(false);
 

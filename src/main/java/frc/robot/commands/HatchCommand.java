@@ -21,7 +21,7 @@ public class HatchCommand extends Command {
      * this Command is run after being started.
      */
     protected void initialize() {
-
+        System.out.println("Hatch system initialized");
     }
 
 
@@ -31,7 +31,12 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
-
+        Robot.hatch.move(Robot.oi.getHatchSpeed());
+        if(Robot.oi.joystick1.getRawButtonPressed(1)) {
+            Robot.hatch.out();
+        }
+        else if(Robot.oi.joystick1.getRawButtonPressed(2))
+            Robot.hatch.in();
     }
 
 
@@ -67,7 +72,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.hatch.off();
     }
 
 

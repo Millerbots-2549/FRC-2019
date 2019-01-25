@@ -59,6 +59,7 @@ public class OI {
     // Axes
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
+    private int axis_hatch = 4;
 
     public OI() {
 
@@ -81,6 +82,10 @@ public class OI {
 
     public double getDriveRotation() {
         return joystick1.getRawAxis(axis_drive_rotation);
+    }
+
+    public double getHatchSpeed() {
+        return joystick1.getRawAxis(axis_hatch);
     }
 }
 
