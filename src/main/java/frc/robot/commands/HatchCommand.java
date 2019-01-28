@@ -3,9 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
-
-
 public class HatchCommand extends Command {
     public HatchCommand() {
         super(HatchCommand.class.getSimpleName());
@@ -31,12 +28,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
-        Robot.hatch.move(Robot.oi.getHatchSpeed());
-        if(Robot.oi.joystick1.getRawButtonPressed(1)) {
-            Robot.hatch.out();
-        }
-        else if(Robot.oi.joystick1.getRawButtonPressed(2))
-            Robot.hatch.in();
+        // TODO: add functionality
     }
 
 
@@ -72,7 +64,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void end() {
-        Robot.hatch.off();
+//        Robot.hatch.off();
     }
 
 

@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
 public class IntakeCommand extends Command {
     private boolean elevatorRaised = false;
     public IntakeCommand() {

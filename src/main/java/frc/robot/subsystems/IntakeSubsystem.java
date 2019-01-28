@@ -13,18 +13,23 @@ public class IntakeSubsystem extends Subsystem {
 
     // TODO: Create Solenoid
 
-    DoubleSolenoid doubleSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidForward, RobotMap.intakeSolenoidReverse);
-
-
     // TODO: Create Motor
+
+    // TODO: move initialization to constructor
+    private DoubleSolenoid doubleSolenoid = new DoubleSolenoid(RobotMap.intakeSolenoidForward, RobotMap.intakeSolenoidReverse);
+
+    // TODO: create constructor
+
     public void initDefaultCommand() {
         // TODO: Set the default command, if any, for a subsystem here. Example:
         //    setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new IntakeCommand());
     }
+
     public void raiseElevator(){
         doubleSolenoid.set(DoubleSolenoid.Value.kForward);
     }
+
     public void lowerElevator(){
         doubleSolenoid.set(DoubleSolenoid.Value.kReverse);
     }

@@ -2,46 +2,37 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.RobotMap;
 import frc.robot.commands.HatchCommand;
 
 public class HatchSubsystem extends Subsystem {
+    // TODO: possible replace entire subsystem with a PID subsystem
 
-    DoubleSolenoid hatchNoidOne;
-
-    WPI_TalonSRX hatchMotor;
-    //TODO: Motor
-    //TODO: Solanoid 2 Pistons
-    //TODO: Encoders
+    private DoubleSolenoid solenoid;
+    private WPI_TalonSRX motor;
+    // TODO: declare encoder
 
     public HatchSubsystem() {
-        hatchMotor = new WPI_TalonSRX(RobotMap.motorHatch);
-        hatchNoidOne = new DoubleSolenoid(RobotMap.intakeSolenoidForward, RobotMap.intakeSolenoidReverse);
+        motor = new WPI_TalonSRX(RobotMap.motorHatch);
+        solenoid = new DoubleSolenoid(RobotMap.intakeSolenoidForward, RobotMap.intakeSolenoidReverse);
+        // TODO: initialize encoder
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new HatchCommand());
     }
 
-    // temporary manual control
-    public void move(double speed) {
-        hatchMotor.set(speed);
+    public void extend() {
+        solenoid.set(DoubleSolenoid.Value.kReverse);
+        System.out.println("Hatch extended");
     }
 
-    public void out() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kForward);
-        System.out.println("Hatch out");
-    }
-
-    public void in() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kReverse);
-        System.out.println("Hatch in");
-    }
-
-    public void off() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kOff);
+    public void retract() {
+        solenoid.set(DoubleSolenoid.Value.kForward);
+        System.out.println("Hatch retract");
     }
 }
 

@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.subsystems.*;
 
-
-
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -49,14 +47,15 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick joystick1;
+    public Joystick ctrlDrive;
+    // TODO: declare controller for manipulators named ctrlManip
 
-    // TODO: configure buttons
+    // TODO: finish controls
 
     // Buttons
     private int button_intakeRaise = 4;
     private int button_blatblatBlat = 0;
-
+    private int button_quickTurn = 5; // todo check
 
     // Axes
     private int axis_drive = 1;
@@ -64,37 +63,53 @@ public class OI {
     private int axis_hatch = 4;
     private int axis_hatchmove = 0;
     private int axis_intakespin = 0;
+
     public OI() {
 
-        joystick1 = new Joystick(  0);
+        ctrlDrive = new Joystick(  0);
+        // TODO: initialize ctrlManip
 
-        // Smartdashboard buttons
+        // Smartdashboard controls
     }
 
-    public Joystick getJoystick1() {
-        return joystick1;
+    public Joystick getCtrlDrive() {
+        return ctrlDrive;
+    }
+    // TODO: create get for ctrlManip named getCtrlManip
+
+    // BUTTONS
+
+    public boolean getQuickTurn() {
+        return ctrlDrive.getRawButton(button_quickTurn);
     }
 
     public boolean getIntakeRaise() {
-        return joystick1.getRawButtonReleased(button_intakeRaise);
+        return ctrlDrive.getRawButtonReleased(button_intakeRaise);
     }
 
-    public double getDrive() {
-        return joystick1.getRawAxis(axis_drive);
+    public boolean getHatchBlatBlatBlat() { return ctrlDrive.getRawButton(button_blatblatBlat); }
+
+    // AXES
+
+    // Drivetrain
+    public double getAxisDrive() {
+        return ctrlDrive.getRawAxis(axis_drive);
+    }
+    public double getAxisTurn() {
+        return ctrlDrive.getRawAxis(axis_drive_rotation);
     }
 
-    public double getDriveRotation() {
-        return joystick1.getRawAxis(axis_drive_rotation);
-    }
+    // Intake
+    public double getIntakeSpin() {return ctrlDrive.getRawAxis(axis_intakespin); }
 
+    // Hatch
+
+    // Climber
+
+    // TODO: replace hatch oi methods with vision system
     public double getHatchSpeed() {
-        return joystick1.getRawAxis(axis_hatch);
+        return ctrlDrive.getRawAxis(axis_hatch);
     }
-
-    public boolean getHatchBlatBlatBlat() { return joystick1.getRawButton(button_blatblatBlat); }
-
-    public double getHatchMove() {return joystick1.getRawAxis(axis_hatchmove); }
-
-    public double getIntakeSpin() {return joystick1.getRawAxis(axis_intakespin); }
+    public double getHatchMove() {return ctrlDrive.getRawAxis(axis_hatchmove); }
 }
 

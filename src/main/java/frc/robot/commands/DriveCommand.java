@@ -21,7 +21,7 @@ public class DriveCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.drivetrain.drive(Robot.oi.getDrive(), Robot.oi.getDriveRotation());
+        Robot.drivetrain.driveCurve(Robot.oi.getAxisDrive(), Robot.oi.getAxisTurn(), Robot.oi.getQuickTurn());
     }
 
     // Make this return true when this Command no longer needs to run execute()
