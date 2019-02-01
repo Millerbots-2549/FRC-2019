@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.RobotMap;
@@ -12,7 +13,7 @@ public class IntakeSubsystem extends Subsystem {
     // here. Call these from Commands.
 
     // TODO: Create Motor
-
+    public Spark spinnySpark;
     // TODO: move initialization to constructor
     private DoubleSolenoid doubleSolenoid;
 
