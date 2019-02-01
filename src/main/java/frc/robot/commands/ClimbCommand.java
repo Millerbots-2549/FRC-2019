@@ -1,14 +1,21 @@
 package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
-
+import frc.robot.Robot;
+import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ClimbCommand extends Command {
     public ClimbCommand() {
+        super(HatchCommand.class.getSimpleName());
+        requires(Robot.climb);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
-
+    @Override
+    protected void initialize() {
+        System.out.println("Climb system initialized");
+    }5
 
     /**
      * The initialize method is called just before the first time
@@ -26,7 +33,11 @@ public class ClimbCommand extends Command {
      */
     @Override
     protected void execute() {
-
+        Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
+//        if(Robot.oi.ctrlManip.getRawButtonPressed(1))
+//            Robot.climb.extend();
+//        else if(Robot.oi.ctrlManip.getRawButtonReleased(1))
+//            Robot.climb.retract();
     }
 
 

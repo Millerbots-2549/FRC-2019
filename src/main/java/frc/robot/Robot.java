@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
     public static DrivetrainSubsystem drivetrain;
     public static HatchSubsystem hatch;
     public static IntakeSubsystem intake;
+    public static ClimbSubsystem climb;
     public static OI oi;
 
     private Command m_autonomousCommand;
@@ -49,6 +50,7 @@ public class Robot extends TimedRobot {
         drivetrain = new DrivetrainSubsystem();
         hatch = new HatchSubsystem();
         intake = new IntakeSubsystem();
+        climb = new ClimbSubsystem();
         oi = new OI();
 
         // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
