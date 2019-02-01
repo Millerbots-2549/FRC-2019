@@ -29,6 +29,8 @@ public class RobotMap {
     public static int intake_sol_fwd = 2;
     public static int intake_sol_rev = 3;
 
-    public static int climb_sol_fwd = 4;
-    public static int climb_sol_rev = 5;
+    public static int climbFront_sol_fwd = 4;
+    public static int climbFront_sol_rev = 5;
+    public static int climbBack_sol_fwd = 6;
+    public static int climbBack_sol_rev = 7;
 }

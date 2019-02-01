@@ -13,6 +13,8 @@ public class ClimberSubsystem extends Subsystem {
     private DoubleSolenoid solenoidBack;
 
     public ClimberSubsystem(){
-        solenoidFront = new DoubleSolenoid(RobotMap.climb_sol_fwd,RobotMap.climb_sol_rev)
+        solenoidFront = new DoubleSolenoid(RobotMap.climbFront_sol_fwd,RobotMap.climbFront_sol_rev);
+        solenoidBack = new DoubleSolenoid(RobotMap.climbBack_sol_fwd,RobotMap.climbBack_sol_rev);
     }
+
 }
