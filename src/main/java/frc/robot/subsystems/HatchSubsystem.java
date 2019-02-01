@@ -1,48 +1,83 @@
 package frc.robot.subsystems;
 
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.HatchCommand;
 
 public class HatchSubsystem extends Subsystem {
+    // TODO: possible replace entire subsystem with a PID subsystem
 
-    DoubleSolenoid hatchNoidOne;
+    private DoubleSolenoid solenoid;
+    private WPI_TalonSRX motor;
 
-    WPI_TalonSRX hatchMotor;
-    //TODO: Motor
-    //TODO: Solanoid 2 Pistons
-    //TODO: Encoders
+    private double speed = .75;
+    private int encMax = 10000;
+    private int encMin = -3000;
+    private int encSlowMargin = 4000;
 
     public HatchSubsystem() {
-        hatchMotor = new WPI_TalonSRX(RobotMap.motorHatch);
-        hatchNoidOne = new DoubleSolenoid(RobotMap.intakeSolenoidForward, RobotMap.intakeSolenoidReverse);
+        motor = new WPI_TalonSRX(RobotMap.hatch_motor);
+        solenoid = new DoubleSolenoid(RobotMap.hatch_sol_fwd, RobotMap.hatch_sol_rev);
+        // TODO: initialize encoder
+
+
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new HatchCommand());
     }
 
-    // temporary manual control
-    public void move(double speed) {
-        hatchMotor.set(speed);
+    public void extend() {
+        solenoid.set(DoubleSolenoid.Value.kReverse);
+        System.out.println("Hatch extended");
     }
 
-    public void out() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kReverse);
-        System.out.println("Hatch out");
+    public void retract() {
+        solenoid.set(DoubleSolenoid.Value.kForward);
+        System.out.println("Hatch retract");
     }
 
-    public void in() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kForward);
-        System.out.println("Hatch in");
+    public void solenoidOff() {
+        solenoid.set(DoubleSolenoid.Value.kOff);
+        System.out.println("Hatch solenoid off");
     }
 
-    public void off() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kOff);
-        System.out.println("Hatch off");
+    public void driveSlide(double n) {
+
+//        if(getPos() >= encMax) {
+//            n = (n > 0 ? 0 : n);
+//            //n = (1 - (getPos() / encMax)) * speed;
+//        }
+//        else if(getPos() <= encMin) {
+//            n = (n > 0 ? n : 0);
+//            //n = (1 - (getPos() / encMin)) * speed;
+//        }
+
+//        double r = (1 - (double)getPos() / (double)encMax);
+//        double l = ((double)getPos() / (double)encMin);
+
+//        if(getPos() >= encMax - encSlowMargin) {
+//            n = (n > 0 ? r : n);
+//        }
+//
+//        else if(getPos() <= encMin + encSlowMargin) {
+//            n = (n > 0 ? n : l);
+//        }
+
+//        SmartDashboard.putNumber("encmax", r);
+//        SmartDashboard.putNumber("encmin", l);
+        SmartDashboard.putNumber("Hatch Motor", n*speed);
+        motor.set(n*speed);
+    }
+
+    public int getPos() {
+        return motor.getSelectedSensorPosition();
     }
 }
 

@@ -8,14 +8,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.subsystems.*;
-
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.actions.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -49,52 +47,55 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick joystick1;
-
-    // TODO: configure buttons
-
-    // Buttons
-    private int button_intakeRaise = 4;
-    private int button_intake = 2;
-    private int button_blatBlatBlat = 1;
-    private int button_noBlatBlatBlat = 1;
-
-    // Axes
+    public Joystick ctrlDrive = new Joystick(0);
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
-    private int axis_hatch = 4;
+
+    public Joystick ctrlManip = new Joystick(1);
+    public Button hatchEject = new JoystickButton(ctrlManip, 1);
+    public Button intakeRaise = new JoystickButton(ctrlManip, 4);
+    public Button intakeLower = new JoystickButton(ctrlManip, 3);
+
+    // TODO: finish controls
 
     public OI() {
 
-        joystick1 = new Joystick(  0);
+        hatchEject.whenPressed(new EjectHatch());
+        intakeRaise.whenPressed(new RaiseIntake());
+        intakeLower.whenPressed(new LowerIntake());
 
-        // Smartdashboard buttons
+        /*
+         * TODO: create actions and associated buttons
+         * RaiseFront, RaiseRear,
+         * RaiseIntake, LowerIntake,
+         * IntakeBall, ShootBall,
+         * DriveForward
+         */
+
+        // TODO: initialize ctrlManip
+
+        // Smartdashboard controls
+        SmartDashboard.putData("Compressor", new StopCompressor());
     }
 
-    public Joystick getJoystick1() {
-        return joystick1;
+    public Joystick getCtrlDrive() {
+        return ctrlDrive;
+    }
+    public Joystick getCtrlManip() {
+        return ctrlManip;
     }
 
-    public boolean getIntakeRaise() {
-        return joystick1.getRawButtonReleased(button_intakeRaise);
+    // Drivetrain
+    public double getAxisDrive() {
+        return ctrlDrive.getRawAxis(axis_drive);
+    }
+    public double getAxisTurn() {
+        return ctrlDrive.getRawAxis(axis_drive_rotation);
     }
 
-    public double getDrive() {
-        return joystick1.getRawAxis(axis_drive);
+    // Hatch
+    public double getAxisHatch() {
+        return ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
     }
-
-    public double getDriveRotation() {
-        return joystick1.getRawAxis(axis_drive_rotation);
-    }
-
-    public double getHatchSpeed() {
-        return joystick1.getRawAxis(axis_hatch);
-    }
-
-    public boolean getHatchBlatBlatBlat() { return joystick1.getRawButton(button_blatBlatBlat); }
-
-    public double getHatchMove() {return joystick1.getRawAxis(axis_hatch); }
-
-    public boolean getIntakeSpin() {return joystick1.getRawButton(button_intake); }
 }
 

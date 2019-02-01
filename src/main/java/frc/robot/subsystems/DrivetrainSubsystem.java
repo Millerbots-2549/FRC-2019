@@ -44,9 +44,13 @@ public class DrivetrainSubsystem extends Subsystem {
         setDefaultCommand(new DriveCommand());
     }
 
-    public void drive(double speed, double rotation) {
+    public void driveArcade(double speed, double rotation) {
         robotDrive.arcadeDrive(speed, rotation);
     }
 
-}
+    public void driveCurve(double speed, double rotation, boolean t) {
+        robotDrive.curvatureDrive(speed, rotation, t);
+    }
 
+    // TODO: get methods for sensors
+}

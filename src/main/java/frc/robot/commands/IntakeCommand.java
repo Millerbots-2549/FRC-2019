@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
 public class IntakeCommand extends Command {
     private boolean elevatorRaised = false;
     public IntakeCommand() {
@@ -30,10 +29,10 @@ public class IntakeCommand extends Command {
     @Override
     protected void execute() {
 
-        if(Robot.oi.getIntakeRaise()) elevatorRaised = !elevatorRaised;
-
-        if(elevatorRaised) Robot.intake.raiseElevator();
-        else if(!elevatorRaised) Robot.intake.lowerElevator();
+//        if(Robot.oi.getIntakeRaise()) elevatorRaised = !elevatorRaised;
+//
+//        if(elevatorRaised) Robot.intake.raiseElevator();
+//        else if(!elevatorRaised) Robot.intake.lowerElevator();
 
     }
 

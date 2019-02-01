@@ -1,25 +1,25 @@
-package frc.robot.commands;
+package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class HatchCommand extends Command {
-    public HatchCommand() {
-        super(HatchCommand.class.getSimpleName());
-        requires(Robot.hatch);
+
+public class EjectHatch extends Command {
+    public EjectHatch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(Robot.hatch);
     }
 
-    @Override
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
+    @Override
     protected void initialize() {
-        System.out.println("Hatch system initialized");
+        setTimeout(.5);
+        Robot.hatch.extend();
     }
 
 
@@ -29,13 +29,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
-        Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
-//        if(Robot.oi.ctrlManip.getRawButtonPressed(1))
-//            Robot.hatch.extend();
-//        else if(Robot.oi.ctrlManip.getRawButtonReleased(1))
-//            Robot.hatch.retract();
 
-        SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
     }
 
 
@@ -58,8 +52,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
+        return isTimedOut();
     }
 
 
@@ -71,7 +64,8 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void end() {
-        Robot.hatch.solenoidOff();
+        Robot.hatch.retract();
+        //Robot.hatch.solenoidOff();
     }
 
 
