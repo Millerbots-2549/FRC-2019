@@ -8,12 +8,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Joystick;
-import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.actions.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -47,49 +47,43 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick ctrlDrive;
-    // TODO: declare controller for manipulators named ctrlManip
+    public Joystick ctrlDrive = new Joystick(0);
+    private int axis_drive = 1;
+    private int axis_drive_rotation = 0;
+
+    public Joystick ctrlManip = new Joystick(1);
+    public Button hatchEject = new JoystickButton(ctrlManip, 1);
+    public Button intakeRaise = new JoystickButton(ctrlManip, 4);
+    public Button intakeLower = new JoystickButton(ctrlManip, 3);
 
     // TODO: finish controls
 
-    // Buttons
-    private int button_intakeRaise = 4;
-    private int button_blatblatBlat = 0;
-    private int button_quickTurn = 5; // todo check
-
-    // Axes
-    private int axis_drive = 1;
-    private int axis_drive_rotation = 0;
-    private int axis_hatch = 4;
-    private int axis_hatchmove = 0;
-    private int axis_intakespin = 0;
-
     public OI() {
 
-        ctrlDrive = new Joystick(  0);
+        hatchEject.whenPressed(new EjectHatch());
+        intakeRaise.whenPressed(new RaiseIntake());
+        intakeLower.whenPressed(new LowerIntake());
+
+        /*
+         * TODO: create actions and associated buttons
+         * RaiseFront, RaiseRear,
+         * RaiseIntake, LowerIntake,
+         * IntakeBall, ShootBall,
+         * DriveForward
+         */
+
         // TODO: initialize ctrlManip
 
         // Smartdashboard controls
+        SmartDashboard.putData("Compressor", new StopCompressor());
     }
 
     public Joystick getCtrlDrive() {
         return ctrlDrive;
     }
-    // TODO: create get for ctrlManip named getCtrlManip
-
-    // BUTTONS
-
-    public boolean getQuickTurn() {
-        return ctrlDrive.getRawButton(button_quickTurn);
+    public Joystick getCtrlManip() {
+        return ctrlManip;
     }
-
-    public boolean getIntakeRaise() {
-        return ctrlDrive.getRawButtonReleased(button_intakeRaise);
-    }
-
-    public boolean getHatchBlatBlatBlat() { return ctrlDrive.getRawButton(button_blatblatBlat); }
-
-    // AXES
 
     // Drivetrain
     public double getAxisDrive() {
@@ -99,17 +93,9 @@ public class OI {
         return ctrlDrive.getRawAxis(axis_drive_rotation);
     }
 
-    // Intake
-    public double getIntakeSpin() {return ctrlDrive.getRawAxis(axis_intakespin); }
-
     // Hatch
-
-    // Climber
-
-    // TODO: replace hatch oi methods with vision system
-    public double getHatchSpeed() {
-        return ctrlDrive.getRawAxis(axis_hatch);
+    public double getAxisHatch() {
+        return ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
     }
-    public double getHatchMove() {return ctrlDrive.getRawAxis(axis_hatchmove); }
 }
 

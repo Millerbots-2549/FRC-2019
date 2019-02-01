@@ -29,10 +29,10 @@ public class IntakeCommand extends Command {
     @Override
     protected void execute() {
 
-        if(Robot.oi.getIntakeRaise()) elevatorRaised = !elevatorRaised;
-
-        if(elevatorRaised) Robot.intake.raiseElevator();
-        else if(!elevatorRaised) Robot.intake.lowerElevator();
+//        if(Robot.oi.getIntakeRaise()) elevatorRaised = !elevatorRaised;
+//
+//        if(elevatorRaised) Robot.intake.raiseElevator();
+//        else if(!elevatorRaised) Robot.intake.lowerElevator();
 
     }
 

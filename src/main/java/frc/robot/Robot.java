@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,10 +35,10 @@ public class Robot extends TimedRobot {
     public static IntakeSubsystem intake;
     public static OI oi;
 
-    Command m_autonomousCommand;
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+    private Command m_autonomousCommand;
+    private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-    Compressor mainCompressor = new Compressor(0);
+    public static Compressor mainCompressor = new Compressor(0);
 
     /**
      * This function is run when the robot is first started up and should be
@@ -47,11 +48,14 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         drivetrain = new DrivetrainSubsystem();
         hatch = new HatchSubsystem();
+        intake = new IntakeSubsystem();
         oi = new OI();
 
         // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", m_chooser);
+
+        CameraServer.getInstance().startAutomaticCapture();
 
         mainCompressor.setClosedLoopControl(true);
     }
