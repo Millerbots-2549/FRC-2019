@@ -34,10 +34,10 @@ public class ClimbCommand extends Command {
     @Override
     protected void execute() {
         Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
-//        if(Robot.oi.ctrlManip.getRawButtonPressed(1))
-//            Robot.climb.extend();
-//        else if(Robot.oi.ctrlManip.getRawButtonReleased(1))
-//            Robot.climb.retract();
+        if(Robot.oi.ctrlManip.getRawButtonPressed(??))
+            Robot.climb.extend();
+        else if(Robot.oi.ctrlManip.getRawButtonReleased(??))
+            Robot.climb.retract();
     }
 
 
@@ -72,7 +72,7 @@ public class ClimbCommand extends Command {
      * command.
      */
     @Override
-    protected void end() {
+    protected void end(Robot.climb.solenoidsOff();) {
 
     }
 
