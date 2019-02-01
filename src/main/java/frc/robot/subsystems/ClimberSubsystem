@@ -9,9 +9,10 @@ import frc.robot.commands.ClimbCommand;
 public class ClimberSubsystem extends Subsystem {
 
     //Motors
-    private WPI_TalonSRX climbMotor;
+    private DoubleSolenoid solenoidFront;
+    private DoubleSolenoid solenoidBack;
 
     public ClimberSubsystem(){
-        motorClimb = new WPI_TalonSRX
+        solenoidFront = new DoubleSolenoid(RobotMap.climb_sol_fwd,RobotMap.climb_sol_rev)
     }
 }
