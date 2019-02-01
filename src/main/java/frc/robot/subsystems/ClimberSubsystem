@@ -1,0 +1,17 @@
+package frc.robot.subsystems;
+
+
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import frc.robot.RobotMap;
+import frc.robot.commands.ClimbCommand;
+
+public class ClimberSubsystem extends Subsystem {
+
+    //Motors
+    private WPI_TalonSRX climbMotor;
+
+    public ClimberSubsystem(){
+        motorClimb = new WPI_TalonSRX
+    }
+}
