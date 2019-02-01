@@ -31,17 +31,18 @@ public class HatchSubsystem extends Subsystem {
     }
 
     public void out() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kForward);
+        hatchNoidOne.set(DoubleSolenoid.Value.kReverse);
         System.out.println("Hatch out");
     }
 
     public void in() {
-        hatchNoidOne.set(DoubleSolenoid.Value.kReverse);
+        hatchNoidOne.set(DoubleSolenoid.Value.kForward);
         System.out.println("Hatch in");
     }
 
     public void off() {
         hatchNoidOne.set(DoubleSolenoid.Value.kOff);
+        System.out.println("Hatch off");
     }
 }
 

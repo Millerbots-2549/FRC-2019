@@ -55,15 +55,15 @@ public class OI {
 
     // Buttons
     private int button_intakeRaise = 4;
-    private int button_blatblatBlat = 0;
-
+    private int button_intake = 2;
+    private int button_blatBlatBlat = 1;
+    private int button_noBlatBlatBlat = 1;
 
     // Axes
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
     private int axis_hatch = 4;
-    private int axis_hatchmove = 0;
-    private int axis_intakespin = 0;
+
     public OI() {
 
         joystick1 = new Joystick(  0);
@@ -91,10 +91,10 @@ public class OI {
         return joystick1.getRawAxis(axis_hatch);
     }
 
-    public boolean getHatchBlatBlatBlat() { return joystick1.getRawButton(button_blatblatBlat); }
+    public boolean getHatchBlatBlatBlat() { return joystick1.getRawButton(button_blatBlatBlat); }
 
-    public double getHatchMove() {return joystick1.getRawAxis(axis_hatchmove); }
+    public double getHatchMove() {return joystick1.getRawAxis(axis_hatch); }
 
-    public double getIntakeSpin() {return joystick1.getRawAxis(axis_intakespin); }
+    public boolean getIntakeSpin() {return joystick1.getRawButton(button_intake); }
 }
 

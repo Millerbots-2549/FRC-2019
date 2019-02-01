@@ -1,12 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 
-
-
-
 public class HatchCommand extends Command {
+
+    private Timer t = new Timer();
+
     public HatchCommand() {
         super(HatchCommand.class.getSimpleName());
         requires(Robot.hatch);
@@ -32,11 +33,21 @@ public class HatchCommand extends Command {
     @Override
     protected void execute() {
         Robot.hatch.move(Robot.oi.getHatchSpeed());
-        if(Robot.oi.joystick1.getRawButtonPressed(1)) {
+
+        if(Robot.oi.getHatchBlatBlatBlat())
             Robot.hatch.out();
-        }
-        else if(Robot.oi.joystick1.getRawButtonPressed(2))
-            Robot.hatch.in();
+        else Robot.hatch.in();
+
+//        if(Robot.oi.getHatchBlatBlatBlat()) {
+//            t.start();
+//            Robot.hatch.out();
+//        }
+//        if(t.get() >= .25){
+//            Robot.hatch.in();
+//            Robot.hatch.off();
+//            t.stop();
+//            t.reset();
+//        }
     }
 
 
@@ -72,7 +83,10 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void end() {
+        Robot.hatch.in();
         Robot.hatch.off();
+        t.stop();
+        t.reset();
     }
 
 

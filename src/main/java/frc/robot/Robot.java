@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
   public static HatchSubsystem hatch;
   public static IntakeSubsystem intake;
   public static OI oi;
+//  public static CameraServer cam = new CameraServer();
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -57,6 +59,7 @@ public class Robot extends TimedRobot {
     drivetrain = new DrivetrainSubsystem();
     hatch = new HatchSubsystem();
     oi = new OI();
+    CameraServer.getInstance().startAutomaticCapture();
 
     m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
     // chooser.addOption("My Auto", new MyAutoCommand());
@@ -82,6 +85,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+
+    setCompressor(false);
   }
 
   @Override
@@ -115,6 +120,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+    setCompressor(true);
   }
 
   /**
@@ -135,6 +141,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    setCompressor(true);
   }
 
   /**
@@ -156,10 +164,21 @@ public class Robot extends TimedRobot {
   private void regulatePressure(){
 //    if(mainCompressor.get > compressorMaxPressure - 5) mainCompressor.stop();
 //    else mainCompressor.start();
-    if(oi.joystick1.getRawButton(7)) mainCompressor.start();
-    else if(oi.joystick1.getRawButton(8)) mainCompressor.stop();
+//    if(oi.joystick1.getRawButton(7)) mainCompressor.start();
+//    else if(oi.joystick1.getRawButton(8)) mainCompressor.stop();
     SmartDashboard.putBoolean("C CLC", mainCompressor.getClosedLoopControl());
     SmartDashboard.putBoolean("C PSV", mainCompressor.getPressureSwitchValue());
     SmartDashboard.putNumber("C CC", mainCompressor.getCompressorCurrent());
+  }
+
+  private void setCompressor(boolean value) {
+    if(value) {
+      mainCompressor.setClosedLoopControl(true);
+      System.out.println("Compressor ON");
+    }
+    else if(!value) {
+      mainCompressor.setClosedLoopControl(false);
+      System.out.println("Compressor OFF");
+    }
   }
 }
