@@ -17,4 +17,22 @@ public class ClimberSubsystem extends Subsystem {
         solenoidBack = new DoubleSolenoid(RobotMap.climbBack_sol_fwd,RobotMap.climbBack_sol_rev);
     }
 
+    public void extend(){
+        solenoidFront.set(DoubleSolenoid.Value.kReverse);
+        solenoidBack.set(DoubleSolenoid.Value.kReverse);
+        System.out.println("Climb initialized");
+    }
+
+    public void retract(){
+        solenoidFront.set(DoubleSolenoid.Value.kForward);
+        solenoidBack.set(DoubleSolenoid.Value.kForward);
+        System.out.println("Climb Finishing");
+    }
+
+    public void solenoidsOff(){
+        solenoidFront.set(DoubleSolenoid.Value.kOff);
+        solenoidBack.set(DoubleSolenoid.Value.kOff);
+        System.out.println("Climb Complete");
+    }
+    )
 }
