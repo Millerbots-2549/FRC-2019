@@ -10,7 +10,7 @@ import frc.robot.commands.IntakeCommand;
 public class IntakeSubsystem extends Subsystem {
 
     // Put methods for controlling this subsystem
-    // here. Call these from Commands.fuckshitasscock
+    // here. Call these from Commands
 
     // TODO: Create Motor
     public Spark spinnySpark;
