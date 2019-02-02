@@ -47,6 +47,8 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     public Joystick ctrlDrive = new Joystick(0);
+    public Button intakeSpin = new JoystickButton(ctrlDrive,1);
+    public Button shootSpin = new JoystickButton(ctrlDrive, 2);
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
 
@@ -56,7 +58,7 @@ public class OI {
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
-    public Button intakeSpin = new JoystickButton(ctrlDrive,1);
+
 
 
     // TODO: finish controls
@@ -67,6 +69,7 @@ public class OI {
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());
+        shootSpin.whenPressed(new ShootBall());
 
         /*
          * TODO: create actions and associated buttons
