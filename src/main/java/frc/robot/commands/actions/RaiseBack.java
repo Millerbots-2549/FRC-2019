@@ -3,19 +3,22 @@ package frc.robot.commands.actions;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class Climb extends Command{
 
-    public Climb(){
-        requires (Robot.climb);
-        requires (Robot.drivetrain);
+public class RaiseBack extends Command {
+    public RaiseBack() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+        requires(Robot.climb);
     }
+
+
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
     @Override
     protected void initialize() {
-
+        Robot.climb.extendBack();
     }
 
 
@@ -48,7 +51,8 @@ public class Climb extends Command{
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        // TODO: Make this return true when this Command no longer needs to run execute()
+        return false;
     }
 
 
@@ -60,8 +64,7 @@ public class Climb extends Command{
      */
     @Override
     protected void end() {
-        Robot.hatch.retract();
-        //Robot.hatch.solenoidOff();
+
     }
 
 
