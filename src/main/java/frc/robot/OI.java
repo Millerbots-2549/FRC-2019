@@ -8,7 +8,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
@@ -51,11 +50,14 @@ public class OI {
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
 
+
+
     public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
-    public Button intakeSpin = new JoystickButton(ctrlManip,6);
+    public Button intakeSpin = new JoystickButton(ctrlDrive,1);
+
 
     // TODO: finish controls
 
@@ -64,7 +66,8 @@ public class OI {
         hatchEject.whenPressed(new EjectHatch());
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
-        intakeSpin.whenPressed(new SpinIntake());
+        intakeSpin.whenPressed(new IntakeBall());
+
         /*
          * TODO: create actions and associated buttons
          * RaiseFront, RaiseRear,

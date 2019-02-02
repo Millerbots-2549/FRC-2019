@@ -10,24 +10,19 @@ import frc.robot.commands.IntakeCommand;
 public class IntakeSubsystem extends Subsystem {
 
     // Put methods for controlling this subsystem
-    // here. Call these from Commands.fuckshitasscock
+    // here. Call these from Commands
 
-    // TODO: Create Motor
     public Spark spinnySpark;
-    // TODO: move initialization to constructor
     private DoubleSolenoid doubleSolenoid;
 
-    // TODO: create constructor
 
     public IntakeSubsystem() {
-        doubleSolenoid = new DoubleSolenoid(RobotMap.intake_sol_fwd, RobotMap.intake_sol_rev);
-        spinnySpark = new Spark(RobotMap.intake_spark);
+        doubleSolenoid = new DoubleSolenoid(RobotMap.INTAKE_SOL_FWD, RobotMap.INTAKE_SOL_REV);
+        spinnySpark = new Spark(RobotMap.INTAKE_SPARK);
     }
 
 
     public void initDefaultCommand() {
-        // TODO: Set the default command, if any, for a subsystem here. Example:
-        //    setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new IntakeCommand());
     }
 
@@ -45,9 +40,14 @@ public class IntakeSubsystem extends Subsystem {
         doubleSolenoid.set(DoubleSolenoid.Value.kOff);
         System.out.println("Intake solenoid off");
     }
-    public void spin() {
-        double x = 1;
-        spinnySpark.setSpeed(x);
+    public void spinIn() {
+        spinnySpark.setSpeed(-1);
+    }
+    public void spinOut(){
+        spinnySpark.setSpeed(1);
+    }
+    public void spinStop(){
+        spinnySpark.setSpeed(0);
     }
 }
 
