@@ -7,6 +7,7 @@ public class Climb extends Command{
 
     public Climb(){
         requires (Robot.climb);
+        requires (Robot.drtivetrain);
     }
     /**
      * The initialize method is called just before the first time
@@ -14,8 +15,7 @@ public class Climb extends Command{
      */
     @Override
     protected void initialize() {
-        setTimeout(.5);
-        Robot.hatch.extend();
+
     }
 
 
