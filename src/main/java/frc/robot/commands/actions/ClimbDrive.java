@@ -3,12 +3,11 @@ package frc.robot.commands.actions;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-
-public class LowerIntake extends Command {
-    public LowerIntake() {
+public class ClimbDrive extends Command {
+    public ClimbDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.intake);
+        requires (Robot.drivetrain);
     }
 
 
@@ -18,7 +17,7 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.lower();
+        Robot.drivetrain.
     }
 
 
@@ -52,7 +51,7 @@ public class LowerIntake extends Command {
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return true;
+        return false;
     }
 
 
@@ -64,7 +63,7 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void end() {
-       // Robot.intake.solenoidOff();
+
     }
 
 

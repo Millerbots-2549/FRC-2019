@@ -13,11 +13,38 @@ public class ClimbSubsystem extends Subsystem {
     private DoubleSolenoid backClimbDoubleNoid = new DoubleSolenoid(RobotMap.CLIMB_BACK_SOL_FWD, RobotMap.CLIMB_BACK_SOL_REV);
 
     public ClimbSubsystem(){
+
     }
 
     @Override
-    protected void initDefaultCommand() {
 
+    public void initDefaultCommand() {
+        setDefaultCommand(new HatchCommand());
     }
 
+    public void extendFront(){
+        frontClimbDoubleNoid.set(DoubleSolenoid.Value.kReverse);
+        System.out.println("Front piston extended");
+    }
+
+    public void extendBack(){
+        backClimbDoubleNoid.set(DoubleSolenoid.Value.kReverse);
+        System.out.println("Back piston extended");
+    }
+
+    public void retractFront(){
+        frontClimbDoubleNoid.set(DoubleSolenoid.Value.kForward);
+        System.out.println("Front piston retracted");
+    }
+
+    public void retractBack(){
+        backClimbDoubleNoid.set(DoubleSolenoid.Value.kForward);
+        System.out.println("Back piston retracted");
+    }
+
+    public void solenoidsOff(){
+        backClimbDoubleNoid.set(DoubleSolenoid.Value.kOff);
+        frontClimbDoubleNoid.set(DoubleSolenoid.Value.kOff);
+        System.out.println("Solenoids off");
+    }
 }
