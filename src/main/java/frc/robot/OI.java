@@ -55,6 +55,7 @@ public class OI {
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
+    public Button intakeSpin = new JoystickButton(ctrlManip,6);
 
     // TODO: finish controls
 
@@ -63,7 +64,7 @@ public class OI {
         hatchEject.whenPressed(new EjectHatch());
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
-
+        intakeSpin.whenPressed(new SpinIntake());
         /*
          * TODO: create actions and associated buttons
          * RaiseFront, RaiseRear,

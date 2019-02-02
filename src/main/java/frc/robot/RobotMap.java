@@ -22,6 +22,9 @@ public class RobotMap {
     public static int motorRight3 = 3;
     public static int hatch_motor = 4;
 
+    //PWM
+    public static int intake_spark = 1;
+
     // PCM
     public static int hatch_sol_fwd = 0;
     public static int hatch_sol_rev = 1;

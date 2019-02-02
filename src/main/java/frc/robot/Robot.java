@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HatchSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -52,6 +54,7 @@ public class Robot extends TimedRobot {
         intake = new IntakeSubsystem();
         climb = new ClimbSubsystem();
         oi = new OI();
+
 
         // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
         // chooser.addOption("My Auto", new MyAutoCommand());
