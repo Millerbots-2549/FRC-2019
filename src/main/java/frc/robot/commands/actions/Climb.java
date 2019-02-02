@@ -7,7 +7,7 @@ public class Climb extends Command{
 
     public Climb(){
         requires (Robot.climb);
-        requires (Robot.drtivetrain);
+        requires (Robot.drivetrain);
     }
     /**
      * The initialize method is called just before the first time
