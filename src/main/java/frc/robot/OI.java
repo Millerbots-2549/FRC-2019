@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.ClimbCommandGroup;
 import frc.robot.commands.actions.*;
 
 /**
@@ -55,7 +56,8 @@ public class OI {
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
-
+    public Button intakeSpin = new JoystickButton(ctrlManip,6);
+    public Button climbStart = new JoystickButton(ctrlManip, 7);
     // TODO: finish controls
 
     public OI() {
@@ -63,7 +65,8 @@ public class OI {
         hatchEject.whenPressed(new EjectHatch());
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
-
+        intakeSpin.whenPressed(new SpinIntake());
+        climbStart.whenPressed(new ClimbCommandGroup());
         /*
          * TODO: create actions and associated buttons
          * RaiseFront, RaiseRear,

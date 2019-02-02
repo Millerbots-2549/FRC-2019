@@ -1,13 +1,14 @@
-package frc.robot.commands;
+package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Robot;
 
 import static frc.robot.Robot.intake;
 
 
-public class IntakeCommand extends Command {
-    public IntakeCommand() {
+public class SpinIntake extends Command {
+    public SpinIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(intake);
@@ -30,7 +31,7 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void execute() {
-
+        intake.spin();
     }
 
 

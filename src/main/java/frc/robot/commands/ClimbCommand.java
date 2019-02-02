@@ -1,4 +1,4 @@
-package frc.robot.commands.actions;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -33,11 +33,11 @@ public class ClimbCommand extends Command {
      */
     @Override
     protected void execute() {
-        Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
-        if(Robot.oi.ctrlManip.getRawButtonPressed(??))
-            Robot.climb.extend();
-        else if(Robot.oi.ctrlManip.getRawButtonReleased(??))
-            Robot.climb.retract();
+//        Robot.climb.driveSlide(Robot.oi.getAxisHatch());
+//        if(Robot.oi.ctrlManip.getRawButtonPressed(??))
+//            Robot.climb.extend();
+//        else if(Robot.oi.ctrlManip.getRawButtonReleased(??))
+//            Robot.climb.retract();
     }
 
 

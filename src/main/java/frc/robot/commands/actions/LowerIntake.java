@@ -64,7 +64,7 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void end() {
-        //Robot.intake.solenoidOff();
+       // Robot.intake.solenoidOff();
     }
 
 

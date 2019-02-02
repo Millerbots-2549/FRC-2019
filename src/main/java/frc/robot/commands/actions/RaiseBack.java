@@ -1,16 +1,14 @@
-package frc.robot.commands;
+package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.IntakeSubsystem;
-
-import static frc.robot.Robot.intake;
+import frc.robot.Robot;
 
 
-public class IntakeCommand extends Command {
-    public IntakeCommand() {
+public class RaiseBack extends Command {
+    public RaiseBack() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
+        requires(Robot.climb);
     }
 
 
@@ -20,7 +18,7 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void initialize() {
-
+        Robot.climb.extendBack();
     }
 
 

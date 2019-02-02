@@ -10,7 +10,7 @@ import frc.robot.commands.IntakeCommand;
 public class IntakeSubsystem extends Subsystem {
 
     // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+    // here. Call these from Commands
 
     // TODO: Create Motor
     public Spark spinnySpark;
@@ -21,7 +21,9 @@ public class IntakeSubsystem extends Subsystem {
 
     public IntakeSubsystem() {
         doubleSolenoid = new DoubleSolenoid(RobotMap.intake_sol_fwd, RobotMap.intake_sol_rev);
+        spinnySpark = new Spark(RobotMap.intake_spark);
     }
+
 
     public void initDefaultCommand() {
         // TODO: Set the default command, if any, for a subsystem here. Example:
@@ -42,6 +44,10 @@ public class IntakeSubsystem extends Subsystem {
     public void solenoidOff() {
         doubleSolenoid.set(DoubleSolenoid.Value.kOff);
         System.out.println("Intake solenoid off");
+    }
+    public void spin() {
+        double x = 1;
+        spinnySpark.setSpeed(x);
     }
 }
 
