@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimbCommand;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
+import frc.robot.commands.HatchCommand;
 
 public class ClimbSubsystem extends Subsystem {
 
