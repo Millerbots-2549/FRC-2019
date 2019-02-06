@@ -1,26 +1,24 @@
-package frc.robot.commands;
+package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ClimbCommand extends Command {
-    public ClimbCommand() {
-        super(ClimbCommand.class.getSimpleName());
-        requires(Robot.climb);
+public class RetractFront extends Command {
+    public RetractFront() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires (Robot.climb);
     }
-    @Override
-    protected void initialize() {
-        System.out.println("Climb system initialized");
-    }
+
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
+    @Override
+    protected void initialize() {
+      Robot.climb.retractFront();
+    }
 
 
     /**
@@ -29,11 +27,7 @@ public class ClimbCommand extends Command {
      */
     @Override
     protected void execute() {
-//        Robot.climb.driveSlide(Robot.oi.getAxisHatch());
-//        if(Robot.oi.ctrlManip.getRawButtonPressed(??))
-//            Robot.climb.extend();
-//        else if(Robot.oi.ctrlManip.getRawButtonReleased(??))
-//            Robot.climb.retract();
+
     }
 
 
@@ -67,10 +61,10 @@ public class ClimbCommand extends Command {
      * wrap up loose ends, like shutting off a motor that was being used in the
      * command.
      */
-//    @Override
-//    protected void end(Robot.climb.solenoidsOff();) {
+    @Override
+    protected void end() {
 
-//     }
+    }
 
 
     /**

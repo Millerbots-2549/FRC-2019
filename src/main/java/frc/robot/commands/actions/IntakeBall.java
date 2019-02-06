@@ -1,26 +1,29 @@
-package frc.robot.commands;
+package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ClimbCommand extends Command {
-    public ClimbCommand() {
-        super(ClimbCommand.class.getSimpleName());
-        requires(Robot.climb);
+import static frc.robot.Robot.intake;
+
+
+public class IntakeBall extends Command {
+    public IntakeBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(intake);
     }
-    @Override
-    protected void initialize() {
-        System.out.println("Climb system initialized");
-    }
+
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
+    @Override
+    protected void initialize() {
+        Robot.intake.spinIn();
+    }
 
 
     /**
@@ -29,11 +32,7 @@ public class ClimbCommand extends Command {
      */
     @Override
     protected void execute() {
-//        Robot.climb.driveSlide(Robot.oi.getAxisHatch());
-//        if(Robot.oi.ctrlManip.getRawButtonPressed(??))
-//            Robot.climb.extend();
-//        else if(Robot.oi.ctrlManip.getRawButtonReleased(??))
-//            Robot.climb.retract();
+        Robot.intake.spinIn();
     }
 
 
@@ -48,17 +47,21 @@ public class ClimbCommand extends Command {
      * Returning false will result in the command never ending automatically. It may still be
      * cancelled manually or interrupted by another command. Returning true will result in the
      * command executing once and finishing immediately. It is recommended to use
-     * {@link edu.wpi.first.wpilibj.command.InstantCommand} (added in 2017) for this.
+     * {@link } (added in 2017) for this.
      * </p>
      *
      * @return whether this command is finished.
-     * @see Command#isTimedOut() isTimedOut()
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
-    }
+      if(Robot.oi.ctrlDrive.getRawButton(1)) {
+          return false;
+      }
+      else {
+          return true;
+      }
+      }
+
 
 
     /**
@@ -67,10 +70,11 @@ public class ClimbCommand extends Command {
      * wrap up loose ends, like shutting off a motor that was being used in the
      * command.
      */
-//    @Override
-//    protected void end(Robot.climb.solenoidsOff();) {
-
-//     }
+    @Override
+    protected void end() {
+        intake.spinStop();
+        System.out.println("intake finsihed");
+    }
 
 
     /**

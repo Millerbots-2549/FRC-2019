@@ -7,8 +7,13 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveCommand;
+import edu.wpi.first.wpilibj.Encoder;
 
 public class DrivetrainSubsystem extends Subsystem {
+
+    //Encoders
+    private Encoder odometerLeft;
+    private Encoder odometerRight;
 
     // Motors
     private WPI_TalonSRX motorLeft0;
@@ -24,10 +29,10 @@ public class DrivetrainSubsystem extends Subsystem {
     private DifferentialDrive robotDrive;
 
     public DrivetrainSubsystem() {
-        motorLeft0 = new WPI_TalonSRX(RobotMap.motorLeft0);
-        motorLeft1 = new WPI_TalonSRX(RobotMap.motorLeft1);
-        motorRight2 = new WPI_TalonSRX(RobotMap.motorRight2);
-        motorRight3 = new WPI_TalonSRX(RobotMap.motorRight3);
+        motorLeft0 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_0);
+        motorLeft1 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_1);
+        motorRight2 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_2);
+        motorRight3 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_3);
 
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
         motorsLeft.setInverted(false);
@@ -35,6 +40,9 @@ public class DrivetrainSubsystem extends Subsystem {
         motorsRight.setInverted(false);
 
         robotDrive = new DifferentialDrive(motorsLeft, motorsRight);
+
+        //odometerLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
+        //odometerRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
     }
 
     public void initDefaultCommand() {
@@ -53,4 +61,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     // TODO: get methods for sensors
+    public int getDistance(){
+         return 0;// return average distance from encoders, AKA encleft + encright / 2
+    }
 }

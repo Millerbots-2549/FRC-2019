@@ -1,9 +1,7 @@
 package frc.robot.subsystems;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,9 +20,8 @@ public class HatchSubsystem extends Subsystem {
     private int encSlowMargin = 4000;
 
     public HatchSubsystem() {
-        motor = new WPI_TalonSRX(RobotMap.hatch_motor);
-        solenoid = new DoubleSolenoid(RobotMap.hatch_sol_fwd, RobotMap.hatch_sol_rev);
-        // TODO: initialize encoder
+        motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
+        solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
 
 
     }

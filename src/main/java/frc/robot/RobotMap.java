@@ -16,24 +16,28 @@ package frc.robot;
 public class RobotMap {
 
     // CAN
-    public static int motorLeft0 = 0;
-    public static int motorLeft1 = 1;
-    public static int motorRight2 = 2;
-    public static int motorRight3 = 3;
-    public static int hatch_motor = 4;
+    public static final int MOTOR_LEFT_0 = 0;
+    public static final int MOTOR_LEFT_1 = 1;
+    public static final int MOTOR_RIGHT_2 = 2;
+    public static final int MOTOR_RIGHT_3 = 3;
+    public static final int HATCH_MOTOR = 4;
 
     //PWM
-    public static int intake_spark = 1;
+    public static final int INTAKE_SPARK = 0;
+
+    //DIO
+    public static final int[] ODOMETER_LEFT = {0, 1};
+    public static final int[] ODOMETER_RIGHT = {2, 3};
 
     // PCM
-    public static int hatch_sol_fwd = 0;
-    public static int hatch_sol_rev = 1;
+    public static final int HATCH_SOL_FWD = 0;
+    public static final int HATCH_SOL_REV = 1;
 
-    public static int intake_sol_fwd = 2;
-    public static int intake_sol_rev = 3;
+    public static final int INTAKE_SOL_FWD = 2;
+    public static final int INTAKE_SOL_REV = 3;
 
-    public static int climbFront_sol_fwd = 4;
-    public static int climbFront_sol_rev = 5;
-    public static int climbBack_sol_fwd = 6;
-    public static int climbBack_sol_rev = 7;
+    public static final int CLIMB_FRONT_SOL_FWD = 4;
+    public static final int CLIMB_FRONT_SOL_REV = 5;
+    public static final int CLIMB_BACK_SOL_FWD = 6;
+    public static final int CLIMB_BACK_SOL_REV = 7;
 }
