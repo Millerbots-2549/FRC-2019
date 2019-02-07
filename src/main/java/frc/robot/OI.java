@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.actions.*;
+import frc.robot.commands.groups.Climb;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -58,6 +59,7 @@ public class OI {
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
+    public Button climb = new JoystickButton(ctrlManip, 7);
 
 
 
@@ -70,6 +72,7 @@ public class OI {
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());
         shootSpin.whenPressed(new ShootBall());
+        climb.whenPressed(new Climb());
 
         /*
          * TODO: create actions and associated buttons
@@ -104,5 +107,8 @@ public class OI {
     public double getAxisHatch() {
         return ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
     }
+
+    //Climb
+
 }
 

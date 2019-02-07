@@ -2,12 +2,19 @@ package frc.robot.commands.actions;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class ClimbDrive extends Command {
-    public ClimbDrive() {
+
+public class DriveStraight extends Command {
+
+    private double m_speed;
+
+    public DriveStraight(double speed) /*:)*/ {
+        requires(Robot.drivetrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires (Robot.drivetrain);
+        m_speed = speed;
+
     }
 
 
@@ -17,7 +24,8 @@ public class ClimbDrive extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.drivetrain.
+        setTimeout(8);
+        Robot.drivetrain.driveArcade(m_speed, 0);
     }
 
 
@@ -26,8 +34,8 @@ public class ClimbDrive extends Command {
      * scheduled to run until this Command either finishes or is canceled.
      */
     @Override
-    protected void execute() {
-
+    protected void execute(){
+        Robot.drivetrain.driveArcade(m_speed, 0);
     }
 
 
@@ -51,7 +59,7 @@ public class ClimbDrive extends Command {
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
+        return isTimedOut();
     }
 
 
@@ -63,6 +71,7 @@ public class ClimbDrive extends Command {
      */
     @Override
     protected void end() {
+        Robot.drivetrain.driveArcade(0, 0);
 
     }
 
