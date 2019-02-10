@@ -29,41 +29,60 @@ public class DrivetrainSubsystem extends Subsystem {
     // Robot drive base
     private DifferentialDrive robotDrive;
 
+    private boolean m_reversed;
+
     public DrivetrainSubsystem() {
+        // TalonSRX configuration
         motorLeft0 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_0);
         motorLeft1 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_1);
         motorRight2 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_2);
         motorRight3 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_3);
 
+        motorLeft0.setSafetyEnabled(true);
+        motorLeft1.setSafetyEnabled(true);
+        motorRight2.setSafetyEnabled(true);
+        motorRight3.setSafetyEnabled(true);
+
+        motorLeft0.setExpiration(.1);
+        motorLeft1.setExpiration(.1);
+        motorRight2.setExpiration(.1);
+        motorRight3.setExpiration(.1);
+
+        // Speed controller group configuration
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
-        motorsLeft.setInverted(false);
         motorsRight = new SpeedControllerGroup(motorRight2, motorRight3);
+
+        motorsLeft.setInverted(false);
         motorsRight.setInverted(false);
 
         robotDrive = new DifferentialDrive(motorsLeft, motorsRight);
 
+        m_reversed = false;
+
+        // Encoder configuration
         //odometerLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
         //odometerRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
     }
 
     public void initDefaultCommand() {
-
-        // TODO: Set the default command, if any, for a subsystem here. Example:
-        //    setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new DriveCommand());
     }
 
+    // Motors
     public void driveArcade(double speed, double rotation) {
         robotDrive.arcadeDrive(speed, rotation);
     }
-
     public void driveCurve(double speed, double rotation, boolean t) {
         robotDrive.curvatureDrive(speed, rotation, t);
     }
+    public void setReverse(boolean reversed) {
+        m_reversed = reversed;
+    }
 
-    // TODO: get methods for sensors
+    // Sensors
     public int getDistance(){
          return 0;// return average distance from encoders, AKA encleft + encright / 2
     }
+    // TODO: gyro and accel
 
 }

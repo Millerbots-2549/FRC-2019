@@ -20,7 +20,16 @@ public class ClimbSubsystem extends Subsystem {
     @Override
 
     public void initDefaultCommand() {
-        setDefaultCommand(new Climb());
+        //setDefaultCommand(new Climb());
+        // ^^ THIS WAS THE PROBLEM WITH DRIVING
+        // we dont need a default command, because there is nothing that
+        // needs to be constantly updated
+        // and since Climb() WOULD be the default command, it cant be
+        // because its a CommandGroup, not a normal command
+        // like the other subsystems have as default.
+        // and in the climb command group, it was constantly running
+        // the drivestraght command, which took priority over the normal
+        // drive command
     }
 
     public void extendFront(){
@@ -32,7 +41,6 @@ public class ClimbSubsystem extends Subsystem {
         backClimbDoubleNoid.set(DoubleSolenoid.Value.kReverse);
         System.out.println("Back piston extended");
     }
-
     public void retractFront(){
         frontClimbDoubleNoid.set(DoubleSolenoid.Value.kForward);
         System.out.println("Front piston retracted");

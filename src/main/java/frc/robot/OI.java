@@ -47,7 +47,7 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    public Joystick ctrlDrive = new Joystick(0);
+    private Joystick ctrlDrive = new Joystick(0);
     public Button intakeSpin = new JoystickButton(ctrlDrive,1);
     public Button shootSpin = new JoystickButton(ctrlDrive, 2);
     private int axis_drive = 1;
@@ -55,13 +55,11 @@ public class OI {
 
 
 
-    public Joystick ctrlManip = new Joystick(1);
+    private Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
     public Button climb = new JoystickButton(ctrlManip, 7);
-
-
 
     // TODO: finish controls
 
@@ -81,8 +79,6 @@ public class OI {
          * IntakeBall, ShootBall,
          * DriveForward
          */
-
-        // TODO: initialize ctrlManip
 
         // Smartdashboard controls
         SmartDashboard.putData("Compressor", new StopCompressor());

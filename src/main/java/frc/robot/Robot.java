@@ -31,7 +31,6 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class Robot extends TimedRobot {
 
     // TODO: implement vision subsystem
-    // TODO: create climber subsystem
     public static DrivetrainSubsystem drivetrain;
     public static HatchSubsystem hatch;
     public static IntakeSubsystem intake;
