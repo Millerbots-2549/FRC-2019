@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.Encoder;
 public class DrivetrainSubsystem extends Subsystem {
 
     //Encoders
-    private Encoder odometerLeft;
-    private Encoder odometerRight;
+    private Encoder encoderLeft;
+    private Encoder encoderRight;
 
     // Motors
     private WPI_TalonSRX motorLeft0;
@@ -30,41 +30,63 @@ public class DrivetrainSubsystem extends Subsystem {
     // Robot drive base
     private DifferentialDrive robotDrive;
 
+    private boolean m_reversed;
+
     public DrivetrainSubsystem() {
+        // TalonSRX configuration
         motorLeft0 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_0);
         motorLeft1 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_1);
         motorRight2 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_2);
         motorRight3 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_3);
 
+        motorLeft0.setSafetyEnabled(true);
+        motorLeft1.setSafetyEnabled(true);
+        motorRight2.setSafetyEnabled(true);
+        motorRight3.setSafetyEnabled(true);
+
+        motorLeft0.setExpiration(.1);
+        motorLeft1.setExpiration(.1);
+        motorRight2.setExpiration(.1);
+        motorRight3.setExpiration(.1);
+
+        // Speed controller group configuration
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
-        motorsLeft.setInverted(false);
         motorsRight = new SpeedControllerGroup(motorRight2, motorRight3);
+
+        motorsLeft.setInverted(false);
         motorsRight.setInverted(false);
 
         robotDrive = new DifferentialDrive(motorsLeft, motorsRight);
 
-        //odometerLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
-        //odometerRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
+        m_reversed = false;
+
+        // Encoder configuration
+        encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
+        encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
     }
 
     public void initDefaultCommand() {
-
-        // TODO: Set the default command, if any, for a subsystem here. Example:
-        //    setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new DriveCommand());
     }
 
+    // Motors
     public void driveArcade(double speed, double rotation) {
         robotDrive.arcadeDrive(speed, rotation);
     }
-
     public void driveCurve(double speed, double rotation, boolean t) {
         robotDrive.curvatureDrive(speed, rotation, t);
     }
-
-    // TODO: get methods for sensors
-    public int getDistance(){
-         return 0;// return average distance from encoders, AKA encleft + encright / 2
+    public void setReverse(boolean reversed) {
+        m_reversed = reversed;
     }
 
+    // Sensors
+    public int getDistance(){
+        boolean i = true;
+        return encoderLeft.get() + encoderRight.get() / 2;
+        }
+         // returns average distance from encoders, AKA encleft + encright / 2
 }
+    // TODO: gyro and accel
+
+

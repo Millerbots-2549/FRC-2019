@@ -1,14 +1,18 @@
 package frc.robot.commands.actions;
 
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
-public class RetractFront extends Command {
-    public RetractFront() {
+public class ReverseControls extends Command {
+    public ReverseControls() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires (Robot.climb);
+        requires(Robot.drivetrain);
     }
+
 
 
     /**
@@ -17,7 +21,8 @@ public class RetractFront extends Command {
      */
     @Override
     protected void initialize() {
-      Robot.climb.retractFront();
+        Robot.drivetrain.setReverse(true);
+        System.out.println("ROBOT FRONT: INTAKE");
     }
 
 
@@ -62,7 +67,8 @@ public class RetractFront extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.drivetrain.setReverse(false);
+        System.out.println("ROBOT FRONT: HATCH");
     }
 
 

@@ -10,7 +10,7 @@ public class DriveStraight extends Command {
     private double m_speed;
 
     public DriveStraight(double speed) /*:)*/ {
-        //requires(Robot.drivetrain);
+        requires(Robot.drivetrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         m_speed = speed;
@@ -58,7 +58,6 @@ public class DriveStraight extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return isTimedOut();
     }
 

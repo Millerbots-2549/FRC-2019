@@ -20,6 +20,7 @@ public class EjectHatch extends Command {
     protected void initialize() {
         setTimeout(.5);
         Robot.hatch.extend();
+        System.out.println("Hatch EJECTING");
     }
 
 
@@ -66,6 +67,7 @@ public class EjectHatch extends Command {
     protected void end() {
         Robot.hatch.retract();
         //Robot.hatch.solenoidOff();
+        System.out.print(" : DONE");
     }
 
 

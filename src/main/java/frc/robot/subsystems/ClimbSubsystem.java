@@ -20,7 +20,7 @@ public class ClimbSubsystem extends Subsystem {
     @Override
 
     public void initDefaultCommand() {
-        setDefaultCommand(new Climb());
+
     }
 
     public void extendFront(){
@@ -32,7 +32,6 @@ public class ClimbSubsystem extends Subsystem {
         backClimbDoubleNoid.set(DoubleSolenoid.Value.kReverse);
         System.out.println("Back piston extended");
     }
-
     public void retractFront(){
         frontClimbDoubleNoid.set(DoubleSolenoid.Value.kForward);
         System.out.println("Front piston retracted");
