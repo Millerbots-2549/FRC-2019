@@ -17,7 +17,7 @@ public class VisionSubsystem extends Subsystem {
     // here. Call these from Commands.
     public VisionSubsystem() {
         NetworkTableInstance inst = NetworkTableInstance.getDefault();
-        NetworkTable table = inst.getTable("datatable"); // todo: change key
+        NetworkTable table = inst.getTable(""); // todo: change key
         xEntry = table.getEntry("X");
         yEntry = table.getEntry("Y");
         zEntry = table.getEntry("Z");
