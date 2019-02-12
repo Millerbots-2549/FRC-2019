@@ -48,11 +48,10 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     private Joystick ctrlDrive = new Joystick(0);
-    public Button intakeSpin = new JoystickButton(ctrlDrive,1);
+    public Button intakeSpin = new JoystickButton(ctrlDrive, 1);
     public Button shootSpin = new JoystickButton(ctrlDrive, 2);
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
-
 
 
     private Joystick ctrlManip = new Joystick(1);
@@ -71,14 +70,11 @@ public class OI {
         intakeSpin.whenPressed(new IntakeBall());
         shootSpin.whenPressed(new ShootBall());
         climb.whenPressed(new Climb());
+    }
+}
 
         /*
-         * TODO: create actions and associated buttons
-         * RaiseFront, RaiseRear,
-         * RaiseIntake, LowerIntake,
-         * IntakeBall, ShootBall,
-         * DriveForward
-         */
+         *
 
         // Smartdashboard controls
         SmartDashboard.putData("Compressor", new StopCompressor());
@@ -107,4 +103,4 @@ public class OI {
     //Climb
 
 }
-
+**/
