@@ -8,6 +8,7 @@ public class HatchCommand extends Command {
     public HatchCommand() {
         super(HatchCommand.class.getSimpleName());
         requires(Robot.hatch);
+        requires(Robot.vision);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -30,11 +31,17 @@ public class HatchCommand extends Command {
     @Override
     protected void execute() {
         Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
-//        if(Robot.oi.ctrlManip.getRawButtonPressed(1))
-//            Robot.hatch.extend();
-//        else if(Robot.oi.ctrlManip.getRawButtonReleased(1))
-//            Robot.hatch.retract();
-
+        //too far left
+        if(Robot.vision.getX() <= Robot.vision.camResX() / 2){
+            Robot.hatch.driveSlide(-0.25);
+        }
+        //too far right
+        else if(Robot.vision.getX() >= Robot.vision.camResX() / 2){
+            Robot.hatch.driveSlide(0.25);
+        }
+        else{
+            Robot.hatch.driveSlide(0);
+        }
         SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
     }
 
