@@ -23,7 +23,6 @@ public class HatchSubsystem extends Subsystem {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
         solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
 
-
     }
 
     public void initDefaultCommand() {

@@ -10,7 +10,7 @@ public class DriveStraight extends Command {
     private double m_speed;
 
     public DriveStraight(double speed) /*:)*/ {
-        requires(Robot.drivetrain);
+        //requires(Robot.drivetrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         m_speed = speed;

@@ -36,6 +36,7 @@ public class HatchCommand extends Command {
 //            Robot.hatch.retract();
 
         SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
+
     }
 
 
