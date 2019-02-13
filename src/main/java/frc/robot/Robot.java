@@ -20,6 +20,7 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HatchSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,11 +32,12 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 public class Robot extends TimedRobot {
 
-    // TODO: implement vision subsystem
+
     public static DrivetrainSubsystem drivetrain;
     public static HatchSubsystem hatch;
     public static IntakeSubsystem intake;
     public static ClimbSubsystem climb;
+    public static VisionSubsystem vision;
     public static OI oi;
 
     private Command m_autonomousCommand;
@@ -54,6 +56,7 @@ public class Robot extends TimedRobot {
         intake = new IntakeSubsystem();
         climb = new ClimbSubsystem();
         oi = new OI();
+        vision = new VisionSubsystem();
 
 
         // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
