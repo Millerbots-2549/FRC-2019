@@ -2,9 +2,11 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.HatchCommand;
 
@@ -47,34 +49,16 @@ public class HatchSubsystem extends Subsystem {
 
     public void driveSlide(double n) {
 
-//        if(getPos() >= encMax) {
-//            n = (n > 0 ? 0 : n);
-//            //n = (1 - (getPos() / encMax)) * speed;
-//        }
-//        else if(getPos() <= encMin) {
-//            n = (n > 0 ? n : 0);
-//            //n = (1 - (getPos() / encMin)) * speed;
-//        }
-
-//        double r = (1 - (double)getPos() / (double)encMax);
-//        double l = ((double)getPos() / (double)encMin);
-
-//        if(getPos() >= encMax - encSlowMargin) {
-//            n = (n > 0 ? r : n);
-//        }
-//
-//        else if(getPos() <= encMin + encSlowMargin) {
-//            n = (n > 0 ? n : l);
-//        }
-
-//        SmartDashboard.putNumber("encmax", r);
-//        SmartDashboard.putNumber("encmin", l);
         SmartDashboard.putNumber("Hatch Motor", n*speed);
         motor.set(n*speed);
     }
 
     public int getPos() {
         return motor.getSelectedSensorPosition();
+    }
+
+    public void getCurrent(){
+        System.out.print(Robot.pdp.getCurrent(14));
     }
 }
 
