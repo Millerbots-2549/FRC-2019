@@ -85,4 +85,8 @@ public class DrivetrainSubsystem extends Subsystem {
     }
     // TODO: gyro and accel
 
+//    public void setReverse(boolean n) {
+//        this.rev
+//    }
+
 }
