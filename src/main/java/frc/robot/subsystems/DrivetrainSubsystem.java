@@ -61,8 +61,8 @@ public class DrivetrainSubsystem extends Subsystem {
         m_reversed = false;
 
         // Encoder configuration
-        encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
-        encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
+        //encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
+        //encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
     }
 
     public void initDefaultCommand() {
@@ -82,9 +82,8 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Sensors
     public int getDistance(){
-        boolean i = true;
-        return encoderLeft.get() + encoderRight.get() / 2;
-        }
+        return 0;//encoderLeft.get() + encoderRight.get() / 2;
+    }
          // returns average distance from encoders, AKA encleft + encright / 2
 }
     // TODO: gyro and accel

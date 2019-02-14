@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class HatchCommand extends Command {
+
+    private double hatchSpeed = 0;
+
     public HatchCommand() {
         super(HatchCommand.class.getSimpleName());
         requires(Robot.hatch);
@@ -30,19 +33,25 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
-        Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
         //too far left
         if(Robot.vision.getX() <= Robot.vision.camResX() / 2){
-            Robot.hatch.driveSlide(-0.25);
+            hatchSpeed = -0.2;
         }
         //too far right
         else if(Robot.vision.getX() >= Robot.vision.camResX() / 2){
-            Robot.hatch.driveSlide(0.25);
+            hatchSpeed = 0.2;
         }
-        else{
-            Robot.hatch.driveSlide(0);
+        else {
+            hatchSpeed = 0;
         }
+
+        Robot.hatch.driveSlide(hatchSpeed);
+
+        if(Robot.oi.getAxisHatch() >= 0.1 && Robot.oi.getAxisHatch() <= -0.1)
+            Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
+
         SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
+        SmartDashboard.putNumber("Hatch ", hatchSpeed);
 
     }
 
