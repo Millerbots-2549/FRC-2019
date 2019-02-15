@@ -48,6 +48,9 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     public Joystick ctrlDrive = new Joystick(0);
+    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
+    public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
+
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
 
@@ -66,6 +69,9 @@ public class OI {
     // TODO: finish controls
 
     public OI() {
+
+        reverseControlsBack.whenPressed(new ReverseControls(true));
+        reverseControlsForward.whenPressed(new ReverseControls(false));
 
         hatchEject.whenPressed(new EjectHatch());
         intakeRaise.whenPressed(new RaiseIntake());

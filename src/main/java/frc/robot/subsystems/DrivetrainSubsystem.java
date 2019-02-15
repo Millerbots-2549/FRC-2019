@@ -73,13 +73,14 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Motors
     public void driveArcade(double speed, double rotation) {
-        robotDrive.arcadeDrive(speed, rotation);
+        robotDrive.arcadeDrive(speed*m_speedMult, rotation);
     }
     public void driveCurve(double speed, double rotation, boolean t) {
-        robotDrive.curvatureDrive(speed, rotation, t);
+        robotDrive.curvatureDrive(speed*m_speedMult, rotation, t);
     }
     public void setReverse(boolean reversed) {
-        //if(reversed) m_speedMult =
+        if(reversed) m_speedMult = -1;
+        else if(!reversed) m_speedMult = 1;
     }
 
     // Sensors

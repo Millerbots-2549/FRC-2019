@@ -7,10 +7,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
 public class ReverseControls extends Command {
-    public ReverseControls() {
+
+    private boolean m_reversed;
+
+    public ReverseControls(boolean reversed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
+        m_reversed = reversed;
     }
 
 
@@ -21,8 +25,8 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.drivetrain.setReverse(true);
-        System.out.println("ROBOT FRONT: INTAKE");
+        Robot.drivetrain.setReverse(m_reversed);
+        System.out.println("ROBOT REVERSED");
     }
 
 
@@ -55,7 +59,7 @@ public class ReverseControls extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
 
@@ -67,8 +71,7 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void end() {
-        Robot.drivetrain.setReverse(false);
-        System.out.println("ROBOT FRONT: HATCH");
+
     }
 
 
