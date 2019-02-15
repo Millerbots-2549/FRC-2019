@@ -1,21 +1,22 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.controls;
 
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
-import frc.robot.subsystems.DrivetrainSubsystem;
 
+public class ReverseControls extends Command {
 
-public class DriveStraight extends Command {
+    private boolean m_reversed;
 
-    private double m_speed;
-
-    public DriveStraight(double speed) /*:)*/ {
-        requires(Robot.drivetrain);
+    public ReverseControls(boolean reversed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        m_speed = speed;
-
+        requires(Robot.drivetrain);
+        m_reversed = reversed;
     }
+
 
 
     /**
@@ -24,8 +25,8 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void initialize() {
-        setTimeout(8);
-        Robot.drivetrain.driveArcade(m_speed, 0);
+        Robot.drivetrain.setReverse(m_reversed);
+        System.out.println("ROBOT REVERSED");
     }
 
 
@@ -34,8 +35,8 @@ public class DriveStraight extends Command {
      * scheduled to run until this Command either finishes or is canceled.
      */
     @Override
-    protected void execute(){
-        Robot.drivetrain.driveArcade(m_speed, 0);
+    protected void execute() {
+
     }
 
 
@@ -58,7 +59,7 @@ public class DriveStraight extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return true;
     }
 
 
@@ -70,7 +71,6 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void end() {
-        Robot.drivetrain.driveArcade(0, 0);
 
     }
 

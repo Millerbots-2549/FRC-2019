@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveCommand extends Command {
 
+    private double deadzone = 0.75;
+    private boolean turnInPlace = false;
+    private double drive = 0;
+    private double turn = 0;
+
     public DriveCommand() {
        super (DriveCommand.class.getSimpleName());
        requires(Robot.drivetrain);
@@ -23,10 +28,18 @@ public class DriveCommand extends Command {
     @Override
     protected void execute() {
 
-        Robot.drivetrain.driveArcade(Robot.oi.getAxisDrive(), Robot.oi.getAxisTurn());
+        drive = Robot.oi.getAxisDrive();
 
+        if(Robot.oi.getAxisDrive() >= deadzone) {
+            turnInPlace = false;
+            turn = Robot.oi.getAxisTurn();
+        }
+        else if(Robot.oi.getAxisDrive() <= deadzone) {
+            turnInPlace = true;
+            turn = Robot.oi.getAxisTurnInPlace();
+        }
 
-
+        Robot.drivetrain.driveCurve(drive, turn, turnInPlace);
    }
 
 

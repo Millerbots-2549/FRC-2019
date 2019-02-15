@@ -1,14 +1,19 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Robot;
 
+import static frc.robot.Robot.intake;
+import static frc.robot.Robot.oi;
 
-public class RaiseIntake extends Command {
-    public RaiseIntake() {
+
+public class IntakeBall extends Command {
+    public IntakeBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.intake);
+        requires(intake);
     }
 
 
@@ -18,7 +23,7 @@ public class RaiseIntake extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.raise();
+        Robot.intake.spinIn();
     }
 
 
@@ -27,8 +32,11 @@ public class RaiseIntake extends Command {
      * scheduled to run until this Command either finishes or is canceled.
      */
     @Override
-    protected void execute() {
-
+    protected void execute(){
+//        if(Robot.pdp.getCurrent(14) >= 10)
+//            intake.spinIn();
+//        else
+//            intake.spinStop();
     }
 
 
@@ -43,16 +51,19 @@ public class RaiseIntake extends Command {
      * Returning false will result in the command never ending automatically. It may still be
      * cancelled manually or interrupted by another command. Returning true will result in the
      * command executing once and finishing immediately. It is recommended to use
-     * {@link edu.wpi.first.wpilibj.command.InstantCommand} (added in 2017) for this.
+     * {@link } (added in 2017) for this.
      * </p>
      *
      * @return whether this command is finished.
-     * @see Command#isTimedOut() isTimedOut()
      */
     @Override
     protected boolean isFinished() {
-        return true;
+        if(Robot.oi.ctrlManip.getRawButton(5))
+            return false;
+        else
+            return true;
     }
+
 
 
     /**
@@ -63,7 +74,8 @@ public class RaiseIntake extends Command {
      */
     @Override
     protected void end() {
-        //Robot.intake.solenoidOff();
+        intake.spinStop();
+        System.out.println("intake finidhed");
     }
 
 

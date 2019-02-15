@@ -12,7 +12,10 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.actions.*;
+import frc.robot.commands.actions.compressors.*;
+import frc.robot.commands.actions.controls.*;
+import frc.robot.commands.actions.hatch.*;
+import frc.robot.commands.actions.intake.*;
 import frc.robot.commands.groups.Climb;
 
 /**
@@ -53,8 +56,7 @@ public class OI {
 
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
-
-
+    private int axis_drive_turnInPlace = 2;
 
     public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
@@ -107,6 +109,9 @@ public class OI {
     }
     public double getAxisTurn() {
         return ctrlDrive.getRawAxis(axis_drive_rotation);
+    }
+    public double getAxisTurnInPlace() {
+        return ctrlDrive.getRawAxis(axis_drive_turnInPlace);
     }
 
     // Hatch

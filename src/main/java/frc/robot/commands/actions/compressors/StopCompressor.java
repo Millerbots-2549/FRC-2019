@@ -1,13 +1,13 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.compressors;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RaiseFront extends Command {
-    public RaiseFront() {
+
+public class StopCompressor extends Command {
+    public StopCompressor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.climb);
     }
 
 
@@ -17,7 +17,8 @@ public class RaiseFront extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.climb.extendFront();
+        Robot.mainCompressor.setClosedLoopControl(false);
+        System.out.println("Compressor off");
     }
 
 
@@ -50,7 +51,7 @@ public class RaiseFront extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
 
@@ -62,7 +63,8 @@ public class RaiseFront extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.mainCompressor.setClosedLoopControl(true);
+        System.out.println("Compressor on");
     }
 
 
