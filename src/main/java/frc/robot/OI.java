@@ -48,8 +48,6 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     public Joystick ctrlDrive = new Joystick(0);
-    public Button intakeSpin = new JoystickButton(ctrlDrive,1);
-    public Button shootSpin = new JoystickButton(ctrlDrive, 2);
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
 
@@ -57,8 +55,12 @@ public class OI {
 
     public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
+
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
+    public Button intakeSpin = new JoystickButton(ctrlManip,5);
+    public Button shootSpin = new JoystickButton(ctrlManip, 6);
+
     public Button climb = new JoystickButton(ctrlManip, 7);
 
     // TODO: finish controls

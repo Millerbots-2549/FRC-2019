@@ -11,7 +11,7 @@ import frc.robot.RobotMap;
 import frc.robot.commands.HatchCommand;
 
 public class HatchSubsystem extends Subsystem {
-    // TODO: possible replace entire subsystem with a PID subsystem
+    //  possible replace entire subsystem with a PID subsystem
 
     private DoubleSolenoid solenoid;
     private WPI_TalonSRX motor;
@@ -24,7 +24,6 @@ public class HatchSubsystem extends Subsystem {
     public HatchSubsystem() {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
         solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
-
 
     }
 
@@ -49,7 +48,19 @@ public class HatchSubsystem extends Subsystem {
 
     public void driveSlide(double n) {
 
+
         SmartDashboard.putNumber("Hatch Motor", n*speed);
+
+//       if(getPos() >= encMax) {
+//            n = (n > 0 ? 0 : n);
+//            n = (1 - (getPos() / encMax)) * speed;
+//        }
+//        else if(getPos() <= encMin) {
+//            n = (n > 0 ? n : 0);
+//            n = (1 - (getPos() / encMin)) * speed;
+//        }
+
+
         motor.set(n*speed);
     }
 
@@ -57,8 +68,5 @@ public class HatchSubsystem extends Subsystem {
         return motor.getSelectedSensorPosition();
     }
 
-    public void getCurrent(){
-        System.out.print(Robot.pdp.getCurrent(14));
-    }
 }
 

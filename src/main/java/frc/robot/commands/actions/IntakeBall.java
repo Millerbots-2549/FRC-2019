@@ -6,6 +6,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Robot;
 
 import static frc.robot.Robot.intake;
+import static frc.robot.Robot.oi;
 
 
 public class IntakeBall extends Command {
@@ -31,8 +32,11 @@ public class IntakeBall extends Command {
      * scheduled to run until this Command either finishes or is canceled.
      */
     @Override
-    protected void execute() {
-        Robot.intake.spinIn();
+    protected void execute(){
+//        if(Robot.pdp.getCurrent(14) >= 10)
+//            intake.spinIn();
+//        else
+//            intake.spinStop();
     }
 
 
@@ -54,13 +58,11 @@ public class IntakeBall extends Command {
      */
     @Override
     protected boolean isFinished() {
-      if(Robot.oi.ctrlDrive.getRawButton(1)) {
-          return false;
-      }
-      else {
-          return true;
-      }
-      }
+        if(Robot.oi.ctrlManip.getRawButton(5))
+            return false;
+        else
+            return true;
+    }
 
 
 
@@ -73,7 +75,7 @@ public class IntakeBall extends Command {
     @Override
     protected void end() {
         intake.spinStop();
-        System.out.println("intake finsihed");
+        System.out.println("intake finidhed");
     }
 
 

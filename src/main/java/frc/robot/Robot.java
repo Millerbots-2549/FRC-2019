@@ -45,7 +45,7 @@ public class Robot extends TimedRobot {
     private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
     public static Compressor mainCompressor = new Compressor(0 );
-    public static PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+    //public static PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
     /**
      * This function is run when the robot is first started up and should be

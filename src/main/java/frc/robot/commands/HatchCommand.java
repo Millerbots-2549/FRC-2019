@@ -34,7 +34,7 @@ public class HatchCommand extends Command {
     @Override
     protected void execute() {
         //too far left
-        if(Robot.vision.getX() <= Robot.vision.camResX() / 2){
+        /*if(Robot.vision.getX() <= Robot.vision.camResX() / 2){
             hatchSpeed = -0.2;
         }
         //too far right
@@ -43,11 +43,11 @@ public class HatchCommand extends Command {
         }
         else {
             hatchSpeed = 0;
-        }
+        }*/
 
-        Robot.hatch.driveSlide(hatchSpeed);
+       // Robot.hatch.driveSlide(hatchSpeed);
 
-        if(Robot.oi.getAxisHatch() >= 0.1 && Robot.oi.getAxisHatch() <= -0.1)
+       // if(Robot.oi.getAxisHatch() >= 0.1 && Robot.oi.getAxisHatch() <= -0.1)
             Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
 
         SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());

@@ -34,7 +34,7 @@ public class ShootBall extends Command {
      */
     @Override
     protected void execute() {
-        Robot.intake.spinOut();
+
     }
 
 
@@ -56,12 +56,10 @@ public class ShootBall extends Command {
      */
     @Override
     protected boolean isFinished() {
-        if(Robot.oi.ctrlDrive.getRawButton(2)) {
+        if(Robot.oi.ctrlManip.getRawButton(6))
             return false;
-        }
-        else {
+        else
             return true;
-        }
     }
 
 
