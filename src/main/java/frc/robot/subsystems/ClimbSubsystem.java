@@ -20,16 +20,7 @@ public class ClimbSubsystem extends Subsystem {
     @Override
 
     public void initDefaultCommand() {
-        //setDefaultCommand(new Climb());
-        // ^^ THIS WAS THE PROBLEM WITH DRIVING
-        // we dont need a default command, because there is nothing that
-        // needs to be constantly updated
-        // and since Climb() WOULD be the default command, it cant be
-        // because its a CommandGroup, not a normal command
-        // like the other subsystems have as default.
-        // and in the climb command group, it was constantly running
-        // the drivestraght command, which took priority over the normal
-        // drive command
+
     }
 
     public void extendFront(){

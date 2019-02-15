@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
+import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.HatchSubsystem;
@@ -129,6 +130,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+
     }
 
     @Override
@@ -145,6 +147,7 @@ public class Robot extends TimedRobot {
     /**
      * This function is called periodically during operator control.
      */
+
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();

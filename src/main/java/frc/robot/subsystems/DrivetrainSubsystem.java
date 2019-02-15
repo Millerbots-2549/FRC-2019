@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveCommand;
 import edu.wpi.first.wpilibj.Encoder;
@@ -13,8 +14,8 @@ import edu.wpi.first.wpilibj.Encoder;
 public class DrivetrainSubsystem extends Subsystem {
 
     //Encoders
-    private Encoder odometerLeft;
-    private Encoder odometerRight;
+    private Encoder encoderLeft;
+    private Encoder encoderRight;
 
     // Motors
     private WPI_TalonSRX motorLeft0;
@@ -60,8 +61,8 @@ public class DrivetrainSubsystem extends Subsystem {
         m_reversed = false;
 
         // Encoder configuration
-        //odometerLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
-        //odometerRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
+        //encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
+        //encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
     }
 
     public void initDefaultCommand() {
@@ -81,12 +82,10 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Sensors
     public int getDistance(){
-         return 0;// return average distance from encoders, AKA encleft + encright / 2
+        return 0;//encoderLeft.get() + encoderRight.get() / 2;
     }
+         // returns average distance from encoders, AKA encleft + encright / 2
+}
     // TODO: gyro and accel
 
-//    public void setReverse(boolean n) {
-//        this.rev
-//    }
 
-}

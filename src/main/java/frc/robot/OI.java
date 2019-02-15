@@ -47,7 +47,7 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    private Joystick ctrlDrive = new Joystick(0);
+    public Joystick ctrlDrive = new Joystick(0);
     public Button intakeSpin = new JoystickButton(ctrlDrive,1);
     public Button shootSpin = new JoystickButton(ctrlDrive, 2);
     private int axis_drive = 1;
@@ -55,7 +55,7 @@ public class OI {
 
 
 
-    private Joystick ctrlManip = new Joystick(1);
+    public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
