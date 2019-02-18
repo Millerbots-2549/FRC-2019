@@ -51,7 +51,7 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     public Joystick ctrlDrive = new Joystick(0);
-    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
+    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 9);
     public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
 
     private int axis_drive = 1;
@@ -92,6 +92,10 @@ public class OI {
 
         // Smartdashboard controls
         SmartDashboard.putData("Compressor", new StopCompressor());
+
+        SmartDashboard.putData("Right Hatch setMax", new SetRightEncoderMax());
+        SmartDashboard.putData("Left Hatch setMax", new SetLeftEncoderMax());
+
     }
 
 

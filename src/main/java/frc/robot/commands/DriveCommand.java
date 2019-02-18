@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveCommand extends Command {
 
-    private double deadzone = 0.75;
+    private double deadzone = 0.1;
     private boolean turnInPlace = false;
     private double drive = 0;
     private double turn = 0;
@@ -29,17 +29,22 @@ public class DriveCommand extends Command {
     protected void execute() {
 
         drive = Robot.oi.getAxisDrive();
+        turn = Robot.oi.getAxisTurn();
 
-        if(Robot.oi.getAxisDrive() >= deadzone) {
+        if(Robot.oi.getAxisDrive() >= deadzone || Robot.oi.getAxisDrive() <= -deadzone) {
             turnInPlace = false;
             turn = Robot.oi.getAxisTurn();
         }
-        else if(Robot.oi.getAxisDrive() <= deadzone) {
+        else if(Robot.oi.getAxisDrive() <= deadzone && Robot.oi.getAxisDrive() >= -deadzone){
             turnInPlace = true;
-            turn = Robot.oi.getAxisTurnInPlace();
+            //turn = Robot.oi.getAxisTurnInPlace();
         }
 
-        Robot.drivetrain.driveCurve(drive, turn, turnInPlace);
+        //Robot.drivetrain.driveCurve(drive, turn, turnInPlace);
+        Robot.drivetrain.driveArcade(drive, turn);
+
+        SmartDashboard.putBoolean("turn in place", turnInPlace);
+        SmartDashboard.putNumber("drive axis", drive);
    }
 
 

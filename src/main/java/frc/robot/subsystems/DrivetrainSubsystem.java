@@ -79,16 +79,13 @@ public class DrivetrainSubsystem extends Subsystem {
         robotDrive.curvatureDrive(speed*m_speedMult, rotation, t);
     }
     public void setReverse(boolean reversed) {
-        if(reversed) m_speedMult = -1;
-        else if(!reversed) m_speedMult = 1;
+        if(reversed) m_speedMult = 1;
+        else if(!reversed) m_speedMult = -1;
     }
 
     // Sensors
     public int getDistance(){
         return 0;//encoderLeft.get() + encoderRight.get() / 2;
+        // returns average distance from encoders, AKA encleft + encright / 2
     }
-         // returns average distance from encoders, AKA encleft + encright / 2
 }
-    // TODO: gyro and accel
-
-

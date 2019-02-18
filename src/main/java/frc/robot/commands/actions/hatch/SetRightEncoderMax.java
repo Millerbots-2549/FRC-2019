@@ -1,29 +1,24 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class HatchCommand extends Command {
 
-    private double hatchSpeed = 0;
-
-    public HatchCommand() {
-        super(HatchCommand.class.getSimpleName());
-        requires(Robot.hatch);
-        requires(Robot.vision);
+public class SetRightEncoderMax extends Command {
+    public SetRightEncoderMax() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(Robot.hatch);
     }
 
-    @Override
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
+    @Override
     protected void initialize() {
-        System.out.println("Hatch system initialized");
+        Robot.hatch.setRightMax();
     }
 
 
@@ -33,45 +28,6 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
-//        if(Robot.vision.sensingHatch()) {
-//            //too far left
-//            if (Robot.vision.getX() <= Robot.vision.camResX() / 2) {
-//                hatchSpeed = -0.25;
-//            }
-//            //too far right
-//            else if (Robot.vision.getX() >= Robot.vision.camResX() / 2) {
-//                hatchSpeed = 0.25;
-//            } else {
-//                hatchSpeed = 0;
-//            }
-//        }
-
-        int x = (int)SmartDashboard.getNumber("hatch_cog_x", 160);
-        boolean b = SmartDashboard.getBoolean("hatch_sensing", false);
-        System.out.println(x);
-        System.out.println(b);
-
-        if(b) {
-            //too far left
-            if (x <= 320 / 2) {
-                hatchSpeed = -0.25;
-            }
-            //too far right
-            else if (x >= 320 / 2) {
-                hatchSpeed = 0.25;
-            } else {
-                hatchSpeed = 0;
-            }
-        }
-        else hatchSpeed = 0;
-
-        Robot.hatch.driveSlide(hatchSpeed);
-
-        if(Robot.oi.getAxisHatch() >= 0.05 || Robot.oi.getAxisHatch() <= -0.05)
-            Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
-
-        SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
-        SmartDashboard.putNumber("Hatch ", hatchSpeed);
 
     }
 
@@ -95,7 +51,8 @@ public class HatchCommand extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+        // Command no longer needs to run execute()
+        return true;
     }
 
 
@@ -107,7 +64,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void end() {
-        Robot.hatch.solenoidOff();
+
     }
 
 

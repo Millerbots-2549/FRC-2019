@@ -1,12 +1,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+
 import static frc.robot.Robot.vision;
 
 
 public class VisionCommand extends Command {
     public VisionCommand() {
-        requires(vision);
+        requires(Robot.vision);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -18,7 +20,7 @@ public class VisionCommand extends Command {
      */
     @Override
     protected void initialize() {
-
+        Robot.vision.setDefaults();
     }
 
 
