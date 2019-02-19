@@ -1,4 +1,4 @@
-package frc.robot.commands.actions.controls;
+package frc.robot.commands.actions.drive;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

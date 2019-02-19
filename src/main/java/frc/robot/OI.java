@@ -13,10 +13,10 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.actions.compressors.*;
-import frc.robot.commands.actions.controls.*;
+import frc.robot.commands.actions.drive.ReverseControls;
 import frc.robot.commands.actions.hatch.*;
 import frc.robot.commands.actions.intake.*;
-import frc.robot.commands.groups.Climb;
+import frc.robot.commands.actions.climb.Climb;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -60,22 +60,23 @@ public class OI {
 
     public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
-
+    public Button hatchVisionSearch = new JoystickButton(ctrlManip, 8); // TODO: cantallon srxc
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
-
     public Button climb = new JoystickButton(ctrlManip, 7);
 
-    // TODO: finish controls
 
     public OI() {
+
+        // TODO: Finish Controls
 
         reverseControlsBack.whenPressed(new ReverseControls(true));
         reverseControlsForward.whenPressed(new ReverseControls(false));
 
         hatchEject.whenPressed(new EjectHatch());
+        hatchVisionSearch.whileHeld(new SearchForTarget());
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());

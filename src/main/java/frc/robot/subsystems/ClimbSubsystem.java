@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.commands.groups.Climb;
 
 
 public class ClimbSubsystem extends Subsystem {
