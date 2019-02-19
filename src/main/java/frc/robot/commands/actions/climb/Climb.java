@@ -1,4 +1,4 @@
-package frc.robot.commands.groups;
+package frc.robot.commands.actions.climb;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.actions.climb.*;

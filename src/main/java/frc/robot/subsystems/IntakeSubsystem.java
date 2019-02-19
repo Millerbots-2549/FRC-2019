@@ -4,9 +4,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.actions.intake.IntakePeriodic;
 
 public class IntakeSubsystem extends Subsystem {
 
@@ -24,7 +23,7 @@ public class IntakeSubsystem extends Subsystem {
 
 
     public void initDefaultCommand() {
-        setDefaultCommand(new IntakeCommand());
+        setDefaultCommand(new IntakePeriodic());
     }
 
     public void raise(){

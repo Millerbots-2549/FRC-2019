@@ -1,27 +1,29 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.subsystems.IntakeSubsystem;
 
-import static frc.robot.Robot.intake;
+public class HatchPeriodic extends Command {
 
+    private double hatchSpeed = 0;
 
-public class IntakeCommand extends Command {
-    public IntakeCommand() {
+    public HatchPeriodic() {
+        super(HatchPeriodic.class.getSimpleName());
+        requires(Robot.hatch);
+        requires(Robot.vision);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
     }
 
+    @Override
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
-    @Override
     protected void initialize() {
-
+        System.out.println("Hatch system initialized");
     }
 
 
@@ -31,6 +33,12 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void execute() {
+        if(Robot.oi.getAxisHatch() >= 0.05 || Robot.oi.getAxisHatch() <= -0.05)
+            Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
+
+        SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
+        SmartDashboard.putNumber("Hatch ", hatchSpeed);
+
     }
 
 
@@ -65,7 +73,7 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.hatch.solenoidOff();
     }
 
 

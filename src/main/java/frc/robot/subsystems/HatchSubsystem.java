@@ -2,13 +2,11 @@ package frc.robot.subsystems;
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.HatchCommand;
+import frc.robot.commands.actions.hatch.HatchPeriodic;
 
 public class HatchSubsystem extends Subsystem {
     //  possible replace entire subsystem with a PID subsystem
@@ -26,10 +24,11 @@ public class HatchSubsystem extends Subsystem {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
         solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
 
+
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new HatchCommand());
+        setDefaultCommand(new HatchPeriodic());
     }
 
     public void extend() {
@@ -53,6 +52,8 @@ public class HatchSubsystem extends Subsystem {
         SmartDashboard.putNumber("Hatch Motor", n*speed);
         SmartDashboard.putNumber("Hatch Position", getPos());
 
+
+        // too far left too far right stops
         if(getPos() >= encMax) {
             n = (n > 0 ? 0 : n);
             //n = (1 - (getPos() / encMax)) * speed;
@@ -84,5 +85,8 @@ public class HatchSubsystem extends Subsystem {
         return motor.getSelectedSensorPosition();
     }
 
+    public void PID() {
+
+    }
 }
 

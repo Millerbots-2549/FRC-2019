@@ -1,16 +1,17 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-import static frc.robot.Robot.vision;
 
+public class SearchForTarget extends Command {
 
-public class VisionCommand extends Command {
-    public VisionCommand() {
-        requires(Robot.vision);
+    public SearchForTarget() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(Robot.hatch);
+//        requires(Robot.vision);
     }
 
 
@@ -20,7 +21,7 @@ public class VisionCommand extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.vision.setDefaults();
+        System.out.println("Searching for hatch target");
     }
 
 
@@ -30,7 +31,27 @@ public class VisionCommand extends Command {
      */
     @Override
     protected void execute() {
+        int target = Robot.vision.camResX()/2;
+        int actual = target;
+        boolean isNegative = false;
+        double error = 0;
 
+        if(Robot.vision.getX() < 160){
+            isNegative = false;
+            actual = Robot.vision.camResX() - Robot.vision.getX();
+        }
+        else if(Robot.vision.getX() > 160){
+            isNegative  = true;
+            actual = Robot.vision.getX();
+        }
+        else actual = 0;
+
+        if(isNegative) error = -(Math.abs(target - actual) / actual);
+        else error = Math.abs(target - actual) / actual;
+
+        if(SmartDashboard.getBoolean("hatch_sensing", false)) {
+            Robot.hatch.driveSlide(error);
+        }
     }
 
 
@@ -56,7 +77,6 @@ public class VisionCommand extends Command {
         // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
-
 
     /**
      * Called once when the command ended peacefully; that is it is called once

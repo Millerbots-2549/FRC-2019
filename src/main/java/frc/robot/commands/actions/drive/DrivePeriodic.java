@@ -1,20 +1,19 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.drive;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveCommand extends Command {
+public class DrivePeriodic extends Command {
 
     private double deadzone = 0.1;
     private boolean turnInPlace = false;
     private double drive = 0;
     private double turn = 0;
 
-    public DriveCommand() {
-       super (DriveCommand.class.getSimpleName());
+    public DrivePeriodic() {
+       super (DrivePeriodic.class.getSimpleName());
        requires(Robot.drivetrain);
     }
 
