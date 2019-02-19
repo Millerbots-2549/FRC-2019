@@ -11,6 +11,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.actions.compressors.*;
 import frc.robot.commands.actions.controls.*;
@@ -66,7 +67,7 @@ public class OI {
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
 
-    public Button climb = new JoystickButton(ctrlManip, 7);
+    public POVButton climb = new POVButton(ctrlManip, 0);
 
     // TODO: finish controls
 
