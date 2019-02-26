@@ -77,8 +77,8 @@ public class DrivetrainSubsystem extends Subsystem {
         robotDrive.curvatureDrive(speed*m_speedMult, rotation, t);
     }
     public void setReverse(boolean reversed) {
-        if(reversed) m_speedMult = 1;
-        else if(!reversed) m_speedMult = -1;
+        if(reversed) m_speedMult = -1;
+        else if(!reversed) m_speedMult = 1;
     }
 
     // Sensors

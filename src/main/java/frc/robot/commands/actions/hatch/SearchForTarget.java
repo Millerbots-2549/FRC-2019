@@ -52,6 +52,8 @@ public class SearchForTarget extends Command {
         if(SmartDashboard.getBoolean("hatch_sensing", false)) {
             Robot.hatch.driveSlide(error);
         }
+
+        System.out.println("jhhvhfxvjh");
     }
 
 

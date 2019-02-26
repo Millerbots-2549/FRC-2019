@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.actions.compressors.*;
-import frc.robot.commands.actions.controls.*;
+import frc.robot.commands.actions.drive.ReverseControls;
 import frc.robot.commands.actions.hatch.*;
 import frc.robot.commands.actions.intake.*;
-import frc.robot.commands.groups.Climb;
+import frc.robot.commands.actions.climb.Climb;
 
 
 /**
@@ -53,7 +53,7 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     public Joystick ctrlDrive = new Joystick(0);
-    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 9);
+    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
     public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
 
     private int axis_drive = 1;
@@ -62,7 +62,7 @@ public class OI {
 
     public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
-
+    public Button hatchVisionSearch = new JoystickButton(ctrlManip, 8); // TODO: cantallon srxc
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
@@ -70,14 +70,17 @@ public class OI {
 
     public POVButton climb = new POVButton(ctrlManip, 0);
 
-    // TODO: finish controls
+
 
     public OI() {
+
+        // TODO: Finish Controls
 
         reverseControlsBack.whenPressed(new ReverseControls(true));
         reverseControlsForward.whenPressed(new ReverseControls(false));
 
         hatchEject.whenPressed(new EjectHatch());
+        hatchVisionSearch.whileHeld(new SearchForTarget());
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());

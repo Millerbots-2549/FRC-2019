@@ -29,17 +29,20 @@ public class DrivePeriodic extends Command {
 
         drive = Robot.oi.getAxisDrive();
         turn = Robot.oi.getAxisTurn();
+//
+//        if(Robot.oi.getAxisDrive() >= deadzone || Robot.oi.getAxisDrive() <= -deadzone) {
+//            turnInPlace = false;
+//            turn = Robot.oi.getAxisTurn();
+//        }
+//        else if(Robot.oi.getAxisDrive() <= deadzone && Robot.oi.getAxisDrive() >= -deadzone){
+//            turnInPlace = true;
+//            turn = Robot.oi.getAxisTurnInPlace();
+//        }
 
-        if(Robot.oi.getAxisDrive() >= deadzone || Robot.oi.getAxisDrive() <= -deadzone) {
-            turnInPlace = false;
-            turn = Robot.oi.getAxisTurn();
-        }
-        else if(Robot.oi.getAxisDrive() <= deadzone && Robot.oi.getAxisDrive() >= -deadzone){
-            turnInPlace = true;
-            //turn = Robot.oi.getAxisTurnInPlace();
-        }
-
+        // curve
         //Robot.drivetrain.driveCurve(drive, turn, turnInPlace);
+
+        // arcade
         Robot.drivetrain.driveArcade(drive, turn);
 
         SmartDashboard.putBoolean("turn in place", turnInPlace);

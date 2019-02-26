@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,8 +42,8 @@ public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-    public static Compressor mainCompressor = new Compressor(0 );
-    //public static PowerDistributionPanel pdp = new PowerDistributionPanel(0);
+    public static Compressor mainCompressor = new Compressor(5 );
+    public static PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
     /**
      * This function is run when the robot is first started up and should be
