@@ -4,7 +4,9 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.robot.RobotMap;
 import frc.robot.commands.actions.hatch.HatchPeriodic;
 
@@ -14,17 +16,15 @@ public class HatchSubsystem extends Subsystem {
     private DoubleSolenoid solenoid;
     private WPI_TalonSRX motor;
 
-    private double speed = 1;
-    private int encMax = 7500;
-    private int encMin = -7500;
-    private int encRange = encMax - encMin;
+    private double _speed = 1;
+    private int _encMax = 7500;
+    private int _encMin = -7500;
+    private int _encRange = _encMax - _encMin;
     private int encSlowMargin = 4000;
 
     public HatchSubsystem() {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
         solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
-
-
     }
 
     public void initDefaultCommand() {
@@ -47,38 +47,38 @@ public class HatchSubsystem extends Subsystem {
     }
 
     public void driveSlide(double n) {
-
-
-        SmartDashboard.putNumber("Hatch Motor", n*speed);
+        SmartDashboard.putNumber("Hatch Motor", n*_speed);
         SmartDashboard.putNumber("Hatch Position", getPos());
 
-
         // too far left too far right stops
-        if(getPos() >= encMax) {
+        if(getPos() >= _encMax) {
             n = (n > 0 ? 0 : n);
             //n = (1 - (getPos() / encMax)) * speed;
         }
-        else if(getPos() <= encMin) {
+        else if(getPos() <= _encMin) {
             n = (n > 0 ? n : 0);
             //n = (1 - (getPos() / encMin)) * speed;
         }
 
+        motor.set(ControlMode.PercentOutput, n*_speed);
+    }
 
-        motor.set(n*speed);
+    public void goToPosition(int position) {
+        motor.set(ControlMode.Position, position);
     }
 
     public void setRightMax() {
-        encMax = getPos();
-        encMin = encMax - encRange;
-        SmartDashboard.putNumber("Hatch Right Max", encMax);
-        SmartDashboard.putNumber("Hatch Left Max", encMin);
+        _encMax = getPos();
+        _encMin = _encMax - _encRange;
+        SmartDashboard.putNumber("Hatch Right Max", _encMax);
+        SmartDashboard.putNumber("Hatch Left Max", _encMin);
     }
 
     public void setLeftMax() {
-        encMin = getPos();
-        encMax = encMin + encRange;
-        SmartDashboard.putNumber("Hatch Left Max", encMin);
-        SmartDashboard.putNumber("Hatch Right Max", encMax);
+        _encMin = getPos();
+        _encMax = _encMin + _encRange;
+        SmartDashboard.putNumber("Hatch Left Max", _encMin);
+        SmartDashboard.putNumber("Hatch Right Max", _encMax);
     }
 
     public int getPos() {
