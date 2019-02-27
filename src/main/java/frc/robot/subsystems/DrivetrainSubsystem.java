@@ -38,6 +38,11 @@ public class DrivetrainSubsystem extends Subsystem {
         motorRight2 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_2);
         motorRight3 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_3);
 
+        motorLeft0.configFactoryDefault();
+        motorLeft1.configFactoryDefault();
+        motorRight2.configFactoryDefault();
+        motorRight3.configFactoryDefault();
+
         motorLeft0.setSafetyEnabled(true);
         motorLeft1.setSafetyEnabled(true);
         motorRight2.setSafetyEnabled(true);
@@ -47,8 +52,6 @@ public class DrivetrainSubsystem extends Subsystem {
         motorLeft1.setExpiration(.1);
         motorRight2.setExpiration(.1);
         motorRight3.setExpiration(.1);
-
-//        motorLeft0.se
 
         // Speed controller group configuration
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
