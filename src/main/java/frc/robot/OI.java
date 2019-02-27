@@ -103,7 +103,11 @@ public class OI {
 
     }
 
-
+    public void update() {
+        SmartDashboard.putNumber("Joy hatch", getAxisHatch());
+        SmartDashboard.putNumber("Joy drive", getAxisDrive());
+        SmartDashboard.putNumber("Joy turn", getAxisTurn());
+    }
 
     public Joystick getCtrlDrive() {
         return ctrlDrive;
@@ -125,7 +129,7 @@ public class OI {
 
     // Hatch
     public double getAxisHatch() {
-        return ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
+        return ctrlManip.getRawAxis(0);// - ctrlManip.getRawAxis(2);
     }
 
     // Climb

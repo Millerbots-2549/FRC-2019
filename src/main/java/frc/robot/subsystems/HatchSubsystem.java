@@ -60,7 +60,7 @@ public class HatchSubsystem extends Subsystem {
             //n = (1 - (getPos() / encMin)) * speed;
         }
 
-        motor.set(ControlMode.PercentOutput, n*_speed);
+        motor.set(n*_speed);
     }
 
     public void goToPosition(int position) {

@@ -33,9 +33,12 @@ public class HatchPeriodic extends Command {
      */
     @Override
     protected void execute() {
-        if(Robot.oi.getAxisHatch() >= 0.05 || Robot.oi.getAxisHatch() <= -0.05)
-            Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
+        double drive = Robot.oi.getAxisHatch();
 
+        if(drive <= 0.01 && drive >= -0.01)
+            drive = 0;
+
+        Robot.hatch.driveSlide(drive);
         SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
         SmartDashboard.putNumber("Hatch ", hatchSpeed);
 

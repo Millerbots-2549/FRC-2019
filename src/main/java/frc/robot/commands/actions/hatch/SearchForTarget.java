@@ -31,29 +31,29 @@ public class SearchForTarget extends Command {
      */
     @Override
     protected void execute() {
-        int target = Robot.vision.camResX()/2;
-        int actual = target;
-        boolean isNegative = false;
-        double error = 0;
-
-        if(Robot.vision.getX() < 160){
-            isNegative = false;
-            actual = Robot.vision.camResX() - Robot.vision.getX();
-        }
-        else if(Robot.vision.getX() > 160){
-            isNegative  = true;
-            actual = Robot.vision.getX();
-        }
-        else actual = 0;
-
-        if(isNegative) error = -(Math.abs(target - actual) / actual);
-        else error = Math.abs(target - actual) / actual;
-
-        if(SmartDashboard.getBoolean("hatch_sensing", false)) {
-            Robot.hatch.driveSlide(error);
-        }
-
-        System.out.println("jhhvhfxvjh");
+//        int target = Robot.vision.camResX()/2;
+//        int actual = target;
+//        boolean isNegative = false;
+//        double error = 0;
+//
+//        if(Robot.vision.getX() < 160){
+//            isNegative = false;
+//            actual = Robot.vision.camResX() - Robot.vision.getX();
+//        }
+//        else if(Robot.vision.getX() > 160){
+//            isNegative  = true;
+//            actual = Robot.vision.getX();
+//        }
+//        else actual = 0;
+//
+//        if(isNegative) error = -(Math.abs(target - actual) / actual);
+//        else error = Math.abs(target - actual) / actual;
+//
+//        if(SmartDashboard.getBoolean("hatch_sensing", false)) {
+//            Robot.hatch.driveSlide(error);
+//        }
+//
+//        System.out.println("jhhvhfxvjh");
     }
 
 
