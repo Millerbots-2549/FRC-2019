@@ -1,5 +1,6 @@
 package frc.robot.commands.actions.intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -10,6 +11,10 @@ import static frc.robot.Robot.oi;
 
 
 public class IntakeBall extends Command {
+
+    private boolean spinning = true;
+    private double thresh = 18;
+
     public IntakeBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -24,6 +29,8 @@ public class IntakeBall extends Command {
     @Override
     protected void initialize() {
         Robot.intake.spinIn();
+        Timer.delay(.225);
+        spinning = true;
     }
 
 
@@ -32,11 +39,13 @@ public class IntakeBall extends Command {
      * scheduled to run until this Command either finishes or is canceled.
      */
     @Override
-    protected void execute(){
-//        if(Robot.pdp.getCurrent(14) >= 10)
-//            intake.spinIn();
-//        else
-//            intake.spinStop();
+    protected void execute() {
+        if(Robot.pdp.getCurrent(13) > thresh && spinning) {
+            intake.spinStop();
+            spinning = false;
+        }
+        else if(Robot.pdp.getCurrent(13) <= thresh && spinning)
+            intake.spinIn();
     }
 
 
