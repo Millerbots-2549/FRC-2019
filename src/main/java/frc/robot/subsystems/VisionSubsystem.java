@@ -9,30 +9,27 @@ import frc.robot.commands.vision.VisionPeriodic;
 
 public class VisionSubsystem extends Subsystem {
 
-//    NetworkTableEntry xEntry;
-//    NetworkTableEntry yEntry;
-//    NetworkTableEntry zEntry;
-//    NetworkTableEntry resXEntry;
-//    NetworkTableEntry senseEntry;
-//
-//    private int resXDefault = 320;
+    private NetworkTableEntry tapeDetected,
+            cargoDetected,
+            tapeYaw,
+            cargoYaw,
+            videoTimestamp;
+
+    private NetworkTableInstance instance;
+    private NetworkTable chickenVision;
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public VisionSubsystem() {
-//        NetworkTableInstance inst = NetworkTableInstance.getDefault();
-//        NetworkTable table = inst.getTable("camera_values"); // todo: change key
-//        xEntry = table.getEntry("hatch_cog_x");
-//        yEntry = table.getEntry("hatch_cog_y");
-//        zEntry = table.getEntry("hatch_cog_z");
-//        resXEntry = table.getEntry("camera_width");
-//        senseEntry = table.getEntry("hatch_sensing");
-//
-//        xEntry.setDefaultNumber(0);
-//        yEntry.setDefaultNumber(0);
-//        zEntry.setDefaultNumber(0);
-//        resXEntry.setDefaultNumber(resXDefault);
-//        senseEntry.setDefaultBoolean(false);
+        instance = NetworkTableInstance.getDefault();
+        chickenVision = instance.getTable("ChickenVision");
+
+        tapeDetected = chickenVision.getEntry("tapeDetected");
+        cargoDetected = chickenVision.getEntry("cargoDetected");
+        tapeYaw = chickenVision.getEntry("tapeYaw");
+        cargoYaw = chickenVision.getEntry("cargoYaw");
+
+
     }
 
     public void initDefaultCommand() {

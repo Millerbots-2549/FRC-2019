@@ -14,6 +14,7 @@ public class ReverseControls extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
+        //requires(Robot.lights);
         m_reversed = reversed;
     }
 
@@ -27,6 +28,12 @@ public class ReverseControls extends Command {
     protected void initialize() {
         Robot.drivetrain.setReverse(m_reversed);
         System.out.println("ROBOT REVERSED");
+
+//        if(m_reversed)
+//            Robot.lights.fillBlue();
+//        else if(!m_reversed)
+//            Robot.lights.fillOrange();
+
     }
 
 

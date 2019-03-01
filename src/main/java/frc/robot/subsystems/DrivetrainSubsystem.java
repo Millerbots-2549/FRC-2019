@@ -38,10 +38,10 @@ public class DrivetrainSubsystem extends Subsystem {
         motorRight2 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_2);
         motorRight3 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_3);
 
-        motorLeft0.configFactoryDefault();
-        motorLeft1.configFactoryDefault();
-        motorRight2.configFactoryDefault();
-        motorRight3.configFactoryDefault();
+//        motorLeft0.configFactoryDefault();
+//        motorLeft1.configFactoryDefault();
+//        motorRight2.configFactoryDefault();
+//        motorRight3.configFactoryDefault();
 
         motorLeft0.setSafetyEnabled(true);
         motorLeft1.setSafetyEnabled(true);
@@ -84,6 +84,9 @@ public class DrivetrainSubsystem extends Subsystem {
     public void setReverse(boolean reversed) {
         if(reversed) m_speedMult = -1;
         else if(!reversed) m_speedMult = 1;
+    }
+    public boolean getReversed() {
+        return this.m_reversed;
     }
 
     // Sensors

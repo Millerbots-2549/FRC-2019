@@ -15,11 +15,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.HatchSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,12 +33,13 @@ public class Robot extends TimedRobot {
     public static IntakeSubsystem intake;
     public static ClimbSubsystem climb;
     public static VisionSubsystem vision;
+    public static LEDSubsystem lights;
     public static OI oi;
 
     private Command m_autonomousCommand;
     private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
-    public static Compressor mainCompressor = new Compressor(5 );
+    public static Compressor mainCompressor = new Compressor(0 );
     public static PowerDistributionPanel pdp = new PowerDistributionPanel(0);
 
     /**
@@ -57,13 +54,14 @@ public class Robot extends TimedRobot {
         climb = new ClimbSubsystem();
         oi = new OI();
         vision = new VisionSubsystem();
-
+        lights = new LEDSubsystem();
 
         // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", m_chooser);
 
-        CameraServer.getInstance().startAutomaticCapture();
+        //CameraServer.getInstance().startAutomaticCapture();
+        // cameras are now plugged into the raspberry pi
 
         mainCompressor.setClosedLoopControl(true);
     }
@@ -88,6 +86,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
+//        lights.setDisabled();
+        lights.makeRainbow();
     }
 
     @Override
@@ -141,6 +141,8 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+//        SmartDashboard.putNumber("amprage", pdp.getCurrent(13));
+
     }
 
     /**
@@ -150,6 +152,15 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+//        if (pdp.getCurrent(13) > SmartDashboard.getNumber("amprage" , pdp.getCurrent(13))){
+//            SmartDashboard.putNumber("amprage", pdp.getCurrent(13));
+//
+//        }
+
+        if(!drivetrain.getReversed())
+            lights.fillBlue();
+        else if(drivetrain.getReversed())
+            lights.fillOrange();
     }
 
     /**

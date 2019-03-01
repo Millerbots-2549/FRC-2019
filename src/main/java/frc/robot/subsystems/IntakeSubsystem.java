@@ -4,8 +4,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.actions.intake.IntakePeriodic;
+
+import static frc.robot.Robot.pdp;
 
 public class IntakeSubsystem extends Subsystem {
 
@@ -41,8 +44,15 @@ public class IntakeSubsystem extends Subsystem {
         System.out.println("Intake solenoid off");
     }
     public void spinIn() {
-        spinnySpark.set(1);
-
+        if(pdp.getCurrent(13) < 10){
+            spinnySpark.set(1);
+            System.out.println("running");
+        }
+        else
+        {
+            System.out.println("stopping");
+            spinnySpark.set(0);
+        }
     }
     public void spinOut(){
         spinnySpark.set(-1);

@@ -69,6 +69,7 @@ public class OI {
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
 
     public POVButton climb = new POVButton(ctrlManip, 0);
+    public POVButton climbDown;
 
 
 
@@ -80,7 +81,9 @@ public class OI {
         reverseControlsForward.whenPressed(new ReverseControls(false));
 
         hatchEject.whenPressed(new EjectHatch());
-        hatchVisionSearch.whileHeld(new SearchForTarget());
+
+        hatchVisionSearch.whenPressed(new SearchForTarget());
+
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());
@@ -129,7 +132,12 @@ public class OI {
 
     // Hatch
     public double getAxisHatch() {
-        return ctrlManip.getRawAxis(0);// - ctrlManip.getRawAxis(2);
+        double drive = ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
+        if(drive <= 0.1953125 && drive >= -0.1953125)
+            drive = 0;
+        return drive;
+
+
     }
 
     // Climb

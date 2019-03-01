@@ -22,6 +22,9 @@ public class SearchForTarget extends Command {
     @Override
     protected void initialize() {
         System.out.println("Searching for hatch target");
+
+
+
     }
 
 
@@ -54,6 +57,7 @@ public class SearchForTarget extends Command {
 //        }
 //
 //        System.out.println("jhhvhfxvjh");
+        Robot.hatch.goToPosition(0);
     }
 
 
