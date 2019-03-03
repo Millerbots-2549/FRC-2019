@@ -1,20 +1,19 @@
 package frc.robot.subsystems;
 
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
-import frc.robot.commands.DriveCommand;
+import frc.robot.commands.actions.drive.DrivePeriodic;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class DrivetrainSubsystem extends Subsystem {
 
     //Encoders
-    private Encoder odometerLeft;
-    private Encoder odometerRight;
+    private Encoder encoderLeft;
+    private Encoder encoderRight;
 
     // Motors
     private WPI_TalonSRX motorLeft0;
@@ -30,6 +29,7 @@ public class DrivetrainSubsystem extends Subsystem {
     private DifferentialDrive robotDrive;
 
     private boolean m_reversed;
+    private double m_speedMult;
 
     public DrivetrainSubsystem() {
         // TalonSRX configuration
@@ -37,6 +37,11 @@ public class DrivetrainSubsystem extends Subsystem {
         motorLeft1 = new WPI_TalonSRX(RobotMap.MOTOR_LEFT_1);
         motorRight2 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_2);
         motorRight3 = new WPI_TalonSRX(RobotMap.MOTOR_RIGHT_3);
+
+//        motorLeft0.configFactoryDefault();
+//        motorLeft1.configFactoryDefault();
+//        motorRight2.configFactoryDefault();
+//        motorRight3.configFactoryDefault();
 
         motorLeft0.setSafetyEnabled(true);
         motorLeft1.setSafetyEnabled(true);
@@ -58,31 +63,35 @@ public class DrivetrainSubsystem extends Subsystem {
         robotDrive = new DifferentialDrive(motorsLeft, motorsRight);
 
         m_reversed = false;
+        m_speedMult = 1;
 
         // Encoder configuration
-        //odometerLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
-        //odometerRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
+        //encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
+        //encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new DriveCommand());
+        setDefaultCommand(new DrivePeriodic());
     }
 
     // Motors
     public void driveArcade(double speed, double rotation) {
-        robotDrive.arcadeDrive(speed, rotation);
+        robotDrive.arcadeDrive(speed*m_speedMult, rotation);
     }
     public void driveCurve(double speed, double rotation, boolean t) {
-        robotDrive.curvatureDrive(speed, rotation, t);
+        robotDrive.curvatureDrive(speed*m_speedMult, rotation, t);
     }
     public void setReverse(boolean reversed) {
-        m_reversed = reversed;
+        if(reversed) m_speedMult = -1;
+        else if(!reversed) m_speedMult = 1;
+    }
+    public boolean getReversed() {
+        return this.m_reversed;
     }
 
     // Sensors
     public int getDistance(){
-         return 0;// return average distance from encoders, AKA encleft + encright / 2
+        return 0;//encoderLeft.get() + encoderRight.get() / 2;
+        // returns average distance from encoders, AKA encleft + encright / 2
     }
-    // TODO: gyro and accel
-
 }

@@ -1,14 +1,13 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.compressors;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class EjectHatch extends Command {
-    public EjectHatch() {
+public class StopCompressor extends Command {
+    public StopCompressor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.hatch);
     }
 
 
@@ -18,9 +17,8 @@ public class EjectHatch extends Command {
      */
     @Override
     protected void initialize() {
-        setTimeout(.5);
-        Robot.hatch.extend();
-        System.out.println("Hatch EJECTING");
+        Robot.mainCompressor.setClosedLoopControl(false);
+        System.out.println("Compressor off");
     }
 
 
@@ -53,7 +51,7 @@ public class EjectHatch extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
 
@@ -65,9 +63,8 @@ public class EjectHatch extends Command {
      */
     @Override
     protected void end() {
-        Robot.hatch.retract();
-        //Robot.hatch.solenoidOff();
-        System.out.print(" : DONE");
+        Robot.mainCompressor.setClosedLoopControl(true);
+        System.out.println("Compressor on");
     }
 
 

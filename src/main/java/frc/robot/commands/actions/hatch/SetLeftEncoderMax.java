@@ -1,13 +1,14 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RetractFront extends Command {
-    public RetractFront() {
+
+public class SetLeftEncoderMax extends Command {
+    public SetLeftEncoderMax() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires (Robot.climb);
+        requires(Robot.hatch);
     }
 
 
@@ -17,7 +18,7 @@ public class RetractFront extends Command {
      */
     @Override
     protected void initialize() {
-      Robot.climb.retractFront();
+        Robot.hatch.setLeftMax();
     }
 
 
@@ -50,7 +51,8 @@ public class RetractFront extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+
+        return true;
     }
 
 

@@ -1,26 +1,26 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class HatchCommand extends Command {
-    public HatchCommand() {
-        super(HatchCommand.class.getSimpleName());
-        requires(Robot.hatch);
-        requires(Robot.vision);
+
+public class EjectHatch extends Command {
+    public EjectHatch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(Robot.hatch);
     }
 
-    @Override
 
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
+    @Override
     protected void initialize() {
-        System.out.println("Hatch system initialized");
+        setTimeout(.5);
+        Robot.hatch.extend();
+        System.out.println("Hatch EJECTING");
     }
 
 
@@ -30,19 +30,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void execute() {
-        Robot.hatch.driveSlide(Robot.oi.getAxisHatch());
-        //too far left
-        if(Robot.vision.getX() <= Robot.vision.camResX() / 2){
-            Robot.hatch.driveSlide(-0.25);
-        }
-        //too far right
-        else if(Robot.vision.getX() >= Robot.vision.camResX() / 2){
-            Robot.hatch.driveSlide(0.25);
-        }
-        else{
-            Robot.hatch.driveSlide(0);
-        }
-        SmartDashboard.putNumber("Hatch Pos", Robot.hatch.getPos());
+
     }
 
 
@@ -65,7 +53,7 @@ public class HatchCommand extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
 
@@ -77,7 +65,9 @@ public class HatchCommand extends Command {
      */
     @Override
     protected void end() {
-        Robot.hatch.solenoidOff();
+        Robot.hatch.retract();
+        //Robot.hatch.solenoidOff();
+        System.out.print(" : DONE");
     }
 
 

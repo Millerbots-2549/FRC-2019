@@ -1,14 +1,13 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.compressors;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class LowerIntake extends Command {
-    public LowerIntake() {
+public class StartCompressor extends Command {
+    public StartCompressor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.intake);
     }
 
 
@@ -18,7 +17,8 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.lower();
+        Robot.mainCompressor.setClosedLoopControl(true);
+        System.out.println("Compressor on");
     }
 
 
@@ -51,7 +51,7 @@ public class LowerIntake extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
 
@@ -63,7 +63,8 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void end() {
-       // Robot.intake.solenoidOff();
+        Robot.mainCompressor.setClosedLoopControl(false);
+        System.out.println("Compressor off");
     }
 
 

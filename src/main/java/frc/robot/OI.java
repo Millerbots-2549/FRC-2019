@@ -11,9 +11,14 @@ package frc.robot;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.actions.*;
-import frc.robot.commands.groups.Climb;
+import frc.robot.commands.actions.compressors.*;
+import frc.robot.commands.actions.drive.ReverseControls;
+import frc.robot.commands.actions.hatch.*;
+import frc.robot.commands.actions.intake.*;
+import frc.robot.commands.actions.climb.Climb;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -47,25 +52,38 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
-    private Joystick ctrlDrive = new Joystick(0);
-    public Button intakeSpin = new JoystickButton(ctrlDrive,1);
-    public Button shootSpin = new JoystickButton(ctrlDrive, 2);
+    public Joystick ctrlDrive = new Joystick(0);
+    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
+    public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
+
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
+    private int axis_drive_turnInPlace = 2;
 
-
-
-    private Joystick ctrlManip = new Joystick(1);
+    public Joystick ctrlManip = new Joystick(1);
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
+    public Button hatchVisionSearch = new JoystickButton(ctrlManip, 8); // TODO: cantallon srxc
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
-    public Button climb = new JoystickButton(ctrlManip, 7);
+    public Button intakeSpin = new JoystickButton(ctrlManip,5);
+    public Button shootSpin = new JoystickButton(ctrlManip, 6);
 
-    // TODO: finish controls
+    public POVButton climb = new POVButton(ctrlManip, 0);
+    public POVButton climbDown;
+
+
 
     public OI() {
 
+        // TODO: Finish Controls
+
+        reverseControlsBack.whenPressed(new ReverseControls(true));
+        reverseControlsForward.whenPressed(new ReverseControls(false));
+
         hatchEject.whenPressed(new EjectHatch());
+
+        hatchVisionSearch.whenPressed(new SearchForTarget());
+
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());
@@ -82,9 +100,17 @@ public class OI {
 
         // Smartdashboard controls
         SmartDashboard.putData("Compressor", new StopCompressor());
+
+        SmartDashboard.putData("Right Hatch setMax", new SetRightEncoderMax());
+        SmartDashboard.putData("Left Hatch setMax", new SetLeftEncoderMax());
+
     }
 
-
+    public void update() {
+        SmartDashboard.putNumber("Joy hatch", getAxisHatch());
+        SmartDashboard.putNumber("Joy drive", getAxisDrive());
+        SmartDashboard.putNumber("Joy turn", getAxisTurn());
+    }
 
     public Joystick getCtrlDrive() {
         return ctrlDrive;
@@ -100,10 +126,18 @@ public class OI {
     public double getAxisTurn() {
         return ctrlDrive.getRawAxis(axis_drive_rotation);
     }
+    public double getAxisTurnInPlace() {
+        return ctrlDrive.getRawAxis(axis_drive_turnInPlace);
+    }
 
     // Hatch
     public double getAxisHatch() {
-        return ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
+        double drive = ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
+        if(drive <= 0.1953125 && drive >= -0.1953125)
+            drive = 0;
+        return drive;
+
+
     }
 
     // Climb

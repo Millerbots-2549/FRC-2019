@@ -1,14 +1,13 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
-import static frc.robot.Robot.vision;
+import frc.robot.Robot;
 
-
-public class VisionCommand extends Command {
-    public VisionCommand() {
-        requires(vision);
+public class RetractFront extends Command {
+    public RetractFront() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires (Robot.climb);
     }
 
 
@@ -18,7 +17,7 @@ public class VisionCommand extends Command {
      */
     @Override
     protected void initialize() {
-
+      Robot.climb.retractFront();
     }
 
 
@@ -51,7 +50,6 @@ public class VisionCommand extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 

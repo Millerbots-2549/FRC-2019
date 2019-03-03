@@ -1,16 +1,17 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.IntakeSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
-import static frc.robot.Robot.intake;
 
+public class SearchForTarget extends Command {
 
-public class IntakeCommand extends Command {
-    public IntakeCommand() {
+    public SearchForTarget() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
+        requires(Robot.hatch);
+//        requires(Robot.vision);
     }
 
 
@@ -20,6 +21,9 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void initialize() {
+        System.out.println("Searching for hatch target");
+
+
 
     }
 
@@ -30,7 +34,30 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void execute() {
-
+//        int target = Robot.vision.camResX()/2;
+//        int actual = target;
+//        boolean isNegative = false;
+//        double error = 0;
+//
+//        if(Robot.vision.getX() < 160){
+//            isNegative = false;
+//            actual = Robot.vision.camResX() - Robot.vision.getX();
+//        }
+//        else if(Robot.vision.getX() > 160){
+//            isNegative  = true;
+//            actual = Robot.vision.getX();
+//        }
+//        else actual = 0;
+//
+//        if(isNegative) error = -(Math.abs(target - actual) / actual);
+//        else error = Math.abs(target - actual) / actual;
+//
+//        if(SmartDashboard.getBoolean("hatch_sensing", false)) {
+//            Robot.hatch.driveSlide(error);
+//        }
+//
+//        System.out.println("jhhvhfxvjh");
+        Robot.hatch.goToPosition(0);
     }
 
 
@@ -53,9 +80,9 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected boolean isFinished() {
+        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
-
 
     /**
      * Called once when the command ended peacefully; that is it is called once

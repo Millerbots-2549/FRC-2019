@@ -1,18 +1,18 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.intake;
 
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class ReverseControls extends Command {
-    public ReverseControls() {
+import static frc.robot.Robot.intake;
+
+
+public class IntakePeriodic extends Command {
+    public IntakePeriodic() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.drivetrain);
+        requires(intake);
     }
-
 
 
     /**
@@ -21,8 +21,7 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.drivetrain.setReverse(true);
-        System.out.println("ROBOT FRONT: INTAKE");
+
     }
 
 
@@ -32,7 +31,6 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void execute() {
-
     }
 
 
@@ -67,8 +65,7 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void end() {
-        Robot.drivetrain.setReverse(false);
-        System.out.println("ROBOT FRONT: HATCH");
+
     }
 
 

@@ -1,4 +1,6 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.intake;
+
+
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
@@ -8,8 +10,8 @@ import frc.robot.Robot;
 import static frc.robot.Robot.intake;
 
 
-public class IntakeBall extends Command {
-    public IntakeBall() {
+public class ShootBall extends Command {
+    public ShootBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(intake);
@@ -22,7 +24,7 @@ public class IntakeBall extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.spinIn();
+        Robot.intake.spinOut();
     }
 
 
@@ -32,7 +34,7 @@ public class IntakeBall extends Command {
      */
     @Override
     protected void execute() {
-        Robot.intake.spinIn();
+
     }
 
 
@@ -54,13 +56,11 @@ public class IntakeBall extends Command {
      */
     @Override
     protected boolean isFinished() {
-      if(Robot.oi.ctrlDrive.getRawButton(1)) {
-          return false;
-      }
-      else {
-          return true;
-      }
-      }
+        if(Robot.oi.ctrlManip.getRawButton(6))
+            return false;
+        else
+            return true;
+    }
 
 
 
@@ -73,7 +73,7 @@ public class IntakeBall extends Command {
     @Override
     protected void end() {
         intake.spinStop();
-        System.out.println("intake finsihed");
+        System.out.println("shoot finsihed");
     }
 
 

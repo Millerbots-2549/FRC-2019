@@ -1,20 +1,14 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.subsystems.DrivetrainSubsystem;
 
 
-public class DriveStraight extends Command {
-
-    private double m_speed;
-
-    public DriveStraight(double speed) /*:)*/ {
-        requires(Robot.drivetrain);
+public class SetRightEncoderMax extends Command {
+    public SetRightEncoderMax() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        m_speed = speed;
-
+        requires(Robot.hatch);
     }
 
 
@@ -24,8 +18,7 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void initialize() {
-        setTimeout(8);
-        Robot.drivetrain.driveArcade(m_speed, 0);
+        Robot.hatch.setRightMax();
     }
 
 
@@ -34,8 +27,8 @@ public class DriveStraight extends Command {
      * scheduled to run until this Command either finishes or is canceled.
      */
     @Override
-    protected void execute(){
-        Robot.drivetrain.driveArcade(m_speed, 0);
+    protected void execute() {
+
     }
 
 
@@ -58,7 +51,8 @@ public class DriveStraight extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        // Command no longer needs to run execute()
+        return true;
     }
 
 
@@ -70,7 +64,6 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void end() {
-        Robot.drivetrain.driveArcade(0, 0);
 
     }
 
