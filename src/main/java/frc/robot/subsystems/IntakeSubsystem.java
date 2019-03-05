@@ -44,18 +44,10 @@ public class IntakeSubsystem extends Subsystem {
         System.out.println("Intake solenoid off");
     }
     public void spinIn() {
-        if(pdp.getCurrent(13) < 10){
-            spinnySpark.set(1);
-            System.out.println("running");
-        }
-        else
-        {
-            System.out.println("stopping");
-            spinnySpark.set(0);
-        }
+        spinnySpark.set(1);
     }
     public void spinOut(){
-        spinnySpark.set(-1);
+        spinnySpark.set(-.75);
     }
     public void spinStop(){
         spinnySpark.set(0);

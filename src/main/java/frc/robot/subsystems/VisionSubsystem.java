@@ -13,6 +13,7 @@ public class VisionSubsystem extends Subsystem {
             cargoDetected,
             tapeYaw,
             cargoYaw,
+            tapeWanted,
             videoTimestamp;
 
     private NetworkTableInstance instance;
@@ -24,11 +25,13 @@ public class VisionSubsystem extends Subsystem {
         instance = NetworkTableInstance.getDefault();
         chickenVision = instance.getTable("ChickenVision");
 
+        tapeWanted = chickenVision.getEntry("Tape");
         tapeDetected = chickenVision.getEntry("tapeDetected");
         cargoDetected = chickenVision.getEntry("cargoDetected");
         tapeYaw = chickenVision.getEntry("tapeYaw");
         cargoYaw = chickenVision.getEntry("cargoYaw");
 
+        tapeWanted.setBoolean(true);
 
     }
 
@@ -37,11 +40,15 @@ public class VisionSubsystem extends Subsystem {
 
     }
 
-    public int getX() {
+    public double getHatchX() {
+        return tapeYaw.getDouble(0);
 //        int x = 0;
 //        xEntry.setNumber(x);
 //        return (int)SmartDashboard.getNumber("hatch_cog_x", resXDefault/2);
-        return (int)SmartDashboard.getNumber("hatch_cog_x", camResX()/2);
+        //return (int)SmartDashboard.getNumber("hatch_cog_x", camResX()/2);
+    }
+    public double getCargoX() {
+        return cargoYaw.getDouble(0);
     }
     public int getY() {
 //        int y = 0;

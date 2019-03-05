@@ -17,19 +17,24 @@ public class HatchSubsystem extends Subsystem {
     private DoubleSolenoid solenoid;
     private WPI_TalonSRX motor;
 
-    private double _speed = 1;
-    private int _encMax = 7500;
-    private int _encMin = -7500;
-    private int _encRange = _encMax - _encMin;
-    private int encSlowMargin = 4000;
+    private double _speed = .5;
 
     public HatchSubsystem() {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
         solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
 
-        motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,
+        motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,
                 0,
                 30);
+
+        motor.config_kP(0, 0.1);
+
+        motor.setSelectedSensorPosition(0, 0, 30);
+
+        motor.configForwardSoftLimitEnable(true);
+        motor.configReverseSoftLimitEnable(true);
+        motor.configForwardSoftLimitThreshold(15000);
+        motor.configReverseSoftLimitThreshold(0);
     }
 
     public void initDefaultCommand() {
@@ -55,16 +60,6 @@ public class HatchSubsystem extends Subsystem {
         SmartDashboard.putNumber("Hatch Motor", n*_speed);
         SmartDashboard.putNumber("Hatch Position", getPos());
 
-        // too far left too far right stops
-        if(getPos() >= _encMax) {
-            n = (n > 0 ? 0 : n);
-            //n = (1 - (getPos() / encMax)) * speed;
-        }
-        else if(getPos() <= _encMin) {
-            n = (n > 0 ? n : 0);
-            //n = (1 - (getPos() / encMin)) * speed;
-        }
-
         motor.set(n*_speed);
     }
 
@@ -72,22 +67,31 @@ public class HatchSubsystem extends Subsystem {
         motor.set(ControlMode.Position, position);
     }
 
-    public void setRightMax() {
-        _encMax = getPos();
-        _encMin = _encMax - _encRange;
-        SmartDashboard.putNumber("Hatch Right Max", _encMax);
-        SmartDashboard.putNumber("Hatch Left Max", _encMin);
-    }
-
-    public void setLeftMax() {
-        _encMin = getPos();
-        _encMax = _encMin + _encRange;
-        SmartDashboard.putNumber("Hatch Left Max", _encMin);
-        SmartDashboard.putNumber("Hatch Right Max", _encMax);
-    }
-
     public int getPos() {
         return motor.getSelectedSensorPosition();
+    }
+
+    public void resetEncoder() {
+        motor.setSelectedSensorPosition(0, 0, 30);
+        motor.configForwardSoftLimitThreshold(15000);
+        motor.configReverseSoftLimitThreshold(0);
+    }
+
+    public void resetEncoder(boolean forward) {
+        if(forward) {
+            motor.setSelectedSensorPosition(15000, 0, 30);
+
+        }
+        else if(!forward) {
+            motor.setSelectedSensorPosition(0, 0, 30);
+
+        }
+        motor.configForwardSoftLimitThreshold(15000);
+        motor.configReverseSoftLimitThreshold(0);
+    }
+
+    public void stop() {
+        motor.stopMotor();
     }
 
     public void PID() {

@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
         // chooser.addOption("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", m_chooser);
 
-        //CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture();
         // cameras are now plugged into the raspberry pi
 
         mainCompressor.setClosedLoopControl(true);
@@ -108,6 +108,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+//        hatch.resetEncoder();
+
         m_autonomousCommand = m_chooser.getSelected();
 
         /*
@@ -134,6 +136,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+//        hatch.resetEncoder();
+
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove

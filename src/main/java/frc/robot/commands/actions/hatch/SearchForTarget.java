@@ -34,6 +34,13 @@ public class SearchForTarget extends Command {
      */
     @Override
     protected void execute() {
+
+        double error = 0 - Robot.vision.getHatchX();
+
+        Robot.hatch.driveSlide(0.08 * -error);
+
+        System.out.println(Robot.vision.getHatchX());
+
 //        int target = Robot.vision.camResX()/2;
 //        int actual = target;
 //        boolean isNegative = false;
@@ -57,7 +64,8 @@ public class SearchForTarget extends Command {
 //        }
 //
 //        System.out.println("jhhvhfxvjh");
-        Robot.hatch.goToPosition(0);
+        //System.out.println(Robot.vision.getCargoX());
+        //Robot.hatch.goToPosition();
     }
 
 
@@ -92,7 +100,7 @@ public class SearchForTarget extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.hatch.stop();
     }
 
 

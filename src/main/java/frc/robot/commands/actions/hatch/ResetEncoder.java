@@ -4,10 +4,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class SetLeftEncoderMax extends Command {
-    public SetLeftEncoderMax() {
+public class ResetEncoder extends Command {
+
+    private boolean _forward;
+
+    public ResetEncoder(boolean forward) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        _forward = forward;
         requires(Robot.hatch);
     }
 
@@ -18,7 +22,8 @@ public class SetLeftEncoderMax extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.hatch.setLeftMax();
+        System.out.println("Reset Hatch Encoder");
+        Robot.hatch.resetEncoder(_forward);
     }
 
 
@@ -51,7 +56,7 @@ public class SetLeftEncoderMax extends Command {
      */
     @Override
     protected boolean isFinished() {
-
+        // TODO: Make this return true when this Command no longer needs to run execute()
         return true;
     }
 

@@ -53,8 +53,8 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
 
     public Joystick ctrlDrive = new Joystick(0);
-    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
-    public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
+    public Button setHatchForward = new JoystickButton(ctrlDrive, 11);
+    public Button setIntakeForward = new JoystickButton(ctrlDrive, 10);
 
     private int axis_drive = 1;
     private int axis_drive_rotation = 0;
@@ -68,6 +68,8 @@ public class OI {
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
 
+    public Button resetEncRight = new POVButton(ctrlManip, 2);
+    public Button resetEncLeft = new POVButton(ctrlManip, 6);
     public POVButton climb = new POVButton(ctrlManip, 0);
     public POVButton climbDown;
 
@@ -77,12 +79,15 @@ public class OI {
 
         // TODO: Finish Controls
 
-        reverseControlsBack.whenPressed(new ReverseControls(true));
-        reverseControlsForward.whenPressed(new ReverseControls(false));
+        setHatchForward.whenPressed(new ReverseControls(true));
+        setIntakeForward.whenPressed(new ReverseControls(false));
+
+        resetEncLeft.whenPressed(new ResetEncoder(true));
+        resetEncRight.whenPressed(new ResetEncoder(false));
 
         hatchEject.whenPressed(new EjectHatch());
 
-        hatchVisionSearch.whenPressed(new SearchForTarget());
+        hatchVisionSearch.whileHeld(new SearchForTarget());
 
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
@@ -101,8 +106,8 @@ public class OI {
         // Smartdashboard controls
         SmartDashboard.putData("Compressor", new StopCompressor());
 
-        SmartDashboard.putData("Right Hatch setMax", new SetRightEncoderMax());
-        SmartDashboard.putData("Left Hatch setMax", new SetLeftEncoderMax());
+        //SmartDashboard.putData("Right Hatch setMax", new SetRightEncoderMax());
+        //SmartDashboard.putData("Left Hatch setMax", new SetLeftEncoderMax());
 
     }
 
@@ -136,8 +141,6 @@ public class OI {
         if(drive <= 0.1953125 && drive >= -0.1953125)
             drive = 0;
         return drive;
-
-
     }
 
     // Climb
