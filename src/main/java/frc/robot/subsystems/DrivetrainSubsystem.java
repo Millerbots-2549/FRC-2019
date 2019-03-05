@@ -28,8 +28,6 @@ public class DrivetrainSubsystem extends Subsystem {
     // Robot drive base
     private DifferentialDrive robotDrive;
 
-    private boolean m_reversed;
-    private double m_speedMult;
 
     public DrivetrainSubsystem() {
         // TalonSRX configuration
@@ -62,9 +60,6 @@ public class DrivetrainSubsystem extends Subsystem {
 
         robotDrive = new DifferentialDrive(motorsLeft, motorsRight);
 
-        m_reversed = false;
-        m_speedMult = 1;
-
         // Encoder configuration
         //encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
         //encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
@@ -76,17 +71,13 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Motors
     public void driveArcade(double speed, double rotation) {
-        robotDrive.arcadeDrive(speed*m_speedMult, rotation);
+        robotDrive.arcadeDrive(speed, rotation);
+    }
+    public void driveTank(double left, double right) {
+        robotDrive.tankDrive(left, right);
     }
     public void driveCurve(double speed, double rotation, boolean t) {
-        robotDrive.curvatureDrive(speed*m_speedMult, rotation, t);
-    }
-    public void setReverse(boolean reversed) {
-        if(reversed) m_speedMult = -1;
-        else if(!reversed) m_speedMult = 1;
-    }
-    public boolean getReversed() {
-        return this.m_reversed;
+        robotDrive.curvatureDrive(speed, rotation, t);
     }
 
     // Sensors

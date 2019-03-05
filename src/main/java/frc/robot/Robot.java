@@ -161,9 +161,9 @@ public class Robot extends TimedRobot {
 //
 //        }
 
-        if(!drivetrain.getReversed())
+        if(!oi.getDriveReversed())
             lights.fillBlue();
-        else if(drivetrain.getReversed())
+        else if(oi.getDriveReversed())
             lights.fillOrange();
     }
 
