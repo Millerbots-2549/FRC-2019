@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.actions.compressors.*;
+import frc.robot.commands.actions.drive.PrecisionMode;
 import frc.robot.commands.actions.drive.ReverseControls;
 import frc.robot.commands.actions.hatch.*;
 import frc.robot.commands.actions.intake.*;
@@ -52,43 +53,52 @@ public class OI {
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
 
+    // CONTROLLERS
     public Joystick ctrlDrive = new Joystick(0);
-    public Button setHatchForward = new JoystickButton(ctrlDrive, 11);
-    public Button setIntakeForward = new JoystickButton(ctrlDrive, 10);
-
-    private int axis_drive = 1;
-    private int axis_drive_rotation = 0;
-    private int axis_drive_turnInPlace = 2;
-
     public Joystick ctrlManip = new Joystick(1);
+
+
+    // BUTTONS
+    public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
+    public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
+    public Button driverControlsReversed = new JoystickButton(ctrlDrive, 7);
+    public Button driverPrecisionMode = new JoystickButton(ctrlDrive, 8);
+
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button hatchVisionSearch = new JoystickButton(ctrlManip, 8); // TODO: cantallon srxc
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
-
-    public Button resetEncRight = new POVButton(ctrlManip, 2);
-    public Button resetEncLeft = new POVButton(ctrlManip, 6);
     public POVButton climb = new POVButton(ctrlManip, 0);
     public POVButton climbDown;
 
+    // AXES
+    private int axis_drive = 1;
+    private int axis_drive_rotation = 4; // joy 0
+    private int axis_drive_turnInPlace = 2;
 
+    private int axis_hatch_slide_main = 3;
+    private int axis_hatch_slide_aux = 2;
+
+    // VARIABLES
+    private double drive_axis_speed = 1;
 
     public OI() {
 
         // TODO: Finish Controls
 
-        setHatchForward.whenPressed(new ReverseControls(true));
-        setIntakeForward.whenPressed(new ReverseControls(false));
+//        reverseControlsBack.whenPressed(new ReverseControls(true));
+//        reverseControlsForward.whenPressed(new ReverseControls(false));
 
-        resetEncLeft.whenPressed(new ResetEncoder(true));
-        resetEncRight.whenPressed(new ResetEncoder(false));
+        // DRIVE
+        driverControlsReversed.toggleWhenPressed(new ReverseControls());
+        driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
 
+        // MANIPULATOR
         hatchEject.whenPressed(new EjectHatch());
-
+        hatchEject.cancelWhenPressed(new SearchForTarget());
         hatchVisionSearch.whileHeld(new SearchForTarget());
-
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());
@@ -116,6 +126,14 @@ public class OI {
         SmartDashboard.putNumber("Joy drive", getAxisDrive());
         SmartDashboard.putNumber("Joy turn", getAxisTurn());
     }
+    public void drivePrecisionMode() { drive_axis_speed /= 2; }
+    public void driveNormalMode() { drive_axis_speed *= 2; }
+    public void reverseDrive() {
+        drive_axis_speed = -drive_axis_speed;
+    }
+    public boolean getDriveReversed() {
+        return (drive_axis_speed < 0);
+    }
 
     public Joystick getCtrlDrive() {
         return ctrlDrive;
@@ -126,18 +144,18 @@ public class OI {
 
     // Drivetrain
     public double getAxisDrive() {
-        return ctrlDrive.getRawAxis(axis_drive);
+        return ctrlDrive.getRawAxis(axis_drive) * drive_axis_speed;
     }
     public double getAxisTurn() {
-        return ctrlDrive.getRawAxis(axis_drive_rotation);
+        return ctrlDrive.getRawAxis(axis_drive_rotation) * Math.abs(drive_axis_speed);
     }
-    public double getAxisTurnInPlace() {
-        return ctrlDrive.getRawAxis(axis_drive_turnInPlace);
-    }
+//    public double getAxisTurnInPlace() {
+//        return ctrlDrive.getRawAxis(axis_drive_turnInPlace);
+//    }
 
     // Hatch
     public double getAxisHatch() {
-        double drive = ctrlManip.getRawAxis(3) - ctrlManip.getRawAxis(2);
+        double drive = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
         if(drive <= 0.1953125 && drive >= -0.1953125)
             drive = 0;
         return drive;

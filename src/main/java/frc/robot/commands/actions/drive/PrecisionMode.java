@@ -1,21 +1,15 @@
 package frc.robot.commands.actions.drive;
 
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
-public class ReverseControls extends Command {
 
-    private boolean m_reversed;
-
-    public ReverseControls() {
+public class PrecisionMode extends Command {
+    public PrecisionMode() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        //requires(Robot.drivetrain);
     }
-
 
 
     /**
@@ -24,16 +18,9 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void initialize() {
-        //Robot.drivetrain.setReverse(m_reversed);
-        System.out.println("ROBOT REVERSED");
+        System.out.println("PRECISION ON");
 
-//        if(m_reversed)
-//            Robot.lights.fillBlue();
-//        else if(!m_reversed)
-//            Robot.lights.fillOrange();
-
-        Robot.oi.reverseDrive();
-
+        Robot.oi.drivePrecisionMode();
     }
 
 
@@ -66,6 +53,7 @@ public class ReverseControls extends Command {
      */
     @Override
     protected boolean isFinished() {
+        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
@@ -78,8 +66,8 @@ public class ReverseControls extends Command {
      */
     @Override
     protected void end() {
-        Robot.oi.reverseDrive();
-        System.out.println("ROBOT NOT REVERSED");
+        Robot.oi.driveNormalMode();
+        System.out.println("PRECISION OFF");
     }
 
 

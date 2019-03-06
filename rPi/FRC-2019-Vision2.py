@@ -1,16 +1,3 @@
-#!/usr/bin/env python3
-#----------------------------------------------------------------------------
-# Copyright (c) 2018 FIRST. All Rights Reserved.
-# Open Source Software - may be modified and shared by FRC teams. The code
-# must be accompanied by the FIRST BSD license file in the root directory of
-# the project.
-
-# My 2019 license: use it as much as you want. Crediting is recommended because it lets me know that I am being useful.
-# Credit to Screaming Chickens 3997
-
-# This is meant to be used in conjuction with WPILib Raspberry Pi image: https://github.com/wpilibsuite/FRCVision-pi-gen
-#----------------------------------------------------------------------------
-
 import json
 import time
 import sys
@@ -23,44 +10,10 @@ import cv2
 import numpy as np
 from networktables import NetworkTables
 import math
-########### SET RESOLUTION TO 256x144 !!!! ############
-# actually i changed it to 320x180
-
 
 # import the necessary packages
 import datetime
 
-#Class to examine Frames per second of camera stream. Currently not used.
-class FPS:
-	def __init__(self):
-		# store the start time, end time, and total number of frames
-		# that were examined between the start and end intervals
-		self._start = None
-		self._end = None
-		self._numFrames = 0
-
-	def start(self):
-		# start the timer
-		self._start = datetime.datetime.now()
-		return self
-
-	def stop(self):
-		# stop the timer
-		self._end = datetime.datetime.now()
-
-	def update(self):
-		# increment the total number of frames examined during the
-		# start and end intervals
-		self._numFrames += 1
-
-	def elapsed(self):
-		# return the total number of seconds between the start and
-		# end interval
-		return (self._end - self._start).total_seconds()
-
-	def fps(self):
-		# compute the (approximate) frames per second
-		return self._numFrames / self.elapsed()
 #class that runs separate thread for showing video,
 class VideoShow:
     """
@@ -85,7 +38,7 @@ class VideoShow:
     def notifyError(self, error):
         self.outputStream.notifyError(error)
 
-# Class that runs a separate thread for reading  camera server also controlling exposure.
+# Class that runs a separate thread for reading camera server also controlling exposure.
 class WebcamVideoStream:
     def __init__(self, camera, cameraServer, frameWidth, frameHeight, name="WebcamVideoStream"):
         # initialize the video camera stream and read the first frame
@@ -226,127 +179,6 @@ def findTargets(frame, mask):
     # Shows the contours overlayed on the original video
     return image
 
-# Finds the balls from the masked image and displays them on original stream + network tables
-# def findCargo(frame, mask):
-#     # Finds contours
-#     _, contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_TC89_KCOS)
-#     # Take each frame
-#     # Gets the shape of video
-#     screenHeight, screenWidth, _ = frame.shape
-#     # Gets center of height and width
-#     centerX = (screenWidth / 2) - .5
-#     centerY = (screenHeight / 2) - .5
-#     # Copies frame and stores it in image
-#     image = frame.copy()
-#     # Processes the contours, takes in (contours, output_image, (centerOfImage)
-#     if len(contours) != 0:
-#         image = findBall(contours, image, centerX, centerY)
-#     # Shows the contours overlayed on the original video
-#     return image
-#
-#
-# # Draws Contours and finds center and yaw of orange ball
-# # centerX is center x coordinate of image
-# # centerY is center y coordinate of image
-# def findBall(contours, image, centerX, centerY):
-#     screenHeight, screenWidth, channels = image.shape
-#     #Seen vision targets (correct angle, adjacent to each other)
-#     cargo = []
-#
-#     if len(contours) > 0:
-#         #Sort contours by area size (biggest to smallest)
-#         cntsSorted = sorted(contours, key=lambda x: cv2.contourArea(x), reverse=True)
-#
-#         biggestCargo = []
-#         for cnt in cntsSorted:
-#             x, y, w, h = cv2.boundingRect(cnt)
-#             aspect_ratio = float(w) / h
-#             # Get moments of contour; mainly for centroid
-#             M = cv2.moments(cnt)
-#             # Get convex hull (bounding polygon on contour)
-#             hull = cv2.convexHull(cnt)
-#             # Calculate Contour area
-#             cntArea = cv2.contourArea(cnt)
-#             # Filters contours based off of size
-#             if (checkBall(cntArea, aspect_ratio)):
-#                 ### MOSTLY DRAWING CODE, BUT CALCULATES IMPORTANT INFO ###
-#                 # Gets the centeroids of contour
-#                 if M["m00"] != 0:
-#                     cx = int(M["m10"] / M["m00"])
-#                     cy = int(M["m01"] / M["m00"])
-#                 else:
-#                     cx, cy = 0, 0
-#                 if(len(biggestCargo) < 3):
-#
-#
-#                     ##### DRAWS CONTOUR######
-#                     # Gets rotated bounding rectangle of contour
-#                     rect = cv2.minAreaRect(cnt)
-#                     # Creates box around that rectangle
-#                     box = cv2.boxPoints(rect)
-#                     # Not exactly sure
-#                     box = np.int0(box)
-#                     # Draws rotated rectangle
-#                     cv2.drawContours(image, [box], 0, (23, 184, 80), 3)
-#
-#                     # Draws a vertical white line passing through center of contour
-#                     cv2.line(image, (cx, screenHeight), (cx, 0), (255, 255, 255))
-#                     # Draws a white circle at center of contour
-#                     cv2.circle(image, (cx, cy), 6, (255, 255, 255))
-#
-#                     # Draws the contours
-#                     cv2.drawContours(image, [cnt], 0, (23, 184, 80), 1)
-#
-#                     # Gets the (x, y) and radius of the enclosing circle of contour
-#                     (x, y), radius = cv2.minEnclosingCircle(cnt)
-#                     # Rounds center of enclosing circle
-#                     center = (int(x), int(y))
-#                     # Rounds radius of enclosning circle
-#                     radius = int(radius)
-#                     # Makes bounding rectangle of contour
-#                     rx, ry, rw, rh = cv2.boundingRect(cnt)
-#
-#                     # Draws countour of bounding rectangle and enclosing circle in green
-#                     cv2.rectangle(image, (rx, ry), (rx + rw, ry + rh), (23, 184, 80), 1)
-#
-#                     cv2.circle(image, center, radius, (23, 184, 80), 1)
-#
-#                     # Appends important info to array
-#                     if [cx, cy, cnt] not in biggestCargo:
-#                          biggestCargo.append([cx, cy, cnt])
-#
-#
-#
-#         # Check if there are cargo seen
-#         if (len(biggestCargo) > 0):
-#             #pushes that it sees cargo to network tables
-#             networkTable.putBoolean("cargoDetected", True)
-#
-#             # Sorts targets based on x coords to break any angle tie
-#             biggestCargo.sort(key=lambda x: math.fabs(x[0]))
-#             closestCargo = min(biggestCargo, key=lambda x: (math.fabs(x[0] - centerX)))
-#             xCoord = closestCargo[0]
-#             finalTarget = calculateYaw(xCoord, centerX, H_FOCAL_LENGTH)
-#             print("Yaw: " + str(finalTarget))
-#             networkTable.putString("Yaw", finalTarget)
-#             # Puts the yaw on screen
-#             # Draws yaw of target + line where center of target is
-#             cv2.putText(image, "Yaw: " + str(finalTarget), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
-#                         (255, 255, 255))
-#             cv2.line(image, (xCoord, screenHeight), (xCoord, 0), (255, 0, 0), 2)
-#
-#             currentAngleError = finalTarget
-#             #pushes cargo angle to network tables
-#             networkTable.putNumber("cargoYaw", currentAngleError)
-#
-#         else:
-#             #pushes that it doesn't see cargo to network tables
-#             networkTable.putBoolean("cargoDetected", False)
-#
-#         cv2.line(image, (round(centerX), screenHeight), (round(centerX), 0), (255, 255, 255), 2)
-#
-#         return image
-
 # Draws Contours and finds center and yaw of vision targets
 # centerX is center x coordinate of image
 # centerY is center y coordinate of image
@@ -428,7 +260,7 @@ def findTape(contours, image, centerX, centerY):
 
                     # Appends important info to array
                     if [cx, cy, rotation, cnt] not in biggestCnts:
-                         biggestCnts.append([cx, cy, rotation, cnt])
+                        biggestCnts.append([cx, cy, rotation, cnt])
 
 
         # Sorts array based on coordinates (leftmost to rightmost) to make sure contours are adjacent
@@ -492,10 +324,6 @@ def findTape(contours, image, centerX, centerY):
 # Checks if tape contours are worthy based off of contour area and (not currently) hull area
 def checkContours(cntSize, hullSize):
     return cntSize > (image_width / 6)
-
-# Checks if ball contours are worthy based off of contour area and (not currently) hull area
-def checkBall(cntSize, cntAspectRatio):
-    return (cntSize > (image_width / 2)) and (round(cntAspectRatio) == 1)
 
 #Forgot how exactly it works, but it works!
 def translateRotation(rotation, width, height):
@@ -711,7 +539,7 @@ if __name__ == "__main__":
     # Allocating new images is very expensive, always try to preallocate
     img = np.zeros(shape=(image_height, image_width, 3), dtype=np.uint8)
     #Start thread outputing stream
-    
+
     streamViewer = VideoShow(image_width,image_height, cameraServer, frame=img).start()
     #cap.autoExpose=True;
     tape = True
@@ -722,7 +550,7 @@ if __name__ == "__main__":
 
     # loop forever
     while True:
-        
+
         # Tell the CvSink to grab a frame from the camera and put it
         # in the source image.  If there is an error notify the output.
         timestamp, img = cap.read()
@@ -761,7 +589,7 @@ if __name__ == "__main__":
                 #processed = findCargo(frame, threshold)
         #Puts timestamp of camera on netowrk tables
         networkTable.putNumber("VideoTimestamp", timestamp)
-        
+
         # networkTable.putBoolean("Driver", False)
         streamViewer.frame = processed
         # update the FPS counter
@@ -773,4 +601,3 @@ if __name__ == "__main__":
     fps.stop()
     print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
     print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-	

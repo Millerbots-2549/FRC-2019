@@ -37,7 +37,7 @@ public class SearchForTarget extends Command {
 
         double error = 0 - Robot.vision.getHatchX();
 
-        Robot.hatch.driveSlide(0.08 * -error);
+        Robot.hatch.driveSlide(0.15 * -error);
 
         System.out.println(Robot.vision.getHatchX());
 
