@@ -97,6 +97,7 @@ public class OI {
 
         // MANIPULATOR
         hatchEject.whenPressed(new EjectHatch());
+        hatchEject.cancelWhenPressed(new SearchForTarget());
         hatchVisionSearch.whileHeld(new SearchForTarget());
         intakeRaise.whenPressed(new RaiseIntake());
         intakeLower.whenPressed(new LowerIntake());

@@ -751,6 +751,8 @@ if __name__ == "__main__":
                 boxBlur = blurImg(frame, green_blur)
                 threshold = threshold_video(lower_green, upper_green, boxBlur)
                 processed = findTargets(frame, threshold)
+
+                #networkTable.putNumber("tapeDistance", calculateDistance(34, 29, ))
             else:
                 # Checks if you just want camera for Cargo processing, by dent of everything else being false, true by default
                 cap.autoExpose = True
