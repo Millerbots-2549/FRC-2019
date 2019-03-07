@@ -7,10 +7,12 @@ import frc.robot.Robot;
 
 public class SearchForTarget extends Command {
 
+    double integral, previous_error, setpoint = 0;
+
     public SearchForTarget() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.hatch);
+        //requires(Robot.hatch);
 //        requires(Robot.vision);
     }
 
@@ -35,11 +37,12 @@ public class SearchForTarget extends Command {
     @Override
     protected void execute() {
 
-        double error = 0 - Robot.vision.getHatchX();
+        double error = -(0 - Robot.vision.getHatchX());
+        //integral += (-error*.02);
 
-        Robot.hatch.driveSlide(0.15 * -error);
+        Robot.hatch.driveSlide(0.125*error);// + 0.08*integral);
 
-        System.out.println(Robot.vision.getHatchX());
+        //System.out.println(Robot.vision.getHatchX());
 
 //        int target = Robot.vision.camResX()/2;
 //        int actual = target;

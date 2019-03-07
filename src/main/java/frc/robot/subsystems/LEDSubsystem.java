@@ -10,6 +10,7 @@ public class LEDSubsystem extends Subsystem {
     // here. Call these from Commands.
 
     private SerialPort arduino;
+    private boolean working;
 
 
     public void initDefaultCommand() {
@@ -18,24 +19,36 @@ public class LEDSubsystem extends Subsystem {
     }
 
     public LEDSubsystem() {
-        arduino = new SerialPort(9600, SerialPort.Port.kUSB);
+        try {
+            arduino = new SerialPort(9600, SerialPort.Port.kUSB);
+            working = true;
+        }
+        catch(Exception e) {
+            System.out.println("LEDS NOT WORKING " + e);
+            working = false;
+        }
         //arduino.writeString("a");
     }
 
     public void fillBlue() {
-        arduino.writeString("a");
+        write("a");
     }
 
     public void fillOrange() {
-        arduino.writeString("b");
+        write("b");
     }
 
     public void makeRainbow() {
-        arduino.writeString("c");
+        write("c");
     }
 
     public void setDisabled() {
-        arduino.writeString("d");
+        write("d");
+    }
+
+    private void write(String value) {
+        if(working)
+            arduino.writeString(value);
     }
 }
 

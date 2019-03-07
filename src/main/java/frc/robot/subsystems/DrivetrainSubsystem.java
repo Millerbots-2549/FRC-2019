@@ -46,10 +46,10 @@ public class DrivetrainSubsystem extends Subsystem {
         motorRight2.setSafetyEnabled(true);
         motorRight3.setSafetyEnabled(true);
 
-        motorLeft0.setExpiration(.1);
-        motorLeft1.setExpiration(.1);
-        motorRight2.setExpiration(.1);
-        motorRight3.setExpiration(.1);
+        motorLeft0.setExpiration(.2);
+        motorLeft1.setExpiration(.2);
+        motorRight2.setExpiration(.2);
+        motorRight3.setExpiration(.2);
 
         // Speed controller group configuration
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
