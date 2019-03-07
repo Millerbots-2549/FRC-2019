@@ -1,16 +1,13 @@
-package frc.robot.commands;
+package frc.robot.commands.actions.compressors;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.subsystems.IntakeSubsystem;
-
-import static frc.robot.Robot.intake;
+import frc.robot.Robot;
 
 
-public class IntakeCommand extends Command {
-    public IntakeCommand() {
+public class StartCompressor extends Command {
+    public StartCompressor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
     }
 
 
@@ -20,7 +17,8 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void initialize() {
-
+        Robot.mainCompressor.setClosedLoopControl(true);
+        System.out.println("Compressor on");
     }
 
 
@@ -53,7 +51,6 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
@@ -66,7 +63,8 @@ public class IntakeCommand extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.mainCompressor.setClosedLoopControl(false);
+        System.out.println("Compressor off");
     }
 
 

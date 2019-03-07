@@ -1,14 +1,18 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class LowerIntake extends Command {
-    public LowerIntake() {
+public class ResetEncoder extends Command {
+
+    private boolean _forward;
+
+    public ResetEncoder(boolean forward) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.intake);
+        _forward = forward;
+        requires(Robot.hatch);
     }
 
 
@@ -18,7 +22,8 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.lower();
+        System.out.println("Reset Hatch Encoder");
+        Robot.hatch.resetEncoder(_forward);
     }
 
 
@@ -64,7 +69,7 @@ public class LowerIntake extends Command {
      */
     @Override
     protected void end() {
-       // Robot.intake.solenoidOff();
+
     }
 
 

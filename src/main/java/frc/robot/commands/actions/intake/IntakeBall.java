@@ -1,13 +1,24 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.intake;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.OI;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Robot;
 
+import static frc.robot.Robot.intake;
+import static frc.robot.Robot.oi;
 
-public class StopCompressor extends Command {
-    public StopCompressor() {
+
+public class IntakeBall extends Command {
+
+    private boolean spinning = true;
+    private double thresh = 18;
+
+    public IntakeBall() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        requires(intake);
     }
 
 
@@ -17,8 +28,9 @@ public class StopCompressor extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.mainCompressor.setClosedLoopControl(false);
-        System.out.println("Compressor off");
+        Robot.intake.spinIn();
+        Timer.delay(.225);
+        spinning = true;
     }
 
 
@@ -28,7 +40,12 @@ public class StopCompressor extends Command {
      */
     @Override
     protected void execute() {
-
+        if(Robot.pdp.getCurrent(13) > thresh && spinning) {
+            intake.spinStop();
+            spinning = false;
+        }
+        else if(Robot.pdp.getCurrent(13) <= thresh && spinning)
+            intake.spinIn();
     }
 
 
@@ -43,17 +60,19 @@ public class StopCompressor extends Command {
      * Returning false will result in the command never ending automatically. It may still be
      * cancelled manually or interrupted by another command. Returning true will result in the
      * command executing once and finishing immediately. It is recommended to use
-     * {@link edu.wpi.first.wpilibj.command.InstantCommand} (added in 2017) for this.
+     * {@link } (added in 2017) for this.
      * </p>
      *
      * @return whether this command is finished.
-     * @see Command#isTimedOut() isTimedOut()
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
+        if(Robot.oi.ctrlManip.getRawButton(5))
+            return false;
+        else
+            return true;
     }
+
 
 
     /**
@@ -64,8 +83,8 @@ public class StopCompressor extends Command {
      */
     @Override
     protected void end() {
-        Robot.mainCompressor.setClosedLoopControl(true);
-        System.out.println("Compressor on");
+        intake.spinStop();
+        System.out.println("intake finidhed");
     }
 
 

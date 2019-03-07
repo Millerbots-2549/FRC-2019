@@ -1,13 +1,14 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.climb;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RetractBack extends Command {
-    public RetractBack() {
+
+public class RaiseBack extends Command {
+    public RaiseBack() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires (Robot.climb);
+        requires(Robot.climb);
     }
 
 
@@ -17,7 +18,8 @@ public class RetractBack extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.climb.retractBack();
+        System.out.println("Raised Back");
+        Robot.climb.extendBack();
     }
 
 
@@ -50,7 +52,6 @@ public class RetractBack extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
@@ -63,7 +64,8 @@ public class RetractBack extends Command {
      */
     @Override
     protected void end() {
-
+        System.out.println("Lowered back");
+        Robot.climb.retractBack();
     }
 
 

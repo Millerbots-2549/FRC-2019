@@ -1,14 +1,14 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class RaiseBack extends Command {
-    public RaiseBack() {
+public class EjectHatch extends Command {
+    public EjectHatch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.climb);
+        requires(Robot.hatch);
     }
 
 
@@ -18,7 +18,9 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.climb.extendBack();
+        setTimeout(.5);
+        Robot.hatch.extend();
+        System.out.println("Hatch EJECTING");
     }
 
 
@@ -51,8 +53,7 @@ public class RaiseBack extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
+        return isTimedOut();
     }
 
 
@@ -64,7 +65,9 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.hatch.retract();
+        //Robot.hatch.solenoidOff();
+        System.out.print(" : DONE");
     }
 
 

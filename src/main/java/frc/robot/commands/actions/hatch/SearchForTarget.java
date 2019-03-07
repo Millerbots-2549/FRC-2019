@@ -1,14 +1,19 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 
-public class RaiseIntake extends Command {
-    public RaiseIntake() {
+public class SearchForTarget extends Command {
+
+    double integral, previous_error, setpoint = 0;
+
+    public SearchForTarget() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.intake);
+        //requires(Robot.hatch);
+//        requires(Robot.vision);
     }
 
 
@@ -18,7 +23,10 @@ public class RaiseIntake extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.raise();
+        System.out.println("Searching for hatch target");
+
+
+
     }
 
 
@@ -29,6 +37,38 @@ public class RaiseIntake extends Command {
     @Override
     protected void execute() {
 
+        double error = -(0 - Robot.vision.getHatchX());
+        //integral += (-error*.02);
+
+        Robot.hatch.driveSlide(0.125*error);// + 0.08*integral);
+
+        //System.out.println(Robot.vision.getHatchX());
+
+//        int target = Robot.vision.camResX()/2;
+//        int actual = target;
+//        boolean isNegative = false;
+//        double error = 0;
+//
+//        if(Robot.vision.getX() < 160){
+//            isNegative = false;
+//            actual = Robot.vision.camResX() - Robot.vision.getX();
+//        }
+//        else if(Robot.vision.getX() > 160){
+//            isNegative  = true;
+//            actual = Robot.vision.getX();
+//        }
+//        else actual = 0;
+//
+//        if(isNegative) error = -(Math.abs(target - actual) / actual);
+//        else error = Math.abs(target - actual) / actual;
+//
+//        if(SmartDashboard.getBoolean("hatch_sensing", false)) {
+//            Robot.hatch.driveSlide(error);
+//        }
+//
+//        System.out.println("jhhvhfxvjh");
+        //System.out.println(Robot.vision.getCargoX());
+        //Robot.hatch.goToPosition();
     }
 
 
@@ -52,9 +92,8 @@ public class RaiseIntake extends Command {
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return true;
+        return false;
     }
-
 
     /**
      * Called once when the command ended peacefully; that is it is called once
@@ -64,7 +103,7 @@ public class RaiseIntake extends Command {
      */
     @Override
     protected void end() {
-        //Robot.intake.solenoidOff();
+        Robot.hatch.stop();
     }
 
 

@@ -1,14 +1,17 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.subsystems.IntakeSubsystem;
+
+import static frc.robot.Robot.intake;
 
 
-public class EjectHatch extends Command {
-    public EjectHatch() {
+public class IntakePeriodic extends Command {
+    public IntakePeriodic() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.hatch);
+        requires(intake);
     }
 
 
@@ -18,8 +21,7 @@ public class EjectHatch extends Command {
      */
     @Override
     protected void initialize() {
-        setTimeout(.5);
-        Robot.hatch.extend();
+
     }
 
 
@@ -29,7 +31,6 @@ public class EjectHatch extends Command {
      */
     @Override
     protected void execute() {
-
     }
 
 
@@ -52,7 +53,7 @@ public class EjectHatch extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return false;
     }
 
 
@@ -64,8 +65,7 @@ public class EjectHatch extends Command {
      */
     @Override
     protected void end() {
-        Robot.hatch.retract();
-        //Robot.hatch.solenoidOff();
+
     }
 
 

@@ -4,30 +4,41 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import frc.robot.RobotMap;
-import frc.robot.commands.HatchCommand;
+import frc.robot.commands.actions.hatch.HatchPeriodic;
 
 public class HatchSubsystem extends Subsystem {
-    // TODO: possible replace entire subsystem with a PID subsystem
+    //  possible replace entire subsystem with a PID subsystem
 
     private DoubleSolenoid solenoid;
     private WPI_TalonSRX motor;
 
-    private double speed = .75;
-    private int encMax = 10000;
-    private int encMin = -3000;
-    private int encSlowMargin = 4000;
+    private double _speed = .5;
 
     public HatchSubsystem() {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
         solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
 
+        motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,
+                0,
+                30);
 
+        motor.config_kP(0, 0.1);
+
+        motor.setSelectedSensorPosition(0, 0, 30);
+
+        motor.configForwardSoftLimitEnable(true);
+        motor.configReverseSoftLimitEnable(true);
+        motor.configForwardSoftLimitThreshold(15000);
+        motor.configReverseSoftLimitThreshold(0);
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new HatchCommand());
+        setDefaultCommand(new HatchPeriodic());
     }
 
     public void extend() {
@@ -46,35 +57,45 @@ public class HatchSubsystem extends Subsystem {
     }
 
     public void driveSlide(double n) {
+        SmartDashboard.putNumber("Hatch Motor", n*_speed);
+        SmartDashboard.putNumber("Hatch Position", getPos());
 
-//        if(getPos() >= encMax) {
-//            n = (n > 0 ? 0 : n);
-//            //n = (1 - (getPos() / encMax)) * speed;
-//        }
-//        else if(getPos() <= encMin) {
-//            n = (n > 0 ? n : 0);
-//            //n = (1 - (getPos() / encMin)) * speed;
-//        }
+        motor.set(n*_speed);
+    }
 
-//        double r = (1 - (double)getPos() / (double)encMax);
-//        double l = ((double)getPos() / (double)encMin);
-
-//        if(getPos() >= encMax - encSlowMargin) {
-//            n = (n > 0 ? r : n);
-//        }
-//
-//        else if(getPos() <= encMin + encSlowMargin) {
-//            n = (n > 0 ? n : l);
-//        }
-
-//        SmartDashboard.putNumber("encmax", r);
-//        SmartDashboard.putNumber("encmin", l);
-        SmartDashboard.putNumber("Hatch Motor", n*speed);
-        motor.set(n*speed);
+    public void goToPosition(int position) {
+        motor.set(ControlMode.Position, position);
     }
 
     public int getPos() {
         return motor.getSelectedSensorPosition();
+    }
+
+    public void resetEncoder() {
+        motor.setSelectedSensorPosition(0, 0, 30);
+        motor.configForwardSoftLimitThreshold(15000);
+        motor.configReverseSoftLimitThreshold(0);
+    }
+
+    public void resetEncoder(boolean forward) {
+        if(forward) {
+            motor.setSelectedSensorPosition(15000, 0, 30);
+
+        }
+        else if(!forward) {
+            motor.setSelectedSensorPosition(0, 0, 30);
+
+        }
+        motor.configForwardSoftLimitThreshold(15000);
+        motor.configReverseSoftLimitThreshold(0);
+    }
+
+    public void stop() {
+        motor.stopMotor();
+    }
+
+    public void PID() {
+
     }
 }
 

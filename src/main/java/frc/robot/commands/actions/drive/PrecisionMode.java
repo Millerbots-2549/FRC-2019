@@ -1,20 +1,14 @@
-package frc.robot.commands.actions;
-
-
+package frc.robot.commands.actions.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.OI;
-import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.Robot;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
-import static frc.robot.Robot.intake;
 
-
-public class ShootBall extends Command {
-    public ShootBall() {
+public class PrecisionMode extends Command {
+    public PrecisionMode() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(intake);
     }
 
 
@@ -24,7 +18,9 @@ public class ShootBall extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.intake.spinOut();
+        System.out.println("PRECISION ON");
+
+        Robot.oi.drivePrecisionMode();
     }
 
 
@@ -34,7 +30,7 @@ public class ShootBall extends Command {
      */
     @Override
     protected void execute() {
-        Robot.intake.spinOut();
+
     }
 
 
@@ -49,21 +45,17 @@ public class ShootBall extends Command {
      * Returning false will result in the command never ending automatically. It may still be
      * cancelled manually or interrupted by another command. Returning true will result in the
      * command executing once and finishing immediately. It is recommended to use
-     * {@link } (added in 2017) for this.
+     * {@link edu.wpi.first.wpilibj.command.InstantCommand} (added in 2017) for this.
      * </p>
      *
      * @return whether this command is finished.
+     * @see Command#isTimedOut() isTimedOut()
      */
     @Override
     protected boolean isFinished() {
-        if(Robot.oi.ctrlDrive.getRawButton(2)) {
-            return false;
-        }
-        else {
-            return true;
-        }
+        // TODO: Make this return true when this Command no longer needs to run execute()
+        return false;
     }
-
 
 
     /**
@@ -74,8 +66,8 @@ public class ShootBall extends Command {
      */
     @Override
     protected void end() {
-        intake.spinStop();
-        System.out.println("shoot finsihed");
+        Robot.oi.driveNormalMode();
+        System.out.println("PRECISION OFF");
     }
 
 

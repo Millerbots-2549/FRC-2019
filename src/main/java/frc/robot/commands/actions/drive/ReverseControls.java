@@ -1,14 +1,21 @@
-package frc.robot.commands.actions;
+package frc.robot.commands.actions.drive;
 
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.Joystick;
 import frc.robot.Robot;
 
+public class ReverseControls extends Command {
 
-public class StartCompressor extends Command {
-    public StartCompressor() {
+    private boolean m_reversed;
+
+    public ReverseControls() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        //requires(Robot.drivetrain);
     }
+
 
 
     /**
@@ -17,8 +24,16 @@ public class StartCompressor extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.mainCompressor.setClosedLoopControl(true);
-        System.out.println("Compressor on");
+        //Robot.drivetrain.setReverse(m_reversed);
+        System.out.println("ROBOT REVERSED");
+
+//        if(m_reversed)
+//            Robot.lights.fillBlue();
+//        else if(!m_reversed)
+//            Robot.lights.fillOrange();
+
+        Robot.oi.reverseDrive();
+
     }
 
 
@@ -51,7 +66,6 @@ public class StartCompressor extends Command {
      */
     @Override
     protected boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
@@ -64,8 +78,8 @@ public class StartCompressor extends Command {
      */
     @Override
     protected void end() {
-        Robot.mainCompressor.setClosedLoopControl(false);
-        System.out.println("Compressor off");
+        Robot.oi.reverseDrive();
+        System.out.println("ROBOT NOT REVERSED");
     }
 
 
