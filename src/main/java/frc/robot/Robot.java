@@ -61,7 +61,6 @@ public class Robot extends TimedRobot {
         SmartDashboard.putData("Auto mode", m_chooser);
 
         CameraServer.getInstance().startAutomaticCapture();
-        // cameras are now plugged into the raspberry pi
 
         mainCompressor.setClosedLoopControl(true);
     }

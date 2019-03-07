@@ -170,15 +170,17 @@ verticalView = math.atan(math.tan(diagonalView/2) * (verticalAspect / diagonalAs
 H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
 V_FOCAL_LENGTH = image_height / (2*math.tan((verticalView/2)))
 #blurs have to be odd
-green_blur = 7
+green_blur = 1
 orange_blur = 27
 
 # define range of green of retroreflective tape in HSV
-lower_green = np.array([0,220,25])
-upper_green = np.array([101, 255, 255])
+lower_green = np.array([70, 128, 133])
+upper_green = np.array([120, 255, 255])
 #define range of orange from cargo ball in HSV
-lower_orange = np.array([0,193,92])
-upper_orange = np.array([23, 255, 255])
+lower_orange = np.array([70, 128, 133])
+upper_orange = np.array([120, 255, 255])
+#lower_orange = np.array([0,193,92])
+#upper_orange = np.array([23, 255, 255])
 
 #Flip image if camera mounted upside down
 def flipImage(frame):

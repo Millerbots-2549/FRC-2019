@@ -17,6 +17,7 @@ public class RaiseFront extends Command {
      */
     @Override
     protected void initialize() {
+        System.out.println("Raised front");
         Robot.climb.extendFront();
     }
 
@@ -50,7 +51,7 @@ public class RaiseFront extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
 
@@ -62,7 +63,8 @@ public class RaiseFront extends Command {
      */
     @Override
     protected void end() {
-
+        System.out.println("Lowered front");
+        Robot.climb.retractFront();
     }
 
 

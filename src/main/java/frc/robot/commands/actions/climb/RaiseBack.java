@@ -18,6 +18,7 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void initialize() {
+        System.out.println("Raised Back");
         Robot.climb.extendBack();
     }
 
@@ -63,7 +64,8 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void end() {
-
+        System.out.println("Lowered back");
+        Robot.climb.retractBack();
     }
 
 
