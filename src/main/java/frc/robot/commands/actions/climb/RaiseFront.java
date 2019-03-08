@@ -10,15 +10,15 @@ public class RaiseFront extends Command {
         requires(Robot.climb);
     }
 
-
     /**
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
     @Override
     protected void initialize() {
-        System.out.println("Raised front");
+        //System.out.println("Raised front");
         Robot.climb.extendFront();
+        setTimeout(1.25);
     }
 
 
@@ -51,7 +51,7 @@ public class RaiseFront extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
 
@@ -63,8 +63,8 @@ public class RaiseFront extends Command {
      */
     @Override
     protected void end() {
-        System.out.println("Lowered front");
-        Robot.climb.retractFront();
+        //System.out.println("Lowered front");
+        //Robot.climb.retractFront();
     }
 
 

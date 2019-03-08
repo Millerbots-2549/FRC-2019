@@ -13,14 +13,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.actions.climb.RaiseBack;
-import frc.robot.commands.actions.climb.RaiseFront;
+import frc.robot.commands.actions.climb.*;
 import frc.robot.commands.actions.compressors.*;
+import frc.robot.commands.actions.drive.DriveDrive;
+import frc.robot.commands.actions.drive.DriveStraight;
 import frc.robot.commands.actions.drive.PrecisionMode;
 import frc.robot.commands.actions.drive.ReverseControls;
 import frc.robot.commands.actions.hatch.*;
 import frc.robot.commands.actions.intake.*;
-import frc.robot.commands.actions.climb.Climb;
 
 
 /**
@@ -63,21 +63,24 @@ public class OI {
     // BUTTONS
     public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
     public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
-    public Button driverControlsReversed = new JoystickButton(ctrlDrive, 7);
-    public Button driverPrecisionMode = new JoystickButton(ctrlDrive, 8);
+    public Button driverControlsReversed = new JoystickButton(ctrlDrive, 6);
+    public Button driverPrecisionMode = new JoystickButton(ctrlDrive, 5);
+    public POVButton climbRear = new POVButton(ctrlDrive, 270);
+    public POVButton climbFront = new POVButton(ctrlDrive, 90);
+    public POVButton climb = new POVButton(ctrlDrive, 180);
+    public POVButton driveStraightForALittleBit = new POVButton(ctrlDrive, 0);
 
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
-    public Button climbFront = new JoystickButton(ctrlManip, 7);
-    public Button climbRear = new JoystickButton(ctrlManip, 8);
     public POVButton hatchVisionSearch = new POVButton(ctrlManip, 0); // when button 8 // TODO: cantallon srxc
     public POVButton resetEncoderMin = new POVButton(ctrlManip, 270);
     public POVButton resetEncoderMax = new POVButton(ctrlManip, 90);
-    public POVButton climb = new POVButton(ctrlManip, 0);
-    public POVButton climbDown;
+
+    //public POVButton climb = new POVButton(ctrlManip, 0);
+    //public POVButton climbDown;
 
     // AXES
     private int axis_drive = 1;
@@ -100,6 +103,10 @@ public class OI {
         // DRIVE
         driverControlsReversed.toggleWhenPressed(new ReverseControls());
         driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
+        climbFront.toggleWhenPressed(new ClimbFront());
+        climbRear.toggleWhenPressed(new ClimbRear());
+        climb.whenPressed(new Climb());
+        //driveStraightForALittleBit.whenPressed(new DriveDrive());
 
         // MANIPULATOR CONTROLLER
         hatchVisionSearch.whileHeld(new SearchForTarget());
@@ -109,8 +116,7 @@ public class OI {
         intakeLower.whenPressed(new LowerIntake());
         intakeSpin.whenPressed(new IntakeBall());
         shootSpin.whenPressed(new ShootBall());
-        climbFront.toggleWhenPressed(new RaiseFront());
-        climbRear.toggleWhenPressed(new RaiseBack());
+
         //climb.whenPressed(new Climb());
         resetEncoderMin.whenPressed(new ResetEncoder(false));
         resetEncoderMax.whenPressed(new ResetEncoder(true));

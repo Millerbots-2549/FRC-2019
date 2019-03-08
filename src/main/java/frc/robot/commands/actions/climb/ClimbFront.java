@@ -3,11 +3,12 @@ package frc.robot.commands.actions.climb;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RetractBack extends Command {
-    public RetractBack() {
+
+public class ClimbFront extends Command {
+    public ClimbFront() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires (Robot.climb);
+        requires(Robot.climb);
     }
 
 
@@ -17,8 +18,7 @@ public class RetractBack extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.climb.retractBack();
-        setTimeout(1.25);
+        Robot.climb.extendFront();
     }
 
 
@@ -51,7 +51,8 @@ public class RetractBack extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        // TODO: Make this return true when this Command no longer needs to run execute()
+        return false;
     }
 
 
@@ -63,7 +64,7 @@ public class RetractBack extends Command {
      */
     @Override
     protected void end() {
-
+        Robot.climb.retractFront();
     }
 
 

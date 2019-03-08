@@ -38,9 +38,11 @@ public class SearchForTarget extends Command {
     protected void execute() {
 
         double error = -(0 - Robot.vision.getHatchX());
-        //integral += (-error*.02);
+        integral += (error*.02);
+        if(Math.abs(error) < .001)
+            integral = 0;
 
-        Robot.hatch.driveSlide(0.125*error);// + 0.08*integral);
+        Robot.hatch.driveSlide(0.125*error);//0.08*integral);
 
         //System.out.println(Robot.vision.getHatchX());
 

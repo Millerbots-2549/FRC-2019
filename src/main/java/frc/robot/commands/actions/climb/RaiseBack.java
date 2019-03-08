@@ -18,8 +18,9 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void initialize() {
-        System.out.println("Raised Back");
+        //System.out.println("Raised Back");
         Robot.climb.extendBack();
+        setTimeout(1.25);
     }
 
 
@@ -52,7 +53,7 @@ public class RaiseBack extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
 
@@ -64,8 +65,8 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void end() {
-        System.out.println("Lowered back");
-        Robot.climb.retractBack();
+        //System.out.println("Lowered back");
+        //Robot.climb.retractBack();
     }
 
 
