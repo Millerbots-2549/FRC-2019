@@ -18,7 +18,7 @@ public class RetractBack extends Command {
     @Override
     protected void initialize() {
         Robot.climb.retractBack();
-        setTimeout(1);
+        setTimeout(1.25);
     }
 
 

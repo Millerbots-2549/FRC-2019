@@ -20,7 +20,7 @@ public class RaiseBack extends Command {
     protected void initialize() {
         //System.out.println("Raised Back");
         Robot.climb.extendBack();
-        setTimeout(1);
+        setTimeout(1.25);
     }
 
 

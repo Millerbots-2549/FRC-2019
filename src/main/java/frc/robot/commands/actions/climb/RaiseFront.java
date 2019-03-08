@@ -18,7 +18,7 @@ public class RaiseFront extends Command {
     protected void initialize() {
         //System.out.println("Raised front");
         Robot.climb.extendFront();
-        setTimeout(1);
+        setTimeout(1.25);
     }
 
 

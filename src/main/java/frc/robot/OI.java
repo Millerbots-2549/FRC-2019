@@ -63,8 +63,8 @@ public class OI {
     // BUTTONS
     public Button reverseControlsBack = new JoystickButton(ctrlDrive, 10);
     public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
-    public Button driverControlsReversed = new JoystickButton(ctrlDrive, 7);
-    public Button driverPrecisionMode = new JoystickButton(ctrlDrive, 8);
+    public Button driverControlsReversed = new JoystickButton(ctrlDrive, 6);
+    public Button driverPrecisionMode = new JoystickButton(ctrlDrive, 5);
     public POVButton climbRear = new POVButton(ctrlDrive, 270);
     public POVButton climbFront = new POVButton(ctrlDrive, 90);
     public POVButton climb = new POVButton(ctrlDrive, 180);
@@ -106,7 +106,7 @@ public class OI {
         climbFront.toggleWhenPressed(new ClimbFront());
         climbRear.toggleWhenPressed(new ClimbRear());
         climb.whenPressed(new Climb());
-        //driveStraightForALittleBit.whenPressed(new DriveStraight());
+        //driveStraightForALittleBit.whenPressed(new DriveDrive());
 
         // MANIPULATOR CONTROLLER
         hatchVisionSearch.whileHeld(new SearchForTarget());
