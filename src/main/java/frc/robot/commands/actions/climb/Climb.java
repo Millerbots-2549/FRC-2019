@@ -9,13 +9,12 @@ public class Climb extends CommandGroup {
 
     public Climb() {
         addSequential(new RaiseFront());
-        addSequential(new DriveStraight(0.25),1);
+        addSequential(new DriveStraight(0.4, 2));
         addSequential(new RetractFront());
-        addSequential(new DriveStraight(0.25), 2);
+        addSequential(new DriveStraight(0.4, 2));
         addSequential(new RaiseBack());
-        addSequential(new DriveStraight(0.25), 1);
+        addSequential(new DriveStraight(0.4, 2));
         addSequential(new RetractBack());
-        addSequential(new DriveStraight(0.25), 2);
-
+        addSequential(new DriveStraight(0.4, 2));
     }
 }

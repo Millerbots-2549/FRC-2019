@@ -18,6 +18,7 @@ public class RetractFront extends Command {
     @Override
     protected void initialize() {
       Robot.climb.retractFront();
+      setTimeout(1);
     }
 
 
@@ -50,7 +51,7 @@ public class RetractFront extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
 

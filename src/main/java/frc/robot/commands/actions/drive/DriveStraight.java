@@ -7,14 +7,20 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class DriveStraight extends Command {
 
-    private double m_speed;
+    private double m_speed, m_timeout;
 
     public DriveStraight(double speed) /*:)*/ {
         requires(Robot.drivetrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         m_speed = speed;
+        m_timeout = 8;
+    }
 
+    public DriveStraight(double speed, double timeout) {
+        requires(Robot.drivetrain);
+        m_speed = speed;
+        m_timeout = timeout;
     }
 
 
@@ -24,8 +30,7 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void initialize() {
-        setTimeout(8);
-        Robot.drivetrain.driveArcade(m_speed, 0);
+        setTimeout(m_timeout);
     }
 
 
@@ -35,7 +40,7 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void execute(){
-        Robot.drivetrain.driveArcade(m_speed, 0);
+        Robot.drivetrain.driveArcade(-m_speed, 0);
     }
 
 

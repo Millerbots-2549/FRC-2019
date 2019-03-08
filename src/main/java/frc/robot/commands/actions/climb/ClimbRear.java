@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class RaiseBack extends Command {
-    public RaiseBack() {
+public class ClimbRear extends Command {
+    public ClimbRear() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.climb);
@@ -18,9 +18,7 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void initialize() {
-        //System.out.println("Raised Back");
         Robot.climb.extendBack();
-        setTimeout(1);
     }
 
 
@@ -53,7 +51,8 @@ public class RaiseBack extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        // TODO: Make this return true when this Command no longer needs to run execute()
+        return false;
     }
 
 
@@ -65,8 +64,7 @@ public class RaiseBack extends Command {
      */
     @Override
     protected void end() {
-        //System.out.println("Lowered back");
-        //Robot.climb.retractBack();
+        Robot.climb.retractBack();
     }
 
 
