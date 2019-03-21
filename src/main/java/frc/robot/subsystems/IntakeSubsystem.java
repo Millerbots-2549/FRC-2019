@@ -4,11 +4,8 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.actions.intake.IntakePeriodic;
-
-import static frc.robot.Robot.pdp;
+import frc.robot.commands.intake.IntakePeriodic;
 
 public class IntakeSubsystem extends Subsystem {
 
@@ -47,7 +44,7 @@ public class IntakeSubsystem extends Subsystem {
         spinnySpark.set(1);
     }
     public void spinOut(){
-        spinnySpark.set(-.75);
+        spinnySpark.set(-.8);
     }
     public void spinStop(){
         spinnySpark.set(0);

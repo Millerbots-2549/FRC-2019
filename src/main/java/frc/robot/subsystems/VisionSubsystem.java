@@ -14,6 +14,7 @@ public class VisionSubsystem extends Subsystem {
             tapeYaw,
             cargoYaw,
             tapeWanted,
+            driverWanted,
             videoTimestamp;
 
     private NetworkTableInstance instance;
@@ -26,18 +27,29 @@ public class VisionSubsystem extends Subsystem {
         chickenVision = instance.getTable("ChickenVision");
 
         tapeWanted = chickenVision.getEntry("Tape");
+        driverWanted = chickenVision.getEntry("Driver");
         tapeDetected = chickenVision.getEntry("tapeDetected");
         cargoDetected = chickenVision.getEntry("cargoDetected");
         tapeYaw = chickenVision.getEntry("tapeYaw");
         cargoYaw = chickenVision.getEntry("cargoYaw");
 
         tapeWanted.setBoolean(true);
+        driverWanted.setBoolean(false);
 
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new VisionPeriodic());
+    }
 
+    public void trackingMode() {
+        tapeWanted.setBoolean(true);
+        driverWanted.setBoolean(false);
+    }
+
+    public void driverMode() {
+        tapeWanted.setBoolean(false);
+        driverWanted.setBoolean(true);
     }
 
     public double getHatchX() {

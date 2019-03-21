@@ -30,6 +30,7 @@ public class Robot extends TimedRobot {
 
     public static DrivetrainSubsystem drivetrain;
     public static HatchSubsystem hatch;
+    public static HatchPistonSubsystem hatchPistons;
     public static IntakeSubsystem intake;
     public static ClimbSubsystem climb;
     public static VisionSubsystem vision;
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         drivetrain = new DrivetrainSubsystem();
         hatch = new HatchSubsystem();
+        hatchPistons = new HatchPistonSubsystem();
         intake = new IntakeSubsystem();
         climb = new ClimbSubsystem();
         oi = new OI();
@@ -58,9 +60,9 @@ public class Robot extends TimedRobot {
 
         // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
         // chooser.addOption("My Auto", new MyAutoCommand());
-        SmartDashboard.putData("Auto mode", m_chooser);
+//        SmartDashboard.putData("Auto mode", m_chooser);
 
-        CameraServer.getInstance().startAutomaticCapture();
+        //CameraServer.getInstance().startAutomaticCapture();
 
         mainCompressor.setClosedLoopControl(true);
     }
@@ -86,7 +88,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
 //        lights.setDisabled();
-        lights.makeRainbow();
+        lights.setDisabled();
     }
 
     @Override
@@ -118,6 +120,8 @@ public class Robot extends TimedRobot {
          * autonomousCommand = new ExampleCommand(); break; }
          */
 
+        //lights.makeRainbow(); THIS BREAKS
+
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
             m_autonomousCommand.start();
@@ -144,6 +148,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
+        //lights.fillBlue(); THIS BREAKS
 //        SmartDashboard.putNumber("amprage", pdp.getCurrent(13));
 
     }

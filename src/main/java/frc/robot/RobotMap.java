@@ -24,6 +24,9 @@ public class RobotMap {
 
     //PWM
     public static final int INTAKE_SPARK = 0;
+    public static final int CLIMB_SPARK = 1;
+    public static final int INTAKE_SOL_REV = 3;;
+    public static final int CLIMB_WHEEL_SPARK = 2;
 
     //DIO
     public static final int[] ODOMETER_LEFT = {0, 1};
@@ -34,10 +37,15 @@ public class RobotMap {
     public static final int HATCH_SOL_REV = 1;
 
     public static final int INTAKE_SOL_FWD = 2;
-    public static final int INTAKE_SOL_REV = 3;
 
-    public static final int CLIMB_FRONT_SOL_FWD = 4;
-    public static final int CLIMB_FRONT_SOL_REV = 5;
-    public static final int CLIMB_BACK_SOL_FWD = 6;
-    public static final int CLIMB_BACK_SOL_REV = 7;
+        //lvl 3
+    public static final int CLIMB_SOL_FWD = 5;
+    public static final int CLIMB_SOL_REV = 4;
+
+
+        //lvl 2
+//    public static final int CLIMB_FRONT_SOL_FWD = 5;
+//    public static final int CLIMB_FRONT_SOL_REV = 4;
+//    public static final int CLIMB_BACK_SOL_FWD = 7;
+//    public static final int CLIMB_BACK_SOL_REV = 6;
 }

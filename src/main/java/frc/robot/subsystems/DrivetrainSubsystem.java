@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import frc.robot.RobotMap;
-import frc.robot.commands.actions.drive.DrivePeriodic;
+import frc.robot.commands.drive.DrivePeriodic;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class DrivetrainSubsystem extends Subsystem {

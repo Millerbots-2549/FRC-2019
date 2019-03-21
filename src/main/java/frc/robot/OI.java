@@ -13,14 +13,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.actions.climb.*;
-import frc.robot.commands.actions.compressors.*;
-import frc.robot.commands.actions.drive.DriveDrive;
-import frc.robot.commands.actions.drive.DriveStraight;
-import frc.robot.commands.actions.drive.PrecisionMode;
-import frc.robot.commands.actions.drive.ReverseControls;
-import frc.robot.commands.actions.hatch.*;
-import frc.robot.commands.actions.intake.*;
+import frc.robot.commands.climb.*;
+import frc.robot.commands.compressors.*;
+import frc.robot.commands.drive.PrecisionMode;
+import frc.robot.commands.drive.ReverseControls;
+import frc.robot.commands.hatch.*;
+import frc.robot.commands.intake.*;
+import frc.robot.commands.vision.SwitchVisionMode;
 
 
 /**
@@ -65,10 +64,21 @@ public class OI {
     public Button reverseControlsForward = new JoystickButton(ctrlDrive, 11);
     public Button driverControlsReversed = new JoystickButton(ctrlDrive, 6);
     public Button driverPrecisionMode = new JoystickButton(ctrlDrive, 5);
-    public POVButton climbRear = new POVButton(ctrlDrive, 270);
-    public POVButton climbFront = new POVButton(ctrlDrive, 90);
-    public POVButton climb = new POVButton(ctrlDrive, 180);
-    public POVButton driveStraightForALittleBit = new POVButton(ctrlDrive, 0);
+    public Button switchVisionMode = new JoystickButton(ctrlDrive, 7);
+
+    //lvl 3
+//    public POVButton climbPistonExtend = new POVButton(ctrlDrive, 270);
+//    public POVButton climbRaise = new POVButton(ctrlDrive, 90);
+//    public POVButton climbLower = new POVButton(ctrlDrive, 0);
+//    public POVButton climbPistonRetract = new POVButton(ctrlDrive, 180);
+    public POVButton climbEnable = new POVButton(ctrlDrive, 0);
+    public POVButton climbDriveEnable = new POVButton(ctrlDrive, 90);
+
+    //lvl2
+//    public POVButton climbRear = new POVButton(ctrlDrive, 270);
+//    public POVButton climbFront = new POVButton(ctrlDrive, 90);
+//    public POVButton climb = new POVButton(ctrlDrive, 0);
+//    public POVButton stopClimb = new POVButton(ctrlDrive, 180);
 
     public Button hatchEject = new JoystickButton(ctrlManip, 1);
     public Button intakeRaise = new JoystickButton(ctrlManip, 4);
@@ -86,6 +96,8 @@ public class OI {
     private int axis_drive = 1;
     private int axis_drive_rotation = 4; // joy 0
     private int axis_drive_turnInPlace = 2;
+    private int axis_climb_right = 3;
+    private int axis_climb_left = 2;
 
     private int axis_hatch_slide_main = 3;
     private int axis_hatch_slide_aux = 2;
@@ -103,9 +115,25 @@ public class OI {
         // DRIVE
         driverControlsReversed.toggleWhenPressed(new ReverseControls());
         driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
-        climbFront.toggleWhenPressed(new ClimbFront());
-        climbRear.toggleWhenPressed(new ClimbRear());
-        climb.whenPressed(new Climb());
+
+        //lvl 3 climb
+//        climbPistonExtend.whenPressed(new ExtendNoid());
+//        climbPistonRetract.whileHeld(new StallLift());//new RetractNoid());
+//        climbLower.whileHeld(new RetractLift());
+//        climbRaise.whileHeld(new ExtendLift());
+
+
+
+
+        //lvl 2 climb
+//        climbFront.toggleWhenPressed(new ClimbFront());
+//        climbRear.toggleWhenPressed(new ClimbRear());
+//        climb.whenPressed(new Climb());
+//        stopClimb.cancelWhenPressed(new Climb());
+
+
+
+        switchVisionMode.toggleWhenPressed(new SwitchVisionMode());
         //driveStraightForALittleBit.whenPressed(new DriveDrive());
 
         // MANIPULATOR CONTROLLER
@@ -122,7 +150,7 @@ public class OI {
         resetEncoderMax.whenPressed(new ResetEncoder(true));
 
         /*
-         * TODO: create actions and associated buttons
+         * old t o d o create actions and associated buttons
          * RaiseFront, RaiseRear,
          * RaiseIntake, LowerIntake,
          * IntakeBall, ShootBall,
@@ -141,6 +169,9 @@ public class OI {
         SmartDashboard.putNumber("Joy hatch", getAxisHatch());
         SmartDashboard.putNumber("Joy drive", getAxisDrive());
         SmartDashboard.putNumber("Joy turn", getAxisTurn());
+        SmartDashboard.putNumber("Climb Axes", getAxisClimb());
+        SmartDashboard.putBoolean("Climbing", climbEnable.get());
+        SmartDashboard.putBoolean("Climbing Forward", climbDriveEnable.get());
     }
 
     public void drivePrecisionMode() { drive_axis_speed *= .7; }
@@ -175,10 +206,13 @@ public class OI {
         double drive = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
         if(drive <= 0.1953125 && drive >= -0.1953125)
             drive = 0;
-        return drive;
+        return drive * .6;
     }
 
     // Climb
+    public double getAxisClimb() {
+        return ctrlDrive.getRawAxis(axis_climb_right) - ctrlDrive.getRawAxis(axis_climb_left);
+    }
 
 }
 

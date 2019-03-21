@@ -9,19 +9,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import frc.robot.RobotMap;
-import frc.robot.commands.actions.hatch.HatchPeriodic;
+import frc.robot.commands.hatch.HatchPeriodic;
 
 public class HatchSubsystem extends Subsystem {
     //  possible replace entire subsystem with a PID subsystem
 
-    private DoubleSolenoid solenoid;
+    //private DoubleSolenoid solenoid;
     private WPI_TalonSRX motor;
 
-    private double _speed = .5;
+//    private double _speed = .5;
 
     public HatchSubsystem() {
         motor = new WPI_TalonSRX(RobotMap.HATCH_MOTOR);
-        solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
+//        solenoid = new DoubleSolenoid(RobotMap.HATCH_SOL_FWD, RobotMap.HATCH_SOL_REV);
 
         motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative,
                 0,
@@ -41,26 +41,26 @@ public class HatchSubsystem extends Subsystem {
         setDefaultCommand(new HatchPeriodic());
     }
 
-    public void extend() {
-        solenoid.set(DoubleSolenoid.Value.kReverse);
-        System.out.println("Hatch extended");
-    }
-
-    public void retract() {
-        solenoid.set(DoubleSolenoid.Value.kForward);
-        System.out.println("Hatch retract");
-    }
-
-    public void solenoidOff() {
-        solenoid.set(DoubleSolenoid.Value.kOff);
-        System.out.println("Hatch solenoid off");
-    }
+//    public void extend() {
+//        solenoid.set(DoubleSolenoid.Value.kReverse);
+//        System.out.println("Hatch extended");
+//    }
+//
+//    public void retract() {
+//        solenoid.set(DoubleSolenoid.Value.kForward);
+//        System.out.println("Hatch retract");
+//    }
+//
+//    public void solenoidOff() {
+//        solenoid.set(DoubleSolenoid.Value.kOff);
+//        System.out.println("Hatch solenoid off");
+//    }
 
     public void driveSlide(double n) {
-        SmartDashboard.putNumber("Hatch Motor", n*_speed);
-        SmartDashboard.putNumber("Hatch Position", getPos());
+//        SmartDashboard.putNumber("Hatch Motor", n*_speed);
+//        SmartDashboard.putNumber("Hatch Position", getPos());
 
-        motor.set(n*_speed);
+        motor.set(n);
     }
 
     public void goToPosition(int position) {
