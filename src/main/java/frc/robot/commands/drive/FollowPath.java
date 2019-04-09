@@ -1,17 +1,12 @@
-package frc.robot.commands.climb;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import static frc.robot.Robot.oi;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 
 
-public class ClimbPeriodic extends Command {
-    public ClimbPeriodic() {
+public class FollowPath extends Command {
+    public FollowPath() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.climb);
     }
 
 
@@ -21,7 +16,7 @@ public class ClimbPeriodic extends Command {
      */
     @Override
     protected void initialize() {
-        System.out.println("Climb command initialized");
+
     }
 
 
@@ -31,13 +26,7 @@ public class ClimbPeriodic extends Command {
      */
     @Override
     protected void execute() {
-        if(oi.climbEnable.get()) {
-            Robot.climb.driveLift(oi.getAxisClimb());
-        }
-        if(oi.climbDriveEnable.get()) {
-            Robot.climb.driveWheels(oi.getAxisClimb());
-            //Robot.climb.stallLift();
-        }
+
     }
 
 

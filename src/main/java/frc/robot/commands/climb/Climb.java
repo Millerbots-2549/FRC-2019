@@ -7,12 +7,12 @@ import frc.robot.commands.drive.*;
 public class Climb extends CommandGroup {
     public Climb(){
         //climb sequence here
-        addSequential(new RetractLift());
-        addSequential(new ExtendNoid(), 3);
-        addParallel(new DriveStraight(0.7, 2));
-        addParallel(new ClimbDrive(), 5);
-        addSequential(new ExtendLift(), 3);
-        addSequential(new DriveStraight(0.7), 2);
+//        addSequential(new RetractLift());
+//        addSequential(new ExtendNoid(), 3);
+//        addParallel(new DriveStraight(0.7, 2));
+//        addParallel(new ClimbDrive(), 5);
+//        addSequential(new ExtendLift(), 3);
+//        addSequential(new DriveStraight(0.7), 2);
 
 
 

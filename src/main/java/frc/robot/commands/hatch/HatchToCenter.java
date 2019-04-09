@@ -1,11 +1,11 @@
-package frc.robot.commands.climb;
+package frc.robot.commands.hatch;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 
-public class StallLift extends Command {
-    public StallLift() {
+public class HatchToCenter extends Command {
+    public HatchToCenter() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -17,6 +17,7 @@ public class StallLift extends Command {
      */
     @Override
     protected void initialize() {
+
     }
 
 
@@ -26,7 +27,7 @@ public class StallLift extends Command {
      */
     @Override
     protected void execute() {
-        Robot.climb.stallLift();
+        Robot.hatch.goToCenter();
     }
 
 
@@ -62,7 +63,7 @@ public class StallLift extends Command {
      */
     @Override
     protected void end() {
-        Robot.climb.stopLift();
+
     }
 
 

@@ -71,12 +71,12 @@ public class OI {
 //    public POVButton climbRaise = new POVButton(ctrlDrive, 90);
 //    public POVButton climbLower = new POVButton(ctrlDrive, 0);
 //    public POVButton climbPistonRetract = new POVButton(ctrlDrive, 180);
-    public POVButton climbEnable = new POVButton(ctrlDrive, 0);
-    public POVButton climbDriveEnable = new POVButton(ctrlDrive, 90);
+//    public POVButton climbEnable = new POVButton(ctrlDrive, 0);
+//    public POVButton climbDriveEnable = new POVButton(ctrlDrive, 90);
 
     //lvl2
-//    public POVButton climbRear = new POVButton(ctrlDrive, 270);
-//    public POVButton climbFront = new POVButton(ctrlDrive, 90);
+    public Button climbRear = new JoystickButton(ctrlDrive, 7);
+    public Button climbFront = new JoystickButton(ctrlDrive, 8);
 //    public POVButton climb = new POVButton(ctrlDrive, 0);
 //    public POVButton stopClimb = new POVButton(ctrlDrive, 180);
 
@@ -88,6 +88,7 @@ public class OI {
     public POVButton hatchVisionSearch = new POVButton(ctrlManip, 0); // when button 8 // TODO: cantallon srxc
     public POVButton resetEncoderMin = new POVButton(ctrlManip, 270);
     public POVButton resetEncoderMax = new POVButton(ctrlManip, 90);
+    public POVButton hatchToCenter = new POVButton(ctrlManip, 180);
 
     //public POVButton climb = new POVButton(ctrlManip, 0);
     //public POVButton climbDown;
@@ -126,8 +127,8 @@ public class OI {
 
 
         //lvl 2 climb
-//        climbFront.toggleWhenPressed(new ClimbFront());
-//        climbRear.toggleWhenPressed(new ClimbRear());
+        climbFront.toggleWhenPressed(new ClimbFront());
+        climbRear.toggleWhenPressed(new ClimbRear());
 //        climb.whenPressed(new Climb());
 //        stopClimb.cancelWhenPressed(new Climb());
 
@@ -138,6 +139,7 @@ public class OI {
 
         // MANIPULATOR CONTROLLER
         hatchVisionSearch.whileHeld(new SearchForTarget());
+        hatchToCenter.whileHeld(new HatchToCenter());
         hatchEject.cancelWhenPressed(new SearchForTarget());
         hatchEject.whenPressed(new EjectHatch());
         intakeRaise.whenPressed(new RaiseIntake());
@@ -170,8 +172,8 @@ public class OI {
         SmartDashboard.putNumber("Joy drive", getAxisDrive());
         SmartDashboard.putNumber("Joy turn", getAxisTurn());
         SmartDashboard.putNumber("Climb Axes", getAxisClimb());
-        SmartDashboard.putBoolean("Climbing", climbEnable.get());
-        SmartDashboard.putBoolean("Climbing Forward", climbDriveEnable.get());
+//        SmartDashboard.putBoolean("Climbing", climbEnable.get());
+//        SmartDashboard.putBoolean("Climbing Forward", climbDriveEnable.get());
     }
 
     public void drivePrecisionMode() { drive_axis_speed *= .7; }

@@ -31,7 +31,7 @@ public class ClimbDrive extends Command {
      */
     @Override
     protected void execute() {
-        climb.forward();
+        //climb.forward();
     }
 
 
@@ -67,7 +67,7 @@ public class ClimbDrive extends Command {
      */
     @Override
     protected void end() {
-        climb.stopWheels();
+        //climb.stopWheels();
     }
 
     /**

@@ -42,7 +42,7 @@ public class SearchForTarget extends Command {
         if(Math.abs(error) < .001)
             integral = 0;
 
-        Robot.hatch.driveSlide(0.08*error);//0.08*integral);
+        Robot.hatch.driveSlide(0.09*error);//0.08*integral);
 
         SmartDashboard.putNumber("Error", error);
         SmartDashboard.putNumber("Integral", integral);

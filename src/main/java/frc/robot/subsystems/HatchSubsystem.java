@@ -17,6 +17,9 @@ public class HatchSubsystem extends Subsystem {
     //private DoubleSolenoid solenoid;
     private WPI_TalonSRX motor;
 
+    private int encMax = 14500;
+    private int encMin = 500;
+
 //    private double _speed = .5;
 
     public HatchSubsystem() {
@@ -27,7 +30,8 @@ public class HatchSubsystem extends Subsystem {
                 0,
                 30);
 
-        motor.config_kP(0, 0.1);
+        motor.config_kP(0, 0.13);
+//        motor.config_kI(0, 0.001);
 
         motor.setSelectedSensorPosition(0, 0, 30);
 
@@ -67,27 +71,31 @@ public class HatchSubsystem extends Subsystem {
         motor.set(ControlMode.Position, position);
     }
 
+    public void goToCenter() {
+        this.goToPosition((encMax - encMin) / 2);
+    }
+
     public int getPos() {
         return motor.getSelectedSensorPosition();
     }
 
     public void resetEncoder() {
         motor.setSelectedSensorPosition(0, 0, 30);
-        motor.configForwardSoftLimitThreshold(15000);
-        motor.configReverseSoftLimitThreshold(0);
+        motor.configForwardSoftLimitThreshold(encMax);
+        motor.configReverseSoftLimitThreshold(encMin);
     }
 
     public void resetEncoder(boolean forward) {
         if(forward) {
-            motor.setSelectedSensorPosition(15000, 0, 30);
+            motor.setSelectedSensorPosition(encMax, 0, 30);
 
         }
         else if(!forward) {
-            motor.setSelectedSensorPosition(0, 0, 30);
+            motor.setSelectedSensorPosition(encMin, 0, 30);
 
         }
-        motor.configForwardSoftLimitThreshold(15000);
-        motor.configReverseSoftLimitThreshold(0);
+        motor.configForwardSoftLimitThreshold(encMax);
+        motor.configReverseSoftLimitThreshold(encMin);
     }
 
     public void stop() {

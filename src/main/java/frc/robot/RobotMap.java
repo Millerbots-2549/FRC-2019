@@ -39,13 +39,13 @@ public class RobotMap {
     public static final int INTAKE_SOL_FWD = 2;
 
         //lvl 3
-    public static final int CLIMB_SOL_FWD = 5;
-    public static final int CLIMB_SOL_REV = 4;
+//    public static final int CLIMB_SOL_FWD = 5;
+//    public static final int CLIMB_SOL_REV = 4;
 
 
         //lvl 2
-//    public static final int CLIMB_FRONT_SOL_FWD = 5;
-//    public static final int CLIMB_FRONT_SOL_REV = 4;
-//    public static final int CLIMB_BACK_SOL_FWD = 7;
-//    public static final int CLIMB_BACK_SOL_REV = 6;
+    public static final int CLIMB_FRONT_SOL_FWD = 5;
+    public static final int CLIMB_FRONT_SOL_REV = 4;
+    public static final int CLIMB_BACK_SOL_FWD = 7;
+    public static final int CLIMB_BACK_SOL_REV = 6;
 }

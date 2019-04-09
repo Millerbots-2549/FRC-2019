@@ -134,7 +134,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
-
     }
 
     @Override
@@ -165,10 +164,10 @@ public class Robot extends TimedRobot {
 //
 //        }
 
-        if(!oi.getDriveReversed())
-            lights.fillBlue();
-        else if(oi.getDriveReversed())
-            lights.fillOrange();
+//        if(!oi.getDriveReversed())
+//            lights.fillBlue();
+//        else if(oi.getDriveReversed())
+//            lights.fillOrange();
     }
 
     /**

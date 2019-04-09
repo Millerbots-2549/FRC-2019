@@ -173,7 +173,7 @@ green_blur = 1
 orange_blur = 27
 
 # define range of green of retroreflective tape in HSV
-lower_green = np.array([60,220,25])
+lower_green = np.array([60,115,100])
 upper_green = np.array([120, 255, 255])
 
 #define range of orange from cargo ball in HSV

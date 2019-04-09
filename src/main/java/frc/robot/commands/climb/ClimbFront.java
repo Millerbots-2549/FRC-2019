@@ -16,10 +16,10 @@ public class ClimbFront extends Command {
      * The initialize method is called just before the first time
      * this Command is run after being started.
      */
-//    @Override
-//    protected void initialize() {
-//        Robot.climb.extendFront();
-//    }
+    @Override
+    protected void initialize() {
+        Robot.climb.extendFront();
+    }
 
 
     /**
@@ -62,10 +62,10 @@ public class ClimbFront extends Command {
      * wrap up loose ends, like shutting off a motor that was being used in the
      * command.
      */
-//    @Override
-//    protected void end() {
-//        Robot.climb.retractFront();
-//    }
+    @Override
+    protected void end() {
+        Robot.climb.retractFront();
+    }
 
 
     /**
