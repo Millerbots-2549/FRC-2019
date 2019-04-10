@@ -80,6 +80,14 @@ public class DrivetrainSubsystem extends Subsystem {
         robotDrive.curvatureDrive(speed, rotation, t);
     }
 
+
+    public double getLeftSide() {
+        return this.motorsLeft.get();
+    }
+    public double getRightSide() {
+        return this.motorsRight.get();
+    }
+
     // Sensors
     public int getDistance(){
         return 0;//encoderLeft.get() + encoderRight.get() / 2;

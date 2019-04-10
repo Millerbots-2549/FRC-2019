@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.climb.*;
 import frc.robot.commands.compressors.*;
+import frc.robot.commands.drive.FollowPath;
 import frc.robot.commands.drive.PrecisionMode;
+import frc.robot.commands.drive.RecordPath;
 import frc.robot.commands.drive.ReverseControls;
 import frc.robot.commands.hatch.*;
 import frc.robot.commands.intake.*;
@@ -90,6 +92,10 @@ public class OI {
     public POVButton resetEncoderMax = new POVButton(ctrlManip, 90);
     public POVButton hatchToCenter = new POVButton(ctrlManip, 180);
 
+    // recording
+    public Button recordPath = new JoystickButton(ctrlDrive, 9);
+    public Button followPath = new JoystickButton(ctrlDrive, 10);
+
     //public POVButton climb = new POVButton(ctrlManip, 0);
     //public POVButton climbDown;
 
@@ -110,21 +116,13 @@ public class OI {
 
         // TODO: Finish Controls
 
-//        reverseControlsBack.whenPressed(new ReverseControls(true));
-//        reverseControlsForward.whenPressed(new ReverseControls(false));
-
         // DRIVE
         driverControlsReversed.toggleWhenPressed(new ReverseControls());
         driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
 
-        //lvl 3 climb
-//        climbPistonExtend.whenPressed(new ExtendNoid());
-//        climbPistonRetract.whileHeld(new StallLift());//new RetractNoid());
-//        climbLower.whileHeld(new RetractLift());
-//        climbRaise.whileHeld(new ExtendLift());
-
-
-
+        // recording paths
+        recordPath.toggleWhenPressed(new RecordPath());
+        followPath.toggleWhenPressed(new FollowPath());
 
         //lvl 2 climb
         climbFront.toggleWhenPressed(new ClimbFront());
@@ -132,9 +130,13 @@ public class OI {
 //        climb.whenPressed(new Climb());
 //        stopClimb.cancelWhenPressed(new Climb());
 
+        //lvl 3 climb
+//        climbPistonExtend.whenPressed(new ExtendNoid());
+//        climbPistonRetract.whileHeld(new StallLift());//new RetractNoid());
+//        climbLower.whileHeld(new RetractLift());
+//        climbRaise.whileHeld(new ExtendLift());
 
-
-        switchVisionMode.toggleWhenPressed(new SwitchVisionMode());
+        //switchVisionMode.toggleWhenPressed(new SwitchVisionMode());
         //driveStraightForALittleBit.whenPressed(new DriveDrive());
 
         // MANIPULATOR CONTROLLER

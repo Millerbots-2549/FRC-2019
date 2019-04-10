@@ -1,21 +1,20 @@
 package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.paths.Player;
+import frc.robot.paths.Recorder;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
+public class RecordPath extends Command {
 
-public class FollowPath extends Command {
+    Recorder recorder = null;
 
-    Player player = null;
-
-    public FollowPath() {
+    public RecordPath() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         try {
-            player = new Player();
-        } catch (FileNotFoundException  e) {
+            recorder = new Recorder();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -27,8 +26,12 @@ public class FollowPath extends Command {
      */
     @Override
     protected void initialize() {
-        if(player != null) {
-            player.play();
+        try {
+            if(recorder != null) {
+                recorder.record();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -75,9 +78,12 @@ public class FollowPath extends Command {
      */
     @Override
     protected void end() {
-        if(player != null)
-        {
-            player.end();
+        try {
+            if(recorder != null) {
+                recorder.end();
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 
