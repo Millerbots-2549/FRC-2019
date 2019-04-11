@@ -15,9 +15,7 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.climb.*;
 import frc.robot.commands.compressors.*;
-import frc.robot.commands.drive.FollowPath;
 import frc.robot.commands.drive.PrecisionMode;
-import frc.robot.commands.drive.RecordPath;
 import frc.robot.commands.drive.ReverseControls;
 import frc.robot.commands.hatch.*;
 import frc.robot.commands.intake.*;
@@ -92,10 +90,6 @@ public class OI {
     public POVButton resetEncoderMax = new POVButton(ctrlManip, 90);
     public POVButton hatchToCenter = new POVButton(ctrlManip, 180);
 
-    // recording
-    public Button recordPath = new JoystickButton(ctrlDrive, 9);
-    public Button followPath = new JoystickButton(ctrlDrive, 10);
-
     //public POVButton climb = new POVButton(ctrlManip, 0);
     //public POVButton climbDown;
 
@@ -119,10 +113,6 @@ public class OI {
         // DRIVE
         driverControlsReversed.toggleWhenPressed(new ReverseControls());
         driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
-
-        // recording paths
-        recordPath.toggleWhenPressed(new RecordPath());
-        followPath.toggleWhenPressed(new FollowPath());
 
         //lvl 2 climb
         climbFront.toggleWhenPressed(new ClimbFront());
