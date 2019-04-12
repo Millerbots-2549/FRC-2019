@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 
 import frc.robot.Robot;
+import frc.robot.subsystems.DrivetrainSubsystem;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.PathfinderFRC;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
+import jaci.pathfinder.modifiers.TankModifier;
 
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 
 public class DrivePath extends Command {
 
@@ -18,23 +21,26 @@ public class DrivePath extends Command {
 
     // TODO: measure these things
     // Path finding
-    private static final int k_tpr_left = 1024; // no idea
-    private static final int k_tpr_right = 1024; // no idea
+    private static final int k_tpr_left = 330; // no idea
+    private static final int k_tpr_right = 60; // no idea
     private static final double k_wheel_diameter = 0.1524; // 6 inches
-    private static final double k_max_velocity = 10; // no idea
+    private static final double k_wheel_base_width = 0.6096;
+    private static final double k_max_velocity = 1.0; // no idea
 
-    private static final String k_path_name = "path";
+    private String m_path_name;
 
     private EncoderFollower m_follower_left;
     private EncoderFollower m_follower_right;
-    private Notifier m_follower_notifier;
 
+    private TankModifier modifier;
     private Trajectory trajectory_left;
     private Trajectory trajectory_right;
 
-    public DrivePath() {
+    public DrivePath(Trajectory trajectory) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+//        m_path_name = path_name;
+        modifier = new TankModifier(trajectory).modify(k_wheel_base_width);
     }
 
 
@@ -44,44 +50,28 @@ public class DrivePath extends Command {
      */
     @Override
     protected void initialize() {
-        try {
-            trajectory_left = PathfinderFRC.getTrajectory(k_path_name + ".left");
-            trajectory_right = PathfinderFRC.getTrajectory(k_path_name + ".right");
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Path following initialized");
+//        try {
+//            trajectory_left = PathfinderFRC.getTrajectory(m_path_name + ".left");
+//            trajectory_right = PathfinderFRC.getTrajectory(m_path_name + ".right");
+//        }
+//        catch(IOException e) {
+//            e.printStackTrace();
+//        }
 
-        m_follower_left = new EncoderFollower(trajectory_left);
-        m_follower_right = new EncoderFollower(trajectory_right);
+//        m_follower_left = new EncoderFollower(trajectory_left);
+//        m_follower_right = new EncoderFollower(trajectory_right);
+
+        m_follower_left = new EncoderFollower(modifier.getLeftTrajectory());
+        m_follower_right = new EncoderFollower(modifier.getRightTrajectory());
 
         // configure
         m_follower_left.configureEncoder(Robot.drivetrain.getLeftEnc(), k_tpr_left, k_wheel_diameter);
         m_follower_right.configureEncoder(Robot.drivetrain.getRightEnc(), k_tpr_right, k_wheel_diameter);
 
         // TODO: configure PID valueeeeees
-        m_follower_left.configurePIDVA(0.0, 0.0, 0.0, 1 / k_max_velocity, 0);
-        m_follower_right.configurePIDVA(0.0, 0.0, 0.0, 1 / k_max_velocity, 0);
-
-        m_follower_notifier = new Notifier(this::followPath);
-        m_follower_notifier.startPeriodic(trajectory_left.get(0).dt);
-    }
-
-    private void followPath() {
-        if(m_follower_left.isFinished() || m_follower_right.isFinished()) {
-            m_follower_notifier.stop();
-        }
-        else {
-            double speed_left = m_follower_left.calculate(Robot.drivetrain.getLeftEnc());
-            double speed_right = m_follower_right.calculate(Robot.drivetrain.getRightEnc());
-
-            double heading = Robot.drivetrain.getHeading();
-            double desired_heading = Pathfinder.r2d(m_follower_left.getHeading());
-            double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
-            double turn = 0.8 * (-1.0/80.0) * heading_difference;
-
-            Robot.drivetrain.driveTank(speed_left + turn, speed_right - turn);
-        }
+        m_follower_left.configurePIDVA(0.5, 0.0, 0.0, 1 / k_max_velocity, 0);
+        m_follower_right.configurePIDVA(0.5, 0.0, 0.0, 1 / k_max_velocity, 0);
     }
 
     /**
@@ -90,7 +80,15 @@ public class DrivePath extends Command {
      */
     @Override
     protected void execute() {
+        double speed_left = m_follower_left.calculate(Robot.drivetrain.getLeftEnc());
+        double speed_right = m_follower_right.calculate(Robot.drivetrain.getRightEnc());
 
+        double heading = Robot.drivetrain.getHeading();
+        double desired_heading = Pathfinder.r2d(m_follower_left.getHeading());
+        double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
+        double turn = 0.8 * (-1.0/80.0) * heading_difference;
+
+        Robot.drivetrain.driveTank(speed_left + turn, speed_right - turn);
     }
 
 
@@ -126,7 +124,6 @@ public class DrivePath extends Command {
      */
     @Override
     protected void end() {
-        m_follower_notifier.stop();
         Robot.drivetrain.driveTank(0, 0);
     }
 

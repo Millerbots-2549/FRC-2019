@@ -45,6 +45,10 @@ public class DrivePeriodic extends Command {
         // arcade
         Robot.drivetrain.driveArcade(-drive, turn);
 
+        SmartDashboard.putNumber("left enc", Robot.drivetrain.getLeftEnc());
+        SmartDashboard.putNumber("right enc", Robot.drivetrain.getRightEnc());
+        SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
+
 //        SmartDashboard.putBoolean("turn in place", turnInPlace);
 //        SmartDashboard.putNumber("drive axis", drive);
    }

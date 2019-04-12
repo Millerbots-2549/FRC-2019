@@ -71,6 +71,8 @@ public class DrivetrainSubsystem extends Subsystem {
         // Sensor configuration
         encoderLeft = new Encoder(RobotMap.ENCODER_LEFT[0], RobotMap.ENCODER_LEFT[1]);
         encoderRight = new Encoder(RobotMap.ENCODER_RIGHT[0], RobotMap.ENCODER_RIGHT[1]);
+        encoderLeft.setReverseDirection(false);
+        encoderRight.setReverseDirection(true);
 
         gyro = new ADXRS450_Gyro();
     }
@@ -103,9 +105,13 @@ public class DrivetrainSubsystem extends Subsystem {
     public int getRightEnc() {
         return this.encoderRight.get();
     }
-
     public double getHeading() {
         return this.gyro.getAngle();
+    }
+    public void resetSensors() {
+        this.encoderLeft.reset();
+        this.encoderRight.reset();
+        this.gyro.reset();
     }
 
     // Sensors

@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Compressor;
+import frc.robot.commands.auto.Test;
+import frc.robot.commands.hatch.HatchToCenter;
 import frc.robot.subsystems.*;
 
 /**
@@ -58,9 +60,8 @@ public class Robot extends TimedRobot {
         vision = new VisionSubsystem();
         lights = new LEDSubsystem();
 
-        // m_chooser.setDefaultOption("Default Auto", new ExampleCommand());
-        // chooser.addOption("My Auto", new MyAutoCommand());
-//        SmartDashboard.putData("Auto mode", m_chooser);
+         m_chooser.setDefaultOption("Default Auto", new Test());
+        SmartDashboard.putData("Auto mode", m_chooser);
 
         //CameraServer.getInstance().startAutomaticCapture();
 
@@ -87,8 +88,6 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-//        lights.setDisabled();
-        lights.setDisabled();
     }
 
     @Override
@@ -109,18 +108,21 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-//        hatch.resetEncoder();
+
+        drivetrain.resetSensors();
 
         m_autonomousCommand = m_chooser.getSelected();
 
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
-
-        //lights.makeRainbow(); THIS BREAKS
+        String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+        switch(autoSelected) {
+            case "My Auto":
+                m_autonomousCommand = new Test();
+                break;
+            case "Default Auto":
+            default:
+                m_autonomousCommand = new Test();
+            break;
+        }
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
@@ -138,7 +140,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-//        hatch.resetEncoder();
+        drivetrain.resetSensors();
 
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
@@ -147,9 +149,6 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
-        //lights.fillBlue(); THIS BREAKS
-//        SmartDashboard.putNumber("amprage", pdp.getCurrent(13));
-
     }
 
     /**
@@ -159,15 +158,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-//        if (pdp.getCurrent(13) > SmartDashboard.getNumber("amprage" , pdp.getCurrent(13))){
-//            SmartDashboard.putNumber("amprage", pdp.getCurrent(13));
-//
-//        }
-
-//        if(!oi.getDriveReversed())
-//            lights.fillBlue();
-//        else if(oi.getDriveReversed())
-//            lights.fillOrange();
     }
 
     /**
