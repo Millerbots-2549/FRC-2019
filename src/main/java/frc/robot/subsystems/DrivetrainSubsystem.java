@@ -1,19 +1,28 @@
 package frc.robot.subsystems;
 
-
+import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.PathfinderFRC;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.followers.EncoderFollower;
+
 import frc.robot.RobotMap;
 import frc.robot.commands.drive.DrivePeriodic;
-import edu.wpi.first.wpilibj.Encoder;
 
 public class DrivetrainSubsystem extends Subsystem {
 
-    //Encoders
+    // Sensors
     private Encoder encoderLeft;
     private Encoder encoderRight;
+    private ADXRS450_Gyro gyro;
 
     // Motors
     private WPI_TalonSRX motorLeft0;
@@ -27,7 +36,6 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Robot drive base
     private DifferentialDrive robotDrive;
-
 
     public DrivetrainSubsystem() {
         // TalonSRX configuration
@@ -60,9 +68,11 @@ public class DrivetrainSubsystem extends Subsystem {
 
         robotDrive = new DifferentialDrive(motorsLeft, motorsRight);
 
-        // Encoder configuration
-        //encoderLeft = new Encoder(RobotMap.ODOMETER_LEFT[0], RobotMap.ODOMETER_LEFT[1]);
-        //encoderRight = new Encoder(RobotMap.ODOMETER_RIGHT[2], RobotMap.ODOMETER_RIGHT[3]);
+        // Sensor configuration
+        encoderLeft = new Encoder(RobotMap.ENCODER_LEFT[0], RobotMap.ENCODER_LEFT[1]);
+        encoderRight = new Encoder(RobotMap.ENCODER_RIGHT[0], RobotMap.ENCODER_RIGHT[1]);
+
+        gyro = new ADXRS450_Gyro();
     }
 
     public void initDefaultCommand() {
@@ -80,12 +90,22 @@ public class DrivetrainSubsystem extends Subsystem {
         robotDrive.curvatureDrive(speed, rotation, t);
     }
 
-
     public double getLeftSide() {
         return this.motorsLeft.get();
     }
     public double getRightSide() {
         return this.motorsRight.get();
+    }
+
+    public int getLeftEnc() {
+        return this.encoderLeft.get();
+    }
+    public int getRightEnc() {
+        return this.encoderRight.get();
+    }
+
+    public double getHeading() {
+        return this.gyro.getAngle();
     }
 
     // Sensors
