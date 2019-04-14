@@ -1,12 +1,14 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.Robot;
 import frc.robot.commands.drive.DrivePath;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
 import jaci.pathfinder.modifiers.TankModifier;
 
+import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -14,24 +16,9 @@ public class Test extends CommandGroup {
 
     public Test() {
 
-        Waypoint[] points = new Waypoint[] {
-                new Waypoint(-2, -2, Pathfinder.d2r(-45)),
-                new Waypoint(-1, -1, Pathfinder.d2r(45)),
-                new Waypoint(-2, -2, Pathfinder.d2r(-45)),
-                new Waypoint(0, 0, 0)
-        };
 
-        Trajectory.Config config = new Trajectory.Config(
-                Trajectory.FitMethod.HERMITE_CUBIC,
-                Trajectory.Config.SAMPLES_LOW,
-                0.05,
-                0.5,
-                0.25,
-                60.0);
-        Trajectory trajectory = Pathfinder.generate(points, config);
 
-        addSequential(new DrivePath(trajectory));
-
+        addSequential(new DrivePath(Robot.paths.lvl2ToLeftCargo, false));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

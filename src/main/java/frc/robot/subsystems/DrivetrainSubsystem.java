@@ -88,6 +88,9 @@ public class DrivetrainSubsystem extends Subsystem {
     public void driveTank(double left, double right) {
         robotDrive.tankDrive(left, right);
     }
+    public void driveTank(double left, double right, double speedMult) {
+        robotDrive.tankDrive(left*speedMult, right*speedMult);
+    }
     public void driveCurve(double speed, double rotation, boolean t) {
         robotDrive.curvatureDrive(speed, rotation, t);
     }

@@ -11,8 +11,10 @@ import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
+import java.nio.file.Path;
 
 public class DrivePath extends Command {
 
@@ -24,23 +26,28 @@ public class DrivePath extends Command {
     private static final int k_tpr_left = 330; // no idea
     private static final int k_tpr_right = 60; // no idea
     private static final double k_wheel_diameter = 0.1524; // 6 inches
-    private static final double k_wheel_base_width = 0.6096;
-    private static final double k_max_velocity = 1.0; // no idea
+    private static final double k_wheel_base_width = 0.6096; // which unit?
+    private static final double k_max_velocity = 1.0;  // no idea
+
+    private static final String k_path_name = "test_path";
 
     private String m_path_name;
+    private boolean m_reversed;
 
     private EncoderFollower m_follower_left;
     private EncoderFollower m_follower_right;
 
     private TankModifier modifier;
-    private Trajectory trajectory_left;
-    private Trajectory trajectory_right;
+    private Trajectory m_trajectory_left;
+    private Trajectory m_trajectory_right;
+    private Trajectory m_trajectory;
 
-    public DrivePath(Trajectory trajectory) {
+    public DrivePath(Trajectory trajectory, boolean reversed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 //        m_path_name = path_name;
-        modifier = new TankModifier(trajectory).modify(k_wheel_base_width);
+        m_trajectory = trajectory;
+        m_reversed = reversed;
     }
 
 
@@ -50,17 +57,12 @@ public class DrivePath extends Command {
      */
     @Override
     protected void initialize() {
-        System.out.println("Path following initialized");
-//        try {
-//            trajectory_left = PathfinderFRC.getTrajectory(m_path_name + ".left");
-//            trajectory_right = PathfinderFRC.getTrajectory(m_path_name + ".right");
-//        }
-//        catch(IOException e) {
-//            e.printStackTrace();
-//        }
+        modifier = new TankModifier(m_trajectory).modify(k_wheel_base_width);
 
-//        m_follower_left = new EncoderFollower(trajectory_left);
-//        m_follower_right = new EncoderFollower(trajectory_right);
+        System.out.println("Path following initialized");
+
+//        m_follower_left = new EncoderFollower(m_trajectory_left);
+//        m_follower_right = new EncoderFollower(m_trajectory_right);
 
         m_follower_left = new EncoderFollower(modifier.getLeftTrajectory());
         m_follower_right = new EncoderFollower(modifier.getRightTrajectory());
@@ -70,8 +72,8 @@ public class DrivePath extends Command {
         m_follower_right.configureEncoder(Robot.drivetrain.getRightEnc(), k_tpr_right, k_wheel_diameter);
 
         // TODO: configure PID valueeeeees
-        m_follower_left.configurePIDVA(0.5, 0.0, 0.0, 1 / k_max_velocity, 0);
-        m_follower_right.configurePIDVA(0.5, 0.0, 0.0, 1 / k_max_velocity, 0);
+        m_follower_left.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
+        m_follower_right.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
     }
 
     /**
@@ -88,7 +90,10 @@ public class DrivePath extends Command {
         double heading_difference = Pathfinder.boundHalfDegrees(desired_heading - heading);
         double turn = 0.8 * (-1.0/80.0) * heading_difference;
 
-        Robot.drivetrain.driveTank(speed_left + turn, speed_right - turn);
+        if(m_reversed)
+            Robot.drivetrain.driveTank(speed_left + turn, speed_right - turn, 0.5);
+        else
+            Robot.drivetrain.driveTank(-(speed_right - turn), -(speed_left + turn), 0.5);
     }
 
 

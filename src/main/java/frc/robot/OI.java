@@ -77,6 +77,9 @@ public class OI {
     //lvl2
     public Button climbRear = new JoystickButton(ctrlDrive, 7);
     public Button climbFront = new JoystickButton(ctrlDrive, 8);
+    public Button hatchEject2 = new JoystickButton(ctrlDrive, 1);
+    public Button intakeSpin2 = new JoystickButton(ctrlDrive,5);
+    public Button shootSpin2 = new JoystickButton(ctrlDrive, 6);
 //    public POVButton climb = new POVButton(ctrlDrive, 0);
 //    public POVButton stopClimb = new POVButton(ctrlDrive, 180);
 
@@ -111,8 +114,13 @@ public class OI {
         // TODO: Finish Controls
 
         // DRIVE
-        driverControlsReversed.toggleWhenPressed(new ReverseControls());
-        driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
+//        driverControlsReversed.toggleWhenPressed(new ReverseControls());
+//        driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
+
+        hatchEject2.cancelWhenPressed(new SearchForTarget());
+        hatchEject2.whenPressed(new EjectHatch());
+        intakeSpin2.whenPressed(new IntakeBall());
+        shootSpin2.whenPressed(new ShootBall());
 
         //lvl 2 climb
         climbFront.toggleWhenPressed(new ClimbFront());
@@ -198,6 +206,7 @@ public class OI {
 
     // Hatch
     public double getAxisHatch() {
+//        double drive = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
         double drive = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
         if(drive <= 0.1953125 && drive >= -0.1953125)
             drive = 0;

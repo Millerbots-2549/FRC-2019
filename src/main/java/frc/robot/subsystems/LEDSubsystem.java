@@ -19,14 +19,14 @@ public class LEDSubsystem extends Subsystem {
     }
 
     public LEDSubsystem() {
-        try {
-            arduino = new SerialPort(9600, SerialPort.Port.kUSB);
-            working = true;
-        }
-        catch(Exception e) {
-            System.out.println("LEDS NOT WORKING " + e);
-            working = false;
-        }
+//        try {
+//            arduino = new SerialPort(9600, SerialPort.Port.kUSB);
+//            working = true;
+//        }
+//        catch(Exception e) {
+//            System.out.println("LEDS NOT WORKING " + e);
+//            working = false;
+//        }
         //arduino.writeString("a");
     }
 
@@ -47,8 +47,8 @@ public class LEDSubsystem extends Subsystem {
     }
 
     private void write(String value) {
-        if(working)
-            arduino.writeString(value);
+//        if(working)
+//            arduino.writeString(value);
     }
 }
 

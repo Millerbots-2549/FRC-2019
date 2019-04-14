@@ -39,6 +39,8 @@ public class Robot extends TimedRobot {
     public static LEDSubsystem lights;
     public static OI oi;
 
+    public static Paths paths;
+
     private Command m_autonomousCommand;
     private SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -59,6 +61,8 @@ public class Robot extends TimedRobot {
         oi = new OI();
         vision = new VisionSubsystem();
         lights = new LEDSubsystem();
+
+        paths = new Paths();
 
          m_chooser.setDefaultOption("Default Auto", new Test());
         SmartDashboard.putData("Auto mode", m_chooser);
