@@ -23,11 +23,12 @@ public class DrivePath extends Command {
 
     // TODO: measure these things
     // Path finding
-    private static final int k_tpr_left = 330; // no idea
-    private static final int k_tpr_right = 60; // no idea
-    private static final double k_wheel_diameter = 0.1524; // 6 inches
-    private static final double k_wheel_base_width = 0.6096; // which unit?
-    private static final double k_max_velocity = 1.0;  // no idea
+    private static final int k_tpr_left = Robot.paths.k_tpr_left;
+    private static final int k_tpr_right = Robot.paths.k_tpr_right;
+    private static final double k_wheel_diameter = Robot.paths.k_wheel_diameter;
+    private static final double k_wheel_base_width = Robot.paths.k_wheel_base_width;
+    private static final double k_max_velocity = Robot.paths.k_max_velocity;
+    private static final double k_speed_mult = Robot.paths.k_speed_mult;
 
     private static final String k_path_name = "test_path";
 
@@ -57,6 +58,8 @@ public class DrivePath extends Command {
      */
     @Override
     protected void initialize() {
+        Robot.drivetrain.resetSensors();
+
         modifier = new TankModifier(m_trajectory).modify(k_wheel_base_width);
 
         System.out.println("Path following initialized");
@@ -74,6 +77,8 @@ public class DrivePath extends Command {
         // TODO: configure PID valueeeeees
         m_follower_left.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
         m_follower_right.configurePIDVA(1.0, 0.0, 0.0, 1 / k_max_velocity, 0);
+
+        Robot.drivetrain.setSafetyEnabled(false);
     }
 
     /**
@@ -91,9 +96,9 @@ public class DrivePath extends Command {
         double turn = 0.8 * (-1.0/80.0) * heading_difference;
 
         if(m_reversed)
-            Robot.drivetrain.driveTank(speed_left + turn, speed_right - turn, 0.5);
+            Robot.drivetrain.driveTank(speed_left + turn, speed_right - turn, k_speed_mult);
         else
-            Robot.drivetrain.driveTank(-(speed_right - turn), -(speed_left + turn), 0.5);
+            Robot.drivetrain.driveTank(-(speed_right - turn), -(speed_left + turn), k_speed_mult);
     }
 
 
@@ -130,6 +135,7 @@ public class DrivePath extends Command {
     @Override
     protected void end() {
         Robot.drivetrain.driveTank(0, 0);
+        Robot.drivetrain.setSafetyEnabled(true);
     }
 
 

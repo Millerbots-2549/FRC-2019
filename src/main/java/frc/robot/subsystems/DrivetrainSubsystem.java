@@ -7,13 +7,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.PathfinderFRC;
-import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.followers.EncoderFollower;
-
 import frc.robot.RobotMap;
 import frc.robot.commands.drive.DrivePeriodic;
 
@@ -54,10 +50,10 @@ public class DrivetrainSubsystem extends Subsystem {
         motorRight2.setSafetyEnabled(true);
         motorRight3.setSafetyEnabled(true);
 
-        motorLeft0.setExpiration(.2);
-        motorLeft1.setExpiration(.2);
-        motorRight2.setExpiration(.2);
-        motorRight3.setExpiration(.2);
+        motorLeft0.setExpiration(.3);
+        motorLeft1.setExpiration(.3);
+        motorRight2.setExpiration(.3);
+        motorRight3.setExpiration(.3);
 
         // Speed controller group configuration
         motorsLeft = new SpeedControllerGroup(motorLeft0, motorLeft1);
@@ -115,6 +111,13 @@ public class DrivetrainSubsystem extends Subsystem {
         this.encoderLeft.reset();
         this.encoderRight.reset();
         this.gyro.reset();
+    }
+
+    public void setSafetyEnabled(boolean safe) {
+        motorLeft0.setSafetyEnabled(safe);
+        motorLeft1.setSafetyEnabled(safe);
+        motorRight2.setSafetyEnabled(safe);
+        motorRight3.setSafetyEnabled(safe);
     }
 
     // Sensors

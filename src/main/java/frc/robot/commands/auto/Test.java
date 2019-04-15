@@ -3,6 +3,7 @@ package frc.robot.commands.auto;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
 import frc.robot.commands.drive.DrivePath;
+import frc.robot.commands.drive.TurnInPlace;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -18,7 +19,12 @@ public class Test extends CommandGroup {
 
 
 
+        addSequential(new TurnInPlace(-90));
+        addSequential(new TurnInPlace(90));
         addSequential(new DrivePath(Robot.paths.lvl2ToLeftCargo, false));
+        addSequential(new DrivePath(Robot.paths.backUp, true));
+        addSequential(new TurnInPlace(-90));
+        addSequential(new DrivePath(Robot.paths.pickUpLeft, false));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());
