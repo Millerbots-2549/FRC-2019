@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.RobotMap;
@@ -19,6 +19,7 @@ public class DrivetrainSubsystem extends Subsystem {
     private Encoder encoderLeft;
     private Encoder encoderRight;
     private ADXRS450_Gyro gyro;
+    private AnalogInput ultrasonic;
 
     // Motors
     private WPI_TalonSRX motorLeft0;
@@ -71,6 +72,8 @@ public class DrivetrainSubsystem extends Subsystem {
         encoderRight.setReverseDirection(true);
 
         gyro = new ADXRS450_Gyro();
+
+        ultrasonic = new AnalogInput(RobotMap.ULTRASOUND);
     }
 
     public void initDefaultCommand() {
@@ -121,8 +124,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     // Sensors
-    public int getDistance(){
-        return 0;//encoderLeft.get() + encoderRight.get() / 2;
-        // returns average distance from encoders, AKA encleft + encright / 2
+    public double getDistance(){
+        return ultrasonic.getValue();
     }
 }

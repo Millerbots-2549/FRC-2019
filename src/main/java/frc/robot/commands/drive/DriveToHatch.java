@@ -1,20 +1,18 @@
 package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 
-public class TurnInPlace extends Command {
+public class DriveToHatch extends Command {
 
-    private double target_heading;
-    private double current_heading;
-    private double ramp;
-    private double integral = 0;
+    double speed = 0.54;
+    double distance = 250;
 
-    public TurnInPlace(double heading) {
+    public DriveToHatch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        target_heading = heading;
     }
 
 
@@ -24,8 +22,7 @@ public class TurnInPlace extends Command {
      */
     @Override
     protected void initialize() {
-        Robot.drivetrain.resetSensors();
-        ramp = 0;
+
     }
 
 
@@ -35,15 +32,8 @@ public class TurnInPlace extends Command {
      */
     @Override
     protected void execute() {
-        current_heading = Robot.drivetrain.getHeading();
-        double error = (target_heading - current_heading);
-        //integral += error*.005;
-        double output = 0.0375*error; // + (.054*.075/.75)*integral;
+        Robot.drivetrain.driveArcade(-speed, 0);
 
-        if(ramp < 1) ramp += 0.02;
-        else ramp = 1;
-
-        Robot.drivetrain.driveArcade(0, output * ramp);
     }
 
 
@@ -67,8 +57,7 @@ public class TurnInPlace extends Command {
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        double error = 0.5;
-        return current_heading > (target_heading - error) && current_heading < (target_heading + error);
+        return Robot.drivetrain.getDistance() < distance;
     }
 
 
@@ -80,7 +69,7 @@ public class TurnInPlace extends Command {
      */
     @Override
     protected void end() {
-        Robot.drivetrain.driveArcade(0, 0);
+
     }
 
 

@@ -13,6 +13,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.auto.AutoPickUp;
+import frc.robot.commands.auto.AutoPlace;
 import frc.robot.commands.climb.*;
 import frc.robot.commands.compressors.*;
 import frc.robot.commands.drive.PrecisionMode;
@@ -77,9 +79,13 @@ public class OI {
     //lvl2
     public Button climbRear = new JoystickButton(ctrlDrive, 7);
     public Button climbFront = new JoystickButton(ctrlDrive, 8);
+    public POVButton placeHatch = new POVButton(ctrlDrive, 0);
+    public POVButton pickUpHatch = new POVButton(ctrlDrive, 180);
+
     public Button hatchEject2 = new JoystickButton(ctrlDrive, 1);
     public Button intakeSpin2 = new JoystickButton(ctrlDrive,5);
     public Button shootSpin2 = new JoystickButton(ctrlDrive, 6);
+    public Button hatchVisionSearch2 = new JoystickButton(ctrlDrive, 10);
 //    public POVButton climb = new POVButton(ctrlDrive, 0);
 //    public POVButton stopClimb = new POVButton(ctrlDrive, 180);
 
@@ -88,7 +94,7 @@ public class OI {
     public Button intakeLower = new JoystickButton(ctrlManip, 3);
     public Button intakeSpin = new JoystickButton(ctrlManip,5);
     public Button shootSpin = new JoystickButton(ctrlManip, 6);
-    public POVButton hatchVisionSearch = new POVButton(ctrlManip, 0); // when button 8 // TODO: cantallon srxc
+    public POVButton hatchVisionSearch = new POVButton(ctrlManip, 0);
     public POVButton resetEncoderMin = new POVButton(ctrlManip, 270);
     public POVButton resetEncoderMax = new POVButton(ctrlManip, 90);
     public POVButton hatchToCenter = new POVButton(ctrlManip, 180);
@@ -117,10 +123,14 @@ public class OI {
 //        driverControlsReversed.toggleWhenPressed(new ReverseControls());
 //        driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
 
+        placeHatch.whileHeld(new AutoPlace());
+        pickUpHatch.whileHeld(new AutoPickUp());
+
         hatchEject2.cancelWhenPressed(new SearchForTarget());
         hatchEject2.whenPressed(new EjectHatch());
         intakeSpin2.whenPressed(new IntakeBall());
         shootSpin2.whenPressed(new ShootBall());
+        hatchVisionSearch2.whileHeld(new SearchForTarget());
 
         //lvl 2 climb
         climbFront.toggleWhenPressed(new ClimbFront());

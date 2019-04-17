@@ -48,6 +48,7 @@ public class DrivePeriodic extends Command {
         SmartDashboard.putNumber("left enc", Robot.drivetrain.getLeftEnc());
         SmartDashboard.putNumber("right enc", Robot.drivetrain.getRightEnc());
         SmartDashboard.putNumber("Heading", Robot.drivetrain.getHeading());
+        SmartDashboard.putNumber("range", Robot.drivetrain.getDistance());
 
 //        SmartDashboard.putBoolean("turn in place", turnInPlace);
 //        SmartDashboard.putNumber("drive axis", drive);

@@ -47,6 +47,8 @@ public class SearchForTarget extends Command {
         SmartDashboard.putNumber("Error", error);
         SmartDashboard.putNumber("Integral", integral);
 
+        SmartDashboard.putNumber("range", Robot.drivetrain.getDistance());
+
         //System.out.println(Robot.vision.getHatchX());
 
 //        int target = Robot.vision.camResX()/2;

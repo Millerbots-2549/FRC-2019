@@ -24,8 +24,7 @@ public class RobotMap {
 
     // PWM
     public static final int INTAKE_SPARK = 0;
-    public static final int CLIMB_SPARK = 1;
-    public static final int CLIMB_WHEEL_SPARK = 2;
+    public static final int ULTRASOUND = 1;
 
     // DIO
     public static final int[] ENCODER_LEFT = {0, 1};

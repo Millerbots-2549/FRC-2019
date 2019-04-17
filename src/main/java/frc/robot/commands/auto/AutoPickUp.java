@@ -1,30 +1,19 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Robot;
-import frc.robot.commands.drive.DrivePath;
-import frc.robot.commands.drive.TurnInPlace;
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
-import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.modifiers.TankModifier;
-
-import java.io.File;
-import java.util.concurrent.ThreadLocalRandom;
+import frc.robot.commands.drive.DriveStraight;
+import frc.robot.commands.drive.DriveToHatch;
+import frc.robot.commands.hatch.EjectHatch;
+import frc.robot.commands.hatch.SearchForTarget;
 
 
-public class Test extends CommandGroup {
+public class AutoPickUp extends CommandGroup {
 
-    public Test() {
+    public AutoPickUp() {
 
-
-
-        addSequential(new TurnInPlace(-90));
-        addSequential(new TurnInPlace(90));
-//        addSequential(new DrivePath(Robot.paths.lvl2ToLeftCargo, false));
-//        addSequential(new DrivePath(Robot.paths.backUp, true));
-//        addSequential(new TurnInPlace(-90));
-//        addSequential(new DrivePath(Robot.paths.pickUpLeft, false));
+        addParallel(new SearchForTarget());
+        addSequential(new DriveToHatch());
+        addSequential(new DriveStraight(-300, 0.7));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

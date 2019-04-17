@@ -18,7 +18,7 @@ public class EjectHatch extends Command {
      */
     @Override
     protected void initialize() {
-        setTimeout(1);
+        setTimeout(.75);
         Robot.hatchPistons.extend();
         System.out.println("Hatch EJECTING");
     }

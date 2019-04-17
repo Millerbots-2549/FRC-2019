@@ -1,25 +1,23 @@
 package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 
 public class DriveStraight extends Command {
 
-    private double m_speed, m_timeout;
+    private double m_speed, m_timeout, m_distance;
+    private boolean m_reversed;
 
-    public DriveStraight(double speed) /*:)*/ {
+    public DriveStraight(double distance, double speed) /*:)*/ {
         requires(Robot.drivetrain);
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         m_speed = speed;
         m_timeout = 8;
-    }
-
-    public DriveStraight(double speed, double timeout) {
-        requires(Robot.drivetrain);
-        m_speed = speed;
-        m_timeout = timeout;
+        m_distance = distance;
+        m_reversed = distance < 0;
     }
 
 
@@ -30,6 +28,7 @@ public class DriveStraight extends Command {
     @Override
     protected void initialize() {
         setTimeout(m_timeout);
+        Robot.drivetrain.resetSensors();
     }
 
 
@@ -39,7 +38,8 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void execute(){
-        Robot.drivetrain.driveArcade(-m_speed, 0);
+        Robot.drivetrain.driveArcade(m_reversed ? m_speed : -m_speed, 0);
+        SmartDashboard.putNumber("left enc", Robot.drivetrain.getLeftEnc());
     }
 
 
@@ -62,7 +62,8 @@ public class DriveStraight extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut();
+        return isTimedOut()
+                || Math.abs(Robot.drivetrain.getLeftEnc()) > Math.abs(m_distance);
     }
 
 

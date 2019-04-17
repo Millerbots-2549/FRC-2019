@@ -23,23 +23,23 @@ public class Paths {
             60.0
     );
 
-    Waypoint[] points = {
-            new Waypoint(0, 0, 0),
-            new Waypoint(3, -1, 0)
-    };
-    public Trajectory lvl2ToLeftCargo = Pathfinder.generate(points, config);
-
-    Waypoint[] points2 = {
-            new Waypoint(0, 0, 0),
-            new Waypoint(-0.5, 0, 0)
-    };
-    public Trajectory backUp = Pathfinder.generate(points2, config);
-
-    Waypoint[] points3 = {
-            new Waypoint(0, 0, 0),
-            new Waypoint(2, 2, Pathfinder.d2r(-90))
-    };
-    public Trajectory pickUpLeft = Pathfinder.generate(points3, config);
+//    Waypoint[] points = {
+//            new Waypoint(0, 0, 0),
+//            new Waypoint(3, -1, 0)
+//    };
+//    public Trajectory lvl2ToLeftCargo = Pathfinder.generate(points, config);
+//
+//    Waypoint[] points2 = {
+//            new Waypoint(0, 0, 0),
+//            new Waypoint(-0.5, 0, 0)
+//    };
+//    public Trajectory backUp = Pathfinder.generate(points2, config);
+//
+//    Waypoint[] points3 = {
+//            new Waypoint(0, 0, 0),
+//            new Waypoint(2, 2, Pathfinder.d2r(-90))
+//    };
+//    public Trajectory pickUpLeft = Pathfinder.generate(points3, config);
 
     public Paths() {
 
