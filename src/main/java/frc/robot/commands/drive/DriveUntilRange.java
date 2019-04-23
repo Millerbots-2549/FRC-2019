@@ -3,16 +3,23 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.subsystems.DrivetrainSubsystem;
 
 
-public class DriveToHatch extends Command {
+public class DriveUntilRange extends Command {
 
-    double speed = 0.54;
-    double distance = 250;
+    double speed = 0.65;
+    int distance = 195;
+    double ramp, angle;
 
-    public DriveToHatch() {
+    public DriveUntilRange() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    }
+
+    public DriveUntilRange(int range) {
+        distance = range;
+        // i know, bad conventions.
     }
 
 
@@ -22,7 +29,8 @@ public class DriveToHatch extends Command {
      */
     @Override
     protected void initialize() {
-
+        ramp = 0;
+        angle = Robot.drivetrain.getHeading();
     }
 
 
@@ -32,8 +40,13 @@ public class DriveToHatch extends Command {
      */
     @Override
     protected void execute() {
-        Robot.drivetrain.driveArcade(-speed, 0);
 
+        double turn = 0.1 * (angle - Robot.drivetrain.getHeading());
+
+        if(ramp < 1) ramp += 0.03;
+        else ramp = 1;
+
+        Robot.drivetrain.driveArcade(-speed * ramp, turn);
     }
 
 

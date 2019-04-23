@@ -54,10 +54,7 @@ public class ShootBall extends Command {
      */
     @Override
     protected boolean isFinished() {
-        if(Robot.oi.ctrlManip.getRawButton(6))
-            return false;
-        else
-            return true;
+        return false;
     }
 
 

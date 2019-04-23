@@ -9,6 +9,7 @@ public class DriveStraight extends Command {
 
     private double m_speed, m_timeout, m_distance;
     private boolean m_reversed;
+    private double ramp, angle;
 
     public DriveStraight(double distance, double speed) /*:)*/ {
         requires(Robot.drivetrain);
@@ -29,6 +30,12 @@ public class DriveStraight extends Command {
     protected void initialize() {
         setTimeout(m_timeout);
         Robot.drivetrain.resetSensors();
+
+        ramp = 0;
+        System.out.println("Starting drive straight");
+
+        angle = Robot.drivetrain.getHeading();
+
     }
 
 
@@ -38,7 +45,13 @@ public class DriveStraight extends Command {
      */
     @Override
     protected void execute(){
-        Robot.drivetrain.driveArcade(m_reversed ? m_speed : -m_speed, 0);
+
+        double turn = 0.05 * (angle - Robot.drivetrain.getHeading());
+
+        if(ramp < 1) ramp += 0.03;
+        else ramp = 1;
+
+        Robot.drivetrain.driveArcade(m_reversed ? m_speed * ramp : -m_speed * ramp, turn);
         SmartDashboard.putNumber("left enc", Robot.drivetrain.getLeftEnc());
     }
 
@@ -62,8 +75,7 @@ public class DriveStraight extends Command {
      */
     @Override
     protected boolean isFinished() {
-        return isTimedOut()
-                || Math.abs(Robot.drivetrain.getLeftEnc()) > Math.abs(m_distance);
+        return Math.abs(Robot.drivetrain.getLeftEnc()) > Math.abs(m_distance);
     }
 
 
@@ -76,7 +88,7 @@ public class DriveStraight extends Command {
     @Override
     protected void end() {
         Robot.drivetrain.driveArcade(0, 0);
-
+        System.out.print("Done driving straight");
     }
 
 

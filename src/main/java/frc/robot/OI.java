@@ -85,7 +85,12 @@ public class OI {
     public Button hatchEject2 = new JoystickButton(ctrlDrive, 1);
     public Button intakeSpin2 = new JoystickButton(ctrlDrive,5);
     public Button shootSpin2 = new JoystickButton(ctrlDrive, 6);
+    public Button intakeRaise2 = new JoystickButton(ctrlDrive, 4);
+    public Button intakeLower2 = new JoystickButton(ctrlDrive, 3);
     public Button hatchVisionSearch2 = new JoystickButton(ctrlDrive, 10);
+
+    public POVButton resetEncoderMin2 = new POVButton(ctrlDrive, 270);
+    public POVButton resetEncoderMax2 = new POVButton(ctrlDrive, 90);
 //    public POVButton climb = new POVButton(ctrlDrive, 0);
 //    public POVButton stopClimb = new POVButton(ctrlDrive, 180);
 
@@ -117,20 +122,28 @@ public class OI {
 
     public OI() {
 
-        // TODO: Finish Controls
-
-        // DRIVE
+        // DRIVER CONTROLLER
 //        driverControlsReversed.toggleWhenPressed(new ReverseControls());
 //        driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
 
+        // hatch
         placeHatch.whileHeld(new AutoPlace());
         pickUpHatch.whileHeld(new AutoPickUp());
 
         hatchEject2.cancelWhenPressed(new SearchForTarget());
         hatchEject2.whenPressed(new EjectHatch());
-        intakeSpin2.whenPressed(new IntakeBall());
-        shootSpin2.whenPressed(new ShootBall());
+
         hatchVisionSearch2.whileHeld(new SearchForTarget());
+
+        // cargo
+        intakeSpin2.whileHeld(new IntakeBall());
+        shootSpin2.whileHeld(new ShootBall());
+
+        intakeRaise2.whenPressed(new RaiseIntake());
+        intakeLower2.whenPressed(new LowerIntake());
+
+        resetEncoderMin2.whenPressed(new ResetEncoder(false));
+        resetEncoderMax2.whenPressed(new ResetEncoder(true));
 
         //lvl 2 climb
         climbFront.toggleWhenPressed(new ClimbFront());
@@ -138,36 +151,25 @@ public class OI {
 //        climb.whenPressed(new Climb());
 //        stopClimb.cancelWhenPressed(new Climb());
 
-        //lvl 3 climb
-//        climbPistonExtend.whenPressed(new ExtendNoid());
-//        climbPistonRetract.whileHeld(new StallLift());//new RetractNoid());
-//        climbLower.whileHeld(new RetractLift());
-//        climbRaise.whileHeld(new ExtendLift());
-
-        //switchVisionMode.toggleWhenPressed(new SwitchVisionMode());
-        //driveStraightForALittleBit.whenPressed(new DriveDrive());
-
         // MANIPULATOR CONTROLLER
+
+        // hatch
         hatchVisionSearch.whileHeld(new SearchForTarget());
         hatchToCenter.whileHeld(new HatchToCenter());
+
         hatchEject.cancelWhenPressed(new SearchForTarget());
         hatchEject.whenPressed(new EjectHatch());
-        intakeRaise.whenPressed(new RaiseIntake());
-        intakeLower.whenPressed(new LowerIntake());
-        intakeSpin.whenPressed(new IntakeBall());
-        shootSpin.whenPressed(new ShootBall());
 
-        //climb.whenPressed(new Climb());
         resetEncoderMin.whenPressed(new ResetEncoder(false));
         resetEncoderMax.whenPressed(new ResetEncoder(true));
 
-        /*
-         * old t o d o create actions and associated buttons
-         * RaiseFront, RaiseRear,
-         * RaiseIntake, LowerIntake,
-         * IntakeBall, ShootBall,
-         * DriveForward
-         */
+        // cargo
+        intakeRaise.whenPressed(new RaiseIntake());
+        intakeLower.whenPressed(new LowerIntake());
+
+        intakeSpin.whileHeld(new IntakeBall());
+        shootSpin.whileHeld(new ShootBall());
+
 
         // Smartdashboard controls
         SmartDashboard.putData("Compressor", new StopCompressor());
@@ -216,10 +218,17 @@ public class OI {
 
     // Hatch
     public double getAxisHatch() {
-//        double drive = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
-        double drive = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
-        if(drive <= 0.1953125 && drive >= -0.1953125)
-            drive = 0;
+        double main = ctrlDrive.getRawAxis(axis_hatch_slide_main) - ctrlDrive.getRawAxis(axis_hatch_slide_aux);
+        double manip = ctrlManip.getRawAxis(axis_hatch_slide_main) - ctrlManip.getRawAxis(axis_hatch_slide_aux);
+
+        double drive;
+
+        if(Math.abs(main) >= 0.15)
+            drive = main;
+        else if(Math.abs(manip) >= 0.15)
+            drive = manip;
+        else drive = 0;
+
         return drive * .6;
     }
 

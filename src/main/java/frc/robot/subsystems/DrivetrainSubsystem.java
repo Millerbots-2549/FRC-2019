@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.PWM;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.RobotMap;
@@ -33,6 +34,8 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Robot drive base
     private DifferentialDrive robotDrive;
+
+    private double adjust = 0;
 
     public DrivetrainSubsystem() {
         // TalonSRX configuration
@@ -82,18 +85,22 @@ public class DrivetrainSubsystem extends Subsystem {
 
     // Motors
     public void driveArcade(double speed, double rotation) {
-        robotDrive.arcadeDrive(speed, rotation);
+        robotDrive.arcadeDrive(speed, rotation + this.adjust);
     }
     public void driveTank(double left, double right) {
         robotDrive.tankDrive(left, right);
     }
     public void driveTank(double left, double right, double speedMult) {
-        robotDrive.tankDrive(left*speedMult, right*speedMult);
+        this.driveTank(left*speedMult, right*speedMult);
     }
     public void driveCurve(double speed, double rotation, boolean t) {
         robotDrive.curvatureDrive(speed, rotation, t);
     }
+    public void turn(double amount) {
+        this.adjust = amount;
+    }
 
+    // Sensors
     public double getLeftSide() {
         return this.motorsLeft.get();
     }
@@ -124,7 +131,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     // Sensors
-    public double getDistance(){
+    public int getDistance() {
         return ultrasonic.getValue();
     }
 }

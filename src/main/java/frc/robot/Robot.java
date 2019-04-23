@@ -29,6 +29,8 @@ import frc.robot.subsystems.*;
 
 public class Robot extends TimedRobot {
 
+    // constants
+    public static final int k_hatch_pick_up_range = 0;
 
     public static DrivetrainSubsystem drivetrain;
     public static HatchSubsystem hatch;
@@ -67,7 +69,7 @@ public class Robot extends TimedRobot {
          m_chooser.setDefaultOption("Default Auto", new Test());
         SmartDashboard.putData("Auto mode", m_chooser);
 
-        //CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture();
 
         mainCompressor.setClosedLoopControl(true);
     }

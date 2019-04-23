@@ -2,9 +2,10 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.drive.DriveStraight;
-import frc.robot.commands.drive.DriveToHatch;
+import frc.robot.commands.drive.DriveUntilRange;
 import frc.robot.commands.hatch.EjectHatch;
 import frc.robot.commands.hatch.SearchForTarget;
+import frc.robot.commands.hatch.SearchForTargetTurn;
 
 
 public class AutoPlace extends CommandGroup {
@@ -13,10 +14,11 @@ public class AutoPlace extends CommandGroup {
 
         System.out.println("Auto placing hatch");
 
-        addParallel(new SearchForTarget());
-        addSequential(new DriveToHatch());
+        addSequential(new SearchForTargetTurn());
+//        addSequential(new DriveUntilRange(200));
         addParallel(new EjectHatch());
         addSequential(new DriveStraight(-300, 0.7));
+//        this.end();
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

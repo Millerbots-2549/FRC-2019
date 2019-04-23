@@ -2,8 +2,7 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.drive.DriveStraight;
-import frc.robot.commands.drive.DriveToHatch;
-import frc.robot.commands.hatch.EjectHatch;
+import frc.robot.commands.drive.DriveUntilRange;
 import frc.robot.commands.hatch.SearchForTarget;
 
 
@@ -12,7 +11,7 @@ public class AutoPickUp extends CommandGroup {
     public AutoPickUp() {
 
         addParallel(new SearchForTarget());
-        addSequential(new DriveToHatch());
+        addSequential(new DriveUntilRange(195));
         addSequential(new DriveStraight(-300, 0.7));
 
         // Add Commands here:

@@ -5,11 +5,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 
-public class SearchForTarget extends Command {
+public class SearchForTargetTurn extends Command {
 
     double integral, previous_error, setpoint = 0;
+    double speed = 0.65;
+    double turn;
+    int distance = 195;
+    double ramp, angle;
 
-    public SearchForTarget() {
+    public SearchForTargetTurn() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         //requires(Robot.hatch);
@@ -25,6 +29,7 @@ public class SearchForTarget extends Command {
     protected void initialize() {
         System.out.println("Searching for hatch target");
 
+        ramp = 0;
 
     }
 
@@ -37,13 +42,22 @@ public class SearchForTarget extends Command {
     protected void execute() {
 
         double error = -(0 - Robot.vision.getHatchX());
-        integral += (error * .02);
-        if (Math.abs(error) < .001)
+        integral += (error*.02);
+        if(Math.abs(error) < .001)
             integral = 0;
 
-        Robot.hatch.driveSlide(0.065 * error);// + 0.01 * ((previous_error - error) / .02));//0.08*integral);
+        if(ramp < 1)
+            ramp += 0.03;
+        else
+            ramp = 1;
 
-        previous_error = error;
+        Robot.hatch.driveSlide(0.065*error);//0.08*integral);
+        if(Robot.vision.sensingHatch())
+            turn = 0.055*error;
+        else
+            turn = 0;
+
+        Robot.drivetrain.driveArcade(-speed * ramp, turn);
 
         SmartDashboard.putNumber("Error", error);
         SmartDashboard.putNumber("Integral", integral);
@@ -100,7 +114,7 @@ public class SearchForTarget extends Command {
     @Override
     protected boolean isFinished() {
         // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
+        return Robot.drivetrain.getDistance() < distance;
     }
 
     /**
