@@ -8,9 +8,9 @@ import frc.robot.Robot;
 public class SearchForTargetTurn extends Command {
 
     double integral, previous_error, setpoint = 0;
-    double speed = 0.65;
+    double speed = 0.7;
     double turn;
-    int distance = 195;
+    int distance = 190;
     double ramp, angle;
 
     public SearchForTargetTurn() {
@@ -42,20 +42,20 @@ public class SearchForTargetTurn extends Command {
     protected void execute() {
 
         double error = -(0 - Robot.vision.getHatchX());
-        integral += (error*.02);
-        if(Math.abs(error) < .001)
-            integral = 0;
+//        integral += (error*.02);
+//        if(Math.abs(error) < .001)
+//            integral = 0;
 
         if(ramp < 1)
-            ramp += 0.03;
+            ramp += 0.1;
         else
             ramp = 1;
 
-        Robot.hatch.driveSlide(0.065*error);//0.08*integral);
-        if(Robot.vision.sensingHatch())
-            turn = 0.055*error;
-        else
+        Robot.hatch.driveSlide(0.075*error);//0.08*integral);
+        if(!Robot.vision.sensingHatch())
             turn = 0;
+        else
+            turn = 0.06*error;
 
         Robot.drivetrain.driveArcade(-speed * ramp, turn);
 

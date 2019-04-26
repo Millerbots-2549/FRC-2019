@@ -127,8 +127,8 @@ public class OI {
 //        driverPrecisionMode.toggleWhenPressed(new PrecisionMode());
 
         // hatch
-        placeHatch.whileHeld(new AutoPlace());
-        pickUpHatch.whileHeld(new AutoPickUp());
+        placeHatch.whileHeld(new SearchForTargetTurn());
+//        pickUpHatch.whileHeld(new AutoPickUp());
 
         hatchEject2.cancelWhenPressed(new SearchForTarget());
         hatchEject2.whenPressed(new EjectHatch());
@@ -184,6 +184,8 @@ public class OI {
         SmartDashboard.putNumber("Joy drive", getAxisDrive());
         SmartDashboard.putNumber("Joy turn", getAxisTurn());
         SmartDashboard.putNumber("Climb Axes", getAxisClimb());
+
+        SmartDashboard.putBoolean("sensing hatch", Robot.vision.sensingHatch());
 
 //        SmartDashboard.putBoolean("Climbing", climbEnable.get());
 //        SmartDashboard.putBoolean("Climbing Forward", climbDriveEnable.get());

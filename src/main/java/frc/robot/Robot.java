@@ -62,14 +62,14 @@ public class Robot extends TimedRobot {
         climb = new ClimbSubsystem();
         oi = new OI();
         vision = new VisionSubsystem();
-        lights = new LEDSubsystem();
+        //lights = new LEDSubsystem();
 
-        paths = new Paths();
+        //paths = new Paths();
 
          m_chooser.setDefaultOption("Default Auto", new Test());
         SmartDashboard.putData("Auto mode", m_chooser);
 
-        CameraServer.getInstance().startAutomaticCapture();
+        //CameraServer.getInstance().startAutomaticCapture();
 
         mainCompressor.setClosedLoopControl(true);
     }
@@ -119,16 +119,16 @@ public class Robot extends TimedRobot {
 
         m_autonomousCommand = m_chooser.getSelected();
 
-        String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-        switch(autoSelected) {
-            case "My Auto":
-                m_autonomousCommand = new Test();
-                break;
-            case "Default Auto":
-            default:
-                m_autonomousCommand = new Test();
-            break;
-        }
+//        String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+//        switch(autoSelected) {
+//            case "My Auto":
+//                m_autonomousCommand = new Test();
+//                break;
+//            case "Default Auto":
+//            default:
+//                m_autonomousCommand = new Test();
+//            break;
+//        }
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {

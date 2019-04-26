@@ -16,8 +16,8 @@ public class AutoPlace extends CommandGroup {
 
         addSequential(new SearchForTargetTurn());
 //        addSequential(new DriveUntilRange(200));
-        addParallel(new EjectHatch());
-        addSequential(new DriveStraight(-300, 0.7));
+//        addParallel(new EjectHatch());
+//        addSequential(new DriveStraight(-300, 0.7));
 //        this.end();
 
         // Add Commands here:

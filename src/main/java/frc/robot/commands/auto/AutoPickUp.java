@@ -4,14 +4,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.commands.drive.DriveStraight;
 import frc.robot.commands.drive.DriveUntilRange;
 import frc.robot.commands.hatch.SearchForTarget;
+import frc.robot.commands.hatch.SearchForTargetTurn;
 
 
 public class AutoPickUp extends CommandGroup {
 
     public AutoPickUp() {
 
-        addParallel(new SearchForTarget());
-        addSequential(new DriveUntilRange(195));
+        System.out.println("Auto Picking Up Hatch");
+
+        addSequential(new SearchForTargetTurn());
         addSequential(new DriveStraight(-300, 0.7));
 
         // Add Commands here:

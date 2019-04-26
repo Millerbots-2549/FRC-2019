@@ -46,6 +46,7 @@ public class SearchForTarget extends Command {
         previous_error = error;
 
         SmartDashboard.putNumber("Error", error);
+        SmartDashboard.putNumber("Hatch x", Robot.vision.getHatchX());
         SmartDashboard.putNumber("Integral", integral);
 
         SmartDashboard.putNumber("range", Robot.drivetrain.getDistance());

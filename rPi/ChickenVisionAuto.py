@@ -695,8 +695,11 @@ if __name__ == "__main__":
     else:
         print("Setting up NetworkTables client for team {}".format(team))
         ntinst.startClientTeam(team)
-
-
+        # time.sleep(0.5)
+        # while not ntinst.isConnected():
+        #     print("Failed to reach NetworkTablesServer for team {}".format(team))
+        #     time.sleep(0.5)
+        #     ntinst.startClientTeam(team)
     # start cameras
     cameras = []
     streams = []

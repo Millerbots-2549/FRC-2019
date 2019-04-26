@@ -169,15 +169,16 @@ verticalView = math.atan(math.tan(diagonalView/2) * (verticalAspect / diagonalAs
 H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
 V_FOCAL_LENGTH = image_height / (2*math.tan((verticalView/2)))
 #blurs have to be odd
-green_blur = 7
+green_blur = 1
 orange_blur = 27
 
 # define range of green of retroreflective tape in HSV
-lower_green = np.array([60,100, 80])
+lower_green = np.array([60,115,100])
 upper_green = np.array([120, 255, 255])
+
 #define range of orange from cargo ball in HSV
-lower_orange = np.array([0,193,92])
-upper_orange = np.array([23, 255, 255])
+lower_orange = np.array([0,0,0])#np.array([23,193,92])
+upper_orange = np.array([0,0,0])#np.array([23, 255, 255])
 
 #Flip image if camera mounted upside down
 def flipImage(frame):
@@ -687,7 +688,7 @@ if __name__ == "__main__":
     # start NetworkTables
     ntinst = NetworkTablesInstance.getDefault()
     #Name of network table - this is how it communicates with robot. IMPORTANT
-    networkTable = NetworkTables.getTable('ChickenVision')
+    networkTable = NetworkTables.getTable('ChickenVision') # ChickenVision or SmartDashboard
 
     if server:
         print("Setting up NetworkTables server")
@@ -740,7 +741,7 @@ if __name__ == "__main__":
             processed = frame
         else:
             # Checks if you just want camera for Tape processing , False by default
-            if(networkTable.getBoolean("Tape", False)):
+            if(networkTable.getBoolean("Tape", True)):
                 #Lowers exposure to 0
                 cap.autoExpose = False
                 boxBlur = blurImg(frame, green_blur)

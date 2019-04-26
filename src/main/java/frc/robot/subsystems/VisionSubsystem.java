@@ -23,6 +23,8 @@ public class VisionSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
     public VisionSubsystem() {
+        System.out.println("public VisionSubsystem beginning");
+
         instance = NetworkTableInstance.getDefault();
         chickenVision = instance.getTable("ChickenVision");
 
@@ -84,7 +86,7 @@ public class VisionSubsystem extends Subsystem {
 //        boolean sensing = false;
 //        senseEntry.setBoolean(sensing);
 //        return SmartDashboard.getBoolean("hatch_sensing", false);
-        return SmartDashboard.getBoolean("hatch_sensing", false);
+        return tapeDetected.getBoolean(false);
     }
 
     public void setDefaults() {
