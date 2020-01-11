@@ -15,8 +15,6 @@ import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.actions.climb.*;
 import frc.robot.commands.actions.compressors.*;
-import frc.robot.commands.actions.drive.DriveDrive;
-import frc.robot.commands.actions.drive.DriveStraight;
 import frc.robot.commands.actions.drive.PrecisionMode;
 import frc.robot.commands.actions.drive.ReverseControls;
 import frc.robot.commands.actions.hatch.*;
@@ -151,7 +149,7 @@ public class OI {
     public boolean getDriveReversed() {
         return (drive_axis_speed < 0);
     }
-
+    //u r sped
     public Joystick getCtrlDrive() {
         return ctrlDrive;
     }
@@ -177,6 +175,7 @@ public class OI {
             drive = 0;
         return drive;
     }
+
 
     // Climb
 
